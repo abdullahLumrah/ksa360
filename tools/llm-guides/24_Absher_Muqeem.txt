@@ -1,0 +1,79 @@
+Absher, Muqeem, and Jawazat — Iqama, Exit Re-Entry, Final Exit
+Also searched as: أبشر, مقيم, جوازات, إقامة, تجديد إقامة, خروج وعودة, خروج نهائي, هوية مقيم, كفيل, visas, iqama, jawazat.
+
+Official platforms
+Absher (individuals and business): https://www.absher.sa
+Muqeem (establishments managing residents): https://muqeem.sa
+National Platform — issue Exit/Re-Entry or Final Exit (Absher): https://my.gov.sa/en/services/269423
+National Platform — renew Iqama (Absher): https://my.gov.sa/en/services/112096
+National Platform — extend Exit Re-Entry outside the Kingdom: https://my.gov.sa/en/services/269426
+General Directorate of Passports (Jawazat) is the authority behind Iqama and exit visas. Sign in with Nafath when prompted.
+
+What Absher is
+Absher is the Ministry of Interior digital portal for citizens and residents. Residents commonly use it for Exit Re-Entry, Final Exit, Iqama-related family/domestic-worker steps, traffic violations, driving licence, vehicle services, and family visit requests when the service is available for their Iqama type.
+
+What Muqeem is
+Muqeem is the establishment side. Employers use it for Iqama issuance and renewal, Exit Re-Entry and Final Exit for sponsored workers, and related sponsorship tasks. Workers usually check the result in Absher. Do not invent a fee; the Absher or Muqeem payment screen shows the current amount.
+
+Issue Exit Re-Entry or Final Exit (National Platform Absher service)
+https://my.gov.sa/en/services/269423
+Log in to Absher → Visa Services → choose the family member or domestic worker → enter required information → Issue Exit and Re-Entry (or Final Exit) → you can print the visa.
+This is for family members or domestic workers on that National Platform page. Company workers are often issued by the employer on Muqeem / Absher Business. The visa must exist before you travel. An Exit Re-Entry cannot outlast the Iqama.
+
+Absher Business user guide — Exit/Re-Entry issuance conditions (copy from Absher)
+https://www.absher.sa (Absher Business static user guide, Issuance of exit/re-entry visa)
+- Employer, worker or family member not recorded as dead, runaway, or Istiqdam violation
+- Visa fees paid; all traffic violations of the worker paid
+- No unused-visa cancellation violation; no valid visa already issued
+- Person is inside the Kingdom when issued
+- Passport validity 90 days or more
+- Fingerprint exists (guide: males aged 18 and older)
+- Primary visa holder travels with all family members added to the passport
+
+Absher Business user guide — Final Exit issuance
+- Same status, traffic, unused-visa, no existing valid visa, inside Kingdom
+- Passport 90 days or more
+- Fingerprint for males and females aged 16 and older
+- No vehicle registered in the system
+- Must be used within two months of issuance or fines apply according to the regulations
+- Employer destroys the Iqama and is fully responsible
+National Platform Muqeem Final Exit listing instead says passport 60 days or more and fingerprint from age 15. When pages differ, follow the live Absher or Muqeem screen. Do not invent a third number.
+
+Cancellation (Absher Business user guide)
+Final Exit cancel: within 60 days of issuance; person inside the Kingdom.
+Exit/Re-Entry cancel: within 90 days of issuance or before the return date on the visa, whichever is first; person inside the Kingdom.
+Fines for not cancelling unused visas follow the regulations — do not invent the amount.
+
+Extend Exit Re-Entry while the person is abroad
+https://my.gov.sa/en/services/269426
+Absher → Workers → Visa Services → Extend Exit and Re-entry for Sponsorees Outside Kingdom → select beneficiary → confirm.
+Prerequisites published on a related National Platform Absher page: Iqama valid, fees paid, visa valid, work permit valid. One National Platform listing shows service cost 200.0 — always pay the amount Absher displays.
+
+Renew Iqama (National Platform Absher)
+https://my.gov.sa/en/services/112096
+For a family member or registered domestic worker via Absher:
+- Mother of a citizen or investor: My Services → Passports → Resident ID Services → Resident ID Renewal
+- Domestic workers: Labor Services → Resident ID Services → select beneficiary → Resident ID Renewal for Dependents
+- Family members: Family Member Services → Resident ID Services → select beneficiary → Resident ID Renewal
+Company-sponsored worker Iqama renewal is typically started by the employer on Muqeem / Absher Business, then the worker follows Absher for biometrics or card delivery if required. Do not invent the renewal fee.
+
+Traffic and vehicles
+Pay violations, check istimara, and book related appointments through Absher. Unpaid violations can block visas and renewals (Absher Business visa guides require traffic violations paid).
+
+Frequently asked questions
+Q: Absher or Muqeem?
+A: Individuals: Absher. Employers managing workers: Muqeem or Absher Business.
+Q: Can I get Exit Re-Entry at the airport?
+A: No. Issue it on Absher or Muqeem before travel. https://my.gov.sa/en/services/269423
+Q: How long is Final Exit valid?
+A: Absher Business guide: use within two months of issuance.
+Q: Hello, Absher help.
+A: Ask which service: Exit Re-Entry, Final Exit, Iqama, traffic, or family visit, then open https://www.absher.sa
+
+Official sources
+https://www.absher.sa
+https://muqeem.sa
+https://my.gov.sa/en/services/269423
+https://my.gov.sa/en/services/112096
+https://my.gov.sa/en/services/269426
+Compiled for KSA Guide from Absher, Muqeem, and the National Platform. Confirm fees and passport-validity rules on the payment/request screen.

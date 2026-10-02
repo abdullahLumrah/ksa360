@@ -1,0 +1,39 @@
+Family visit visa and dependents
+Official platforms:
+MOFA eVisa / visa services: https://visa.mofa.gov.sa
+Absher: https://www.absher.sa
+Muqeem for establishment-linked residency steps: https://muqeem.sa
+
+Family visit visa (visitor)
+Residents with a valid work Iqama (not a dependent-only or student track in many cases) can invite eligible relatives for a visit. The invitation and issuance flow is electronic through Absher and/or MOFA channels. Relatives commonly include spouse, children, and parents, subject to the live Absher rules. Do not invent the visa fee or stay length. The payment and visa screens show the current amount and validity.
+
+Typical steps
+1. The resident starts the family visit request in Absher when the service is available for their Iqama type.
+2. Pay the fee shown on screen. Keep the passport details of the visitor accurate.
+3. The visitor completes any MOFA / embassy or eVisa steps required for their nationality.
+4. The visitor must leave before the visit visa expires. Overstay is a Jawazat matter.
+
+Dependents (Iqama for family living with you)
+Bringing a spouse or children to live in Saudi Arabia as dependents is different from a short visit. The sponsor must meet salary and housing rules set by the authorities, and the dependent Iqama is issued through Muqeem / Absher processes after medical and immigration steps. Confirm the current salary threshold and medical requirements on Absher / Muqeem. Do not invent those thresholds.
+
+Frequently asked questions
+Q: Visit visa or dependent Iqama?
+A: A visit visa is temporary. A dependent Iqama is for family living with you under your sponsorship.
+Q: Who starts the visit request?
+A: Usually the resident in Absher. The visitor may still need MOFA / eVisa steps.
+Q: Hello, I want to bring my wife.
+A: Ask whether they mean a short visit or a dependent Iqama, then open Absher.
+
+Arabic names for search: تأشيرة زيارة عائلية, استقدام عائلة, تابعين, وزارة الخارجية, أبشر.
+
+Related Absher services (do not mix them up)
+- Exit Re-Entry / Final Exit for family already on an Iqama: https://my.gov.sa/en/services/269423
+- Renew a family-member Iqama: https://my.gov.sa/en/services/112096
+A visit visa is not an Iqama. Overstay is Jawazat.
+
+Official sources
+https://www.absher.sa
+https://visa.mofa.gov.sa
+https://muqeem.sa
+https://my.gov.sa/en/services/269423
+Compiled for KSA Guide. Confirm fees and eligible relatives on Absher. Do not invent a salary threshold for dependents.

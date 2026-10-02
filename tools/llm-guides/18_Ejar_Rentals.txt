@@ -1,0 +1,72 @@
+Ejar — official rental contracts in Saudi Arabia (إيجار, الهيئة العامة للعقار)
+Also searched as: إيجار, عقد إيجار, توثيق عقد, مؤجر, مستأجر, وسيط عقاري, الهيئة العامة للعقار, تجميد الإيجار, rent freeze, lease, landlord, tenant, broker, 199011.
+
+Official platform: Ejar https://www.ejar.sa
+Arabic portal: https://www.ejar.sa/ar
+Regulator: Real Estate General Authority (REGA) https://rega.gov.sa
+Ejar on REGA: https://rega.gov.sa/en/rega-services/platforms/ejar/
+Register a residential lease (REGA service page): https://rega.gov.sa/en/rega-services/eservices/register-the-residential-lease-contract/
+Help centre published by REGA and Ejar: 199011
+Email published by Ejar: info@ejar.sa
+
+What Ejar is (REGA)
+REGA: Ejar is an integrated electronic platform to regulate the real-estate rental sector and protect tenants, landlords, and brokers. The unified leasing contract contains mandatory articles. Brokers must comply with the unified contract following Cabinet Resolution 405 dated 22/9/1437 AH. Call 199011 or visit Ejar for more.
+
+Services listed on REGA's Ejar page
+- Register a real-estate establishment / individual broker for the first time
+- Register the residential lease contract
+- Contract renewal
+- Automatic renewal (can be activated when registering a residential or commercial contract)
+- Mutual termination of residential and commercial contracts
+- Unilateral termination of residential and commercial contracts (when the service conditions apply)
+
+How a residential contract is registered (REGA service steps + Ejar residential manual published via Digital Government Authority)
+REGA: from Contracts, complete five sections: contract details; parties; financial details; terms and conditions; properties and units. Then review/download, review the brokerage contract if any, pay the registration fee, submit for electronic notarization.
+Ejar user manual (DGA attachment “Ejar User Manual – Residential Contract Registration”):
+1. Duration. If the term is one year or more, enter annual rent; if shorter, monthly rent. The system calculates the total.
+2. Property and units.
+3. Parties. Landlord: valid ID, proof of ownership, mobile registered in Absher. Tenant: valid ID, Absher mobile. Broker if used: valid Saudi national ID; CR that includes real-estate brokerage; national address from Saudi Post; broker qualification course.
+4. Financial details: water, electricity, and gas as fixed or by meter; payment schedule (one time, monthly, quarterly, semi-annual, annual, or flexible).
+5. Terms: who pays the Ejar documentation fee; whether subletting is allowed. Custom terms can be added; the official residential manual says adding custom terms removes the contract's enforceable-bond status.
+6. Review, pay, send for electronic approval. Fee stays reserved until both sides approve; if a party rejects, the fee is refunded.
+
+Documentation fee
+Ejar residential registration manual published through the Digital Government Authority: 125 SAR per year; a partial year is rounded up. The landlord or the brokerage office can bear the fee. REGA's residential registration page also says service cost “Depends on the type of service”. Always confirm the amount on the Ejar payment screen before paying.
+
+If the landlord will not register (REGA, including the statutory provisions page)
+The tenant may request registration on Ejar. The landlord may object to the data within 60 days of being notified. If there is no objection in that period, the contract data is treated as correct. Source: https://rega.gov.sa/en/rega-services/platforms/ejar/ and REGA statutory provisions regulating lessor and lessee.
+
+Renewal (Ejar platform text)
+A contract can be renewed by the landlord, the tenant, or the broker. Ejar describes automatic renewal and says the renewal fee is collected when the contract enters the last 60 days. The landlord should have the wallet funded before that window. Confirm the current renewal charge inside Ejar.
+
+Riyadh five-year rent freeze (REGA FAQ on the Ejar platform page — keep this aligned with 25_Riyadh_Rent_Freeze)
+REGA: rents for residential and commercial properties within Riyadh urban boundaries will not be subject to any increase for five years from 3 Rabi' Al-Thani 1447 AH / 25 September 2025. Other cities: increases are by mutual agreement as stipulated in the contract, unless REGA later extends the Riyadh rule.
+Vacant unit in Riyadh that was leased before: total rent cannot exceed the last executed lease. Landlord may object if (1) major structural/construction renovations that impact total rental value, (2) most recent lease was before 2024, or (3) other cases REGA's Board determines.
+Never-leased vacant unit: rent by mutual agreement.
+Automatic renewal applies to existing contracts except fixed-term contracts with 90 days or less remaining when the provisions took effect, and to new contracts.
+Outside Riyadh, a landlord may cancel automatic renewal by notifying the tenant at least 60 days before expiry. Inside Riyadh urban boundaries, the landlord may cancel automatic renewal with 60 days' notice only for: tenant non-payment; structural defects affecting safety with a technical report from the competent government body; personal use by the landlord or a first-degree relative; or other cases REGA's Board determines.
+Reporting a violation: incentive up to 20% of the collected fine if the report leads to a final decision. Full freeze rules: see the Riyadh rent-freeze document and https://rega.gov.sa
+
+Utilities on the lease vs utility companies
+Ejar lets parties set water, electricity, and gas as fixed or by meter. The actual water account is National Water Company https://www.nwc.com.sa (never nwc.gov.sa). Electricity is Saudi Energy (SE, formerly SEC) https://www.se.com.sa
+
+Frequently asked questions
+Q: Is a WhatsApp rental agreement enough?
+A: For a regulated lease, register it on Ejar. The unified contract is mandatory (Cabinet Resolution 405 dated 22/9/1437 AH). https://www.ejar.sa
+Q: Who pays the 125 SAR?
+A: The Ejar residential manual says the contract states whether the lessor or the brokerage office pays. Confirm on the Ejar screen.
+Q: My Riyadh landlord raised the rent after 25 September 2025.
+A: REGA froze increases inside Riyadh's urban boundary for five years. Report via REGA / Ejar. See the Riyadh freeze document.
+Q: Can my Jeddah landlord raise rent?
+A: The five-year freeze is Riyadh. Other cities: REGA says increases follow mutual agreement in the contract. Kingdom-wide automatic renewal (60-day notice) still applies.
+Q: Hello, I want to rent a flat.
+A: Use Ejar at https://www.ejar.sa Help 199011. Ask whether they are tenant or landlord.
+
+Official sources
+https://www.ejar.sa
+https://www.ejar.sa/ar
+https://rega.gov.sa/en/rega-services/platforms/ejar/
+https://rega.gov.sa/en/rega-services/eservices/register-the-residential-lease-contract/
+https://rega.gov.sa/en/laws-and-decisions/regulations-and-by-laws/rules/statutory-provisions-regulating-the-relationship-between-the-lessor-and-the-lessee/
+Phone 199011  Email info@ejar.sa
+Compiled for KSA Guide from REGA, Ejar, and the DGA-published Ejar residential registration manual. Confirm the fee on the Ejar payment screen.

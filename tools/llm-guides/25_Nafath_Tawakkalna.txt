@@ -1,0 +1,27 @@
+Nafath and Tawakkalna — digital identity and official apps
+Nafath (National Single Sign-On): https://www.iam.gov.sa and the Nafath app
+Tawakkalna: the national services app used for many government and private digital services. Download from the official App Store / Google Play listing for Tawakkalna.
+
+What Nafath is
+Nafath is the national login used across Absher, Qiwa, Ejar, Balady, Saudi Post, Premium Residency, and many other portals. When a site asks you to sign in with Nafath, open the Nafath app, approve the number shown on the website, and return to the browser. Keep the mobile number linked to your Absher / national identity up to date.
+
+What Tawakkalna is
+Tawakkalna is a Saudi government services app that hosts many digital IDs and service cards for residents and citizens. Availability of a specific card or pass inside the app changes over time. Tell the user to open the live app rather than inventing a card name that may have been retired.
+
+Practical tips
+1. If login fails on Qiwa, Absher, or Ejar, fix Nafath first: update the app, check the phone number, and try the approval again.
+2. Do not share the Nafath approval number with strangers.
+3. For residency travel documents, Absher and Muqeem remain the source of truth even when a status also appears in Tawakkalna.
+
+Frequently asked questions
+Q: Why does every site ask for Nafath?
+A: Nafath is the shared government login. One approval opens Absher, Qiwa, Ejar, and other portals.
+Q: Hello, Nafath is not working.
+A: Update the Nafath app, confirm the Absher mobile number, retry the approval, then try Absher or Qiwa again.
+
+Arabic names for search: نفاذ, توكلنا, الدخول الوطني الموحد, ابشر.
+
+Official sources
+https://www.iam.gov.sa
+https://www.absher.sa
+Compiled for KSA Guide. Download Nafath and Tawakkalna only from the official App Store / Google Play listings. Do not invent a Tawakkalna card name that may have been retired.

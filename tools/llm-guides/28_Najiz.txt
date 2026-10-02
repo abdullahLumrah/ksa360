@@ -1,0 +1,79 @@
+Najiz and Ministry of Justice — courts, sak (title deed), power of attorney, labour path
+Also searched as: ناجز, وزارة العدل, صك, صك عقاري, وكالة, وكالة إلكترونية, محكمة العمل, صحيفة دعوى, إفراغ, توثيق, تنفيذ, 1950, moj, najiz.
+
+Official platforms
+- Najiz: https://najiz.sa
+- Ministry of Justice: https://www.moj.gov.sa
+- National Platform justice overview: https://my.gov.sa/en/content/judiciary
+- File statement of claim: https://my.gov.sa/en/services/19682
+- Issue individual power of attorney: https://my.gov.sa/en/services/19916
+- Verify power of attorney: https://my.gov.sa/en/services/23789
+- Inquiry on owned properties: https://my.gov.sa/en/services/19733
+- Digitize or amend a real estate title deed: https://my.gov.sa/en/services/99971
+Justice call centre published on Najiz: 1950
+
+What Najiz is
+Najiz is the Ministry of Justice portal and app for court and notarial digital services. Sign in with National Single Sign-On / Nafath. The menu changes; search on najiz.sa rather than inventing a submenu. The Najiz app also offers case inquiry, real-estate inquiry, appointments, and mobile notary.
+
+Labour disputes path (high level — official order)
+Do not confuse two clocks. HRSD amicable settlement: the case is referred to the labour court within 21 working days from the first lawsuit if not settled. Separately, the complainant must file within 12 months (limitation). 12 months is NOT how long you wait for court.
+1. Private-sector labour complaints start with HRSD amicable (friendly) settlement, not the labour court. HRSD: https://www.hrsd.gov.sa/en/ministry-services/services/269970 — electronic filing; about one week negotiation; if not settled, refer to the labour court within 21 working days from the first lawsuit; free; phone 19911; not for domestic workers; you must submit the complaint within 12 months.
+2. If settlement fails, file in the labour court through Najiz: All Electronic Services → Judiciary → File statement of claim → New Application → choose the labour category, parties, facts, documents, submit. https://my.gov.sa/en/services/19682
+3. National Platform: courts of first instance include General, Criminal, Labor, Commercial, and Personal Status courts. E-litigation: parties may respond through Najiz without appearing in person for remote proceedings. https://my.gov.sa/en/content/judiciary
+4. Wage clause as enforceable instrument (HRSD + MoJ): for a documented Qiwa contract, unpaid full wage may be enforced after 30 days from due date; partial payment after 90 days; verification via Mudad (Wage Protection); employer has 5 days on Najiz to object or pay. https://www.hrsd.gov.sa
+5. Domestic workers use Musaned, not this private-sector track. https://www.musaned.com.sa
+Do not invent filing fees or hearing dates. The Najiz or HRSD screen shows the live requirement.
+
+Power of attorney (وكالة) — National Platform / Najiz
+Service: Issue individual power of attorney. Electronic; no visit to a notary public. https://my.gov.sa/en/services/19916
+Steps published: log in to Najiz with Nafath → All Electronic Services → Powers of Attorney and Declarations → Issue individual power of attorney → New Application → principal and agent details → PoA terms → duration → Approve. SMS on issuance.
+Published rules:
+- Beneficiary must be Saudi or resident with a valid ID, over 18, fully legally competent, with an active Absher account
+- Electronic PoA duration shall not exceed one year
+- No printing, stamp, or wet signature required
+- Capacities: principal, or agent under a prior PoA
+- If the principal's identity document has expired, the PoA is limited to Claims and Courts
+- Individuals over 65 issuing a PoA for the first time must use the Virtual Notarial Office or private notaries; later issuances can be electronic on Najiz
+Verify a PoA: https://my.gov.sa/en/services/23789 — PoA number plus ID of one party.
+National Platform: PoA is immediately validated; parties are notified. https://my.gov.sa/en/content/judiciary
+
+Property — title deed (صك / sak), buying, inquiries
+Inquiry on owned properties: Real Estate Market / Najiz with Nafath, capacity personal or PoA, Real Estate Inquiries → Owned Properties → view deed and details. https://my.gov.sa/en/services/19733
+Digitize a paper or missing deed, or amend a digital deed, without visiting a notarial office: log in to the Real Estate Market platform with Nafath; choose New Update, Lost Document Update, or Modify Electronic Document; attach documents; submit. https://my.gov.sa/en/services/99971
+National Platform wording: update a manual deed, replace a lost deed, issue an electronic deed, or amend an existing electronic deed without visiting the Notary Public.
+Najiz also hosts real-estate deed lookup and mortgage verification screens (deed inquiry by parcel/deed details). Search “real estate” on najiz.sa. Do not invent a deed number format.
+
+Buying property — official pieces only
+1. Confirm the sak / electronic title on Najiz or the Real Estate Market inquiry services above.
+2. Off-plan (on the map) projects: REGA Wafi licenses off-plan sale and lease. Check licensed projects before paying. Wafi: https://rega.gov.sa/en/rega-services/platforms/wafi-off-plan-sales-and-lease/  Licensed-project inquiry: https://rega.gov.sa/en/rega-services/real-estate-inquiries/  Help 199011. Buyer payments for licensed off-plan sales go to the project's escrow account at a bank licensed in the Kingdom (REGA off-plan sales licence prerequisites include an escrow-account agreement).
+3. Real Estate Transaction Tax (RETT): ZATCA, 5% on real estate transactions. Current law: Royal Decree M/84 dated 19/03/1446 AH, in effect 12 Shawwal 1446 AH / 10 April 2025. https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx  ZATCA simplified RETT guide: tax on sale, bequest, financial leasing, lease-to-own, and usufruct over 50 years; calculated on the agreed price not below fair market value; seller pays before or during conveyance. First-home support for Saudi citizens is described on ZATCA pages — read zatca.gov.sa for the live support cap; do not invent a remaining-balance figure.
+4. Conveyance (ifragh / transfer of title) is a Ministry of Justice notarial/real-estate process. Use Najiz search; do not invent a fee. Pay RETT as ZATCA requires before or during transfer.
+5. Sakani is the housing programme under Municipalities and Housing. If you cannot open a live sakani page, tell the user to verify the programme name and URL on official housing channels and REGA rather than inventing sakani subdomains.
+
+Do not invent purchase prices, broker commissions, or deed fees. If the official page says the cost depends on the service, say that.
+
+Frequently asked questions
+Q: Where do I file a labour complaint first?
+A: HRSD amicable settlement (Qiwa/HRSD), not Najiz first. https://www.hrsd.gov.sa/en/ministry-services/services/269970 Then labour court via Najiz File statement of claim.
+Q: How do I issue a power of attorney?
+A: Najiz → Powers of Attorney → Issue individual PoA. Max one year. No notary visit. https://my.gov.sa/en/services/19916
+Q: How do I check my title deed (sak)?
+A: Najiz / Real Estate Market, owned-properties inquiry. https://my.gov.sa/en/services/19733
+Q: Is there tax when I buy a house?
+A: ZATCA Real Estate Transaction Tax is 5% on the transaction (with listed exemptions). https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+Q: Hello, I need Najiz.
+A: Open https://najiz.sa sign in with Nafath, and name the service: PoA, deed, labour case, or enforcement.
+
+Official sources
+https://najiz.sa
+https://www.moj.gov.sa
+https://my.gov.sa/en/content/judiciary
+https://my.gov.sa/en/services/19682
+https://my.gov.sa/en/services/19916
+https://my.gov.sa/en/services/19733
+https://my.gov.sa/en/services/99971
+https://rega.gov.sa/en/rega-services/platforms/wafi-off-plan-sales-and-lease/
+https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+https://www.hrsd.gov.sa/en/ministry-services/services/269970
+Call 1950 (Najiz/MoJ) or 19911 (HRSD settlement)
+Compiled for KSA Guide from Najiz, the National Platform, REGA Wafi, ZATCA RETT, and HRSD. Confirm fees on the live screen.

@@ -1,0 +1,128 @@
+Airports and leaving Saudi Arabia (GACA, KKIA, KAIA, KFIA, Absher, Muqeem)
+Also searched as: مطار, مطارات, مغادرة, خروج وعودة, خروج نهائي, جوازات, الهيئة العامة للطيران المدني, مطار الملك خالد, مطار الملك عبدالعزيز, مطار الملك فهد, رحلة, رحلات, passenger rights, delayed flight, cancelled flight, baggage, airport.
+
+Official bodies
+- General Authority of Civil Aviation (GACA): https://gaca.gov.sa
+- GACA passenger rights (English): https://gaca.gov.sa/en/passenger-rights
+- GACA passenger-rights FAQs: https://gaca.gov.sa/en/helping-and-support/new-faqs
+- Passports / exit permits: Absher https://www.absher.sa and Muqeem https://muqeem.sa
+- National Platform — issue Exit/Re-Entry or Final Exit: https://my.gov.sa/en/services/269423
+
+Official airport sites (use these, not invented domains)
+- King Khalid International Airport, Riyadh (KKIA, RUH): https://www.kkia.sa/en and Riyadh Airports Company https://www.riyadhairports.com
+  Guide: https://www.kkia.sa/en/Guide  Services: https://www.kkia.sa/en/Services
+  RAC contact published on riyadhairports.com: 920020090 and info@riyadhairports.com
+- King Abdulaziz International Airport, Jeddah (KAIA, JED): https://www.kaia.sa/
+  Published contact: +966 9200 11233 and customer.care@jeddahairports.sa
+- King Fahd International Airport, Dammam (KFIA, DMM): https://kfia.sa/en/  (also listed as kfia.gov.sa)
+  Dammam Airports Company (DACO) operates KFIA. Passenger relations published on kfia.gov.sa: +966 13 883 4445 ; general inquiries info@daco.sa
+
+Who can board
+A resident (Iqama holder) leaving the Kingdom and planning to return needs a valid passport, a valid Iqama, and an Exit Re-Entry visa issued before travel. A resident leaving for good needs a Final Exit visa, not an Exit Re-Entry visa. Issue these on Absher or Muqeem. The employer often issues them for a worker. Dependents are linked to the sponsor's request.
+A citizen boards an international flight with a Saudi passport. A domestic flight inside Saudi Arabia is normally boarded with a national ID or an Iqama. Confirm the airline's ID rule before you go to the airport.
+A visitor uses the visa they entered on, and must leave before that visa expires. Overstay is a Jawazat matter, not an airline matter.
+
+Exit Re-Entry and Final Exit — issue BEFORE the airport
+National Platform (Absher service): log in to Absher, Visa Services, choose the person, enter the required information, issue Exit and Re-Entry (or Final Exit), then you can print the visa. https://my.gov.sa/en/services/269423
+Do not go to the airport hoping to get the visa at passport control. The permit must already be in the system.
+
+Absher Business user guide (establishment issuing visas) lists these conditions for Exit/Re-Entry:
+- Sponsor, worker or family member must not be recorded as dead, runaway, or having an Istiqdam violation
+- Visa fees paid; all traffic violations of the worker paid
+- No unused-visa cancellation violation; no valid visa already issued
+- The person must be inside the Kingdom when the visa is issued
+- Passport validity 90 days or more
+- Fingerprint exists (Absher Business guide: males aged 18 and older for Exit/Re-Entry)
+- Primary visa holder must travel with all family members added to the passport
+Source: Absher Business user guide — Issuance of exit/re-entry visa https://www.absher.sa
+
+Absher Business user guide for Final Exit adds:
+- Fingerprint for males and females aged 16 and older
+- The person must not have a vehicle registered in the system
+- Visa must be used within two months of issuance or fines apply according to the regulations
+- Employer must destroy the worker's Iqama and is fully responsible for that
+Source: Absher Business user guide — Issuance of final exit visa https://www.absher.sa
+
+National Platform Muqeem Final Exit page lists similar conditions but states passport validity of 60 days or more, and fingerprint for males and females from 15 years and older. https://www.my.gov.sa (service “Issue Final Exit Visa - Muqeem”). When Absher Business text and the Muqeem National Platform page differ, follow the live Absher or Muqeem screen for that request. Do not invent a different number.
+
+Cancellation (Absher Business user guide)
+- Cancel Final Exit: within 60 days of issuance; person must be inside the Kingdom; unused-visa rules apply.
+- Cancel Exit/Re-Entry: within 90 days of issuance or before the return date on the visa, whichever is first; person must be inside the Kingdom.
+Fines for not cancelling unused visas follow the regulations. Do not invent a fine amount.
+
+Extend Exit Re-Entry while the person is outside the Kingdom: Absher service “Extend Exit Re-Entry Visa for sponsorees outside kingdom” https://my.gov.sa/en/services/269426 — Iqama must be valid; pay the fee shown. One National Platform listing for extension through Absher shows a service cost of 200.0 on that page; always pay the amount Absher displays.
+
+GACA passenger obligations (official, last updated 19/01/2026 on gaca.gov.sa/en/passenger-rights)
+- Review the carriage-contract terms before booking
+- Give the airline correct contact information
+- Arrive at the airport at the time specified by the air carrier and be at the departure gate as instructed
+- Complete travel documents for the country of departure, arrival, and any stopover
+- Disclose disability or special requirements when booking
+Scope of the Passenger Rights Protection Regulations (GACA FAQ): they apply to all flights of national air carriers and to foreign air-carrier flights that depart from a Saudi airport; inbound flights from outside Saudi Arabia are related only to baggage complaints. https://gaca.gov.sa/en/helping-and-support/new-faqs
+
+KKIA (Riyadh) published arrival guidance (kkia.sa Guide)
+KKIA states passengers should arrive 3 hours before departure for both domestic and international flights, especially with excess luggage. Check-in counters are available up to 4 hours before departure. International check-in closes 1 hour before departure; domestic check-in closes 45 minutes before departure. Follow the airline boarding pass for the terminal. KKIA has five passenger terminals. Free shuttle buses run every 10 minutes outside all terminals. Ask-Me team 24/7; unified call centre 920020090.
+Source: https://www.kkia.sa/en/Guide
+Other airports: follow that airport site and the airline. Do not copy KKIA's 3-hour rule onto Jeddah or Dammam unless that airport publishes it.
+
+GACA passenger rights — numbers copied from https://gaca.gov.sa/en/passenger-rights
+Baggage delay compensation (Special Drawing Rights, SDR):
+- First day of delay after the reservation arrival time: equivalent of 148 SDR
+- From the second day: 60 SDR per day, maximum 1288 SDR
+Lost baggage: 1288 SDR. Damage or harm: not exceeding 1288 SDR. If registered baggage does not arrive within 21 days, the passenger may ask the carrier to treat it as lost. High-value items: declare them before check-in; compensation follows the declared value. The carrier is exempt if damage is from a latent/inherent defect in the baggage.
+
+Flight cancellation compensation (in addition to refund of the ticket or remaining part, including extra fees such as seat and baggage):
+- Notice from 60 days to 14 days before departure: 50% of the remaining part of the flight
+- Notice from 14 days to 24 hours before departure: 75%
+- Notice from 24 hours before departure until departure: 150%
+If the passenger accepts an alternative flight, cancellation compensation does not apply; delay rules apply to the time difference. If the passenger rejects the alternative and terminates, the ticket is refunded in full including extras. Force majeure: carrier notifies around the clock and provides support; passenger may terminate if force majeure lasts more than 3 hours (domestic) or 6 hours (international) and get a refund without fee deduction. Technical malfunction, operational conditions, scheduling, or negligence is not force majeure.
+
+Flight delays
+- Notify at least 45 minutes before take-off with the new time; update every 30 minutes
+- Delay compensation by actual arrival vs reservation: 50 SDR if 3 to 6 hours; 150 SDR if more than 6 hours
+- Passenger may terminate after more than 2 hours delay and get a full refund with no fee deduction
+- If delay extends over 5 hours, the passenger may treat the flight as cancelled and use cancellation compensation
+
+Care and support (denied boarding, cancellation, or delay)
+- Refreshments and drinks from the first hour
+- Suitable meal if delay exceeds 3 hours from departure time
+- Hotel and airport transport if delay exceeds 6 hours
+If care is not provided: 10 SDR (refreshments), 30 SDR (meal), 100 SDR (hotel/transport). Money does not replace the duty to provide care.
+
+Denied boarding / overbooking
+Passenger may choose another flight of the same or another carrier (cost difference borne by the original carrier). If the passenger rejects denial of boarding and terminates: refund unused part plus 200% of that value. If the carrier provides an alternative within two hours of original departure, it is relieved from that compensation. Excluded from denial-of-boarding treatment: travel groups, unaccompanied minors, first-degree relatives plus accompanying domestic workers, special-needs passengers, persons with disability.
+
+Downgrade on the same flight: if accepted, refund the class-price difference plus 50% of that difference. If the contract is terminated: refund unused part plus 200% of the ticket value.
+
+Unannounced extra stopover: 100 SDR per extra stopover not announced at reservation (does not cancel delay rights). Stops for safety/emergency recorded in GACA-adopted reports are excluded.
+
+Passengers with disabilities: mobility devices free of charge and priority; aid animals without extra fees with a competent-authority letter. If a wheelchair does not arrive on the same flight, provide an alternative immediately; 100 SDR if not provided. Denial of boarding after a confirmed ticket: 200% of total ticket value plus refund of unused part.
+
+What this assistant must not invent
+Do not invent a missed-flight fine, a terminal number, a baggage-weight allowance, or a visa fee. Ticket changes are between the passenger and the airline. Liquids and electronics rules: follow airline and airport signs and GACA notices. SDR amounts above are from GACA's published passenger-rights page; converting SDR to SAR is not on that page, so do not invent a riyal figure.
+
+Frequently asked questions
+Q: Can I get Exit Re-Entry at the airport tonight?
+A: No. Issue it on Absher or Muqeem first. https://www.absher.sa https://muqeem.sa https://my.gov.sa/en/services/269423
+Q: I am flying Riyadh to Jeddah only.
+A: Domestic. Normally Iqama or national ID. No Exit Re-Entry. KKIA published check-in close for domestic is 45 minutes before departure; still arrive as the airline and https://www.kkia.sa/en/Guide say (KKIA: 3 hours).
+Q: Which terminal in Riyadh?
+A: The terminal on the boarding pass. KKIA has five terminals. Airport map: https://www.kkia.sa/en
+Q: My flight was cancelled. What compensation?
+A: GACA passenger rights at https://gaca.gov.sa/en/passenger-rights — refund plus 50%, 75%, or 150% of the remaining flight value depending on how late you were told. File with the airline; GACA regulations apply to national carriers and foreign carriers departing Saudi airports.
+Q: Hello, I have a flight tonight.
+A: Ask whether they are leaving the country or flying inside KSA. If leaving, check Absher for Exit Re-Entry or Final Exit first, then the airline app and the official airport site (kkia.sa, kaia.sa, or kfia.sa).
+
+Official sources
+https://gaca.gov.sa
+https://gaca.gov.sa/en/passenger-rights
+https://gaca.gov.sa/en/helping-and-support/new-faqs
+https://www.kkia.sa/en
+https://www.kkia.sa/en/Guide
+https://www.riyadhairports.com
+https://www.kaia.sa/
+https://kfia.sa/en/
+https://www.absher.sa
+https://muqeem.sa
+https://my.gov.sa/en/services/269423
+Compiled for KSA Guide from GACA, official airport sites, Absher, Muqeem, and the National Platform. Confirm the live Absher/Muqeem screen and the airline's check-in time before travel.

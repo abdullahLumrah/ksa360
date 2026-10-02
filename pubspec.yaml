@@ -1,0 +1,47 @@
+name: ksa_guide
+description: A Dubizzle-style guide to living in Saudi Arabia, from lifeinsaudiarabia.net and saudiexpatriate.com.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  cached_network_image: ^3.4.1
+  google_fonts: ^6.2.1
+  intl: ^0.20.2
+  shared_preferences: ^2.5.3
+  adhan: ^2.0.0+1
+  geolocator: ^14.1.1
+  url_launcher: ^6.3.2
+  http: ^1.6.0
+  hijri: ^3.0.1
+  google_maps_flutter: ^2.18.1
+  webview_flutter: ^4.13.0
+  webview_flutter_android: ^4.10.11
+  webview_flutter_wkwebview: ^3.23.5
+  youtube_player_iframe: ^6.0.2
+  speech_to_text: ^7.4.0
+  flutter_tts: ^4.2.5
+  lottie: ^3.3.3
+  image_picker: ^1.2.1
+  share_plus: ^13.0.0
+  path_provider: ^2.1.5
+  google_sign_in: ^6.3.0
+  flutter_secure_storage: ^10.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/
+    - assets/brand/
+    - assets/categories/
+    - assets/souq/

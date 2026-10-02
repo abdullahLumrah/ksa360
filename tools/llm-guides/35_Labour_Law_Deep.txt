@@ -1,0 +1,73 @@
+Saudi Labour Law — BOE article guide (contracts, hours, leave, EOSB, 2025 M/44 amendments)
+Also searched as: نظام العمل, مرسوم ملكي م/44, المادة 75, المادة 84, المادة 98, المادة 109, المادة 117, المادة 151, فترة التجربة 180, إشعار 30 يوم, إشعار 60 يوم.
+
+Official law page (Arabic, in force): https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/08381293-6388-48e2-8ad2-a9a700f2aa94/1
+English viewer when available: https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/08381293-6388-48e2-8ad2-a9a700f2aa94/2
+HRSD https://www.hrsd.gov.sa   Qiwa https://qiwa.sa
+
+This document quotes the Bureau of Experts (BOE) Labour Law. Royal Decree M/44 dated 8/2/1446H approved amendments that BOE says apply from 20/8/1446H. Older M/46 (5/6/1436H) text is also on the same page; when M/44 restates an article, use the M/44 wording. Never invent a fine. Prefer BOE + Qiwa over blogs.
+
+Employment contracts
+Article 52 (M/44): ministry issues a unified model for each contract type: employer name and place; worker name and nationality; identity; residence address; agreed wage including benefits and allowances; type and place of work; start date; duration if fixed-term; basic rights and obligations of each party.
+Private-sector contracts are documented on Qiwa (HRSD Contract Management): establishment creates the contract; the employee approves, rejects, or requests amendment on Qiwa Individuals (Qiwa Afrad). Once both agree, HRSD treats it as certified. https://www.hrsd.gov.sa/en/ministry-services/services/إدارة-العقود
+Article 37 (M/44): a non-Saudi contract must be written and fixed-term. If duration is missing, it is one year from actual start, then renews for a like period if work continues.
+Article 53 (M/44): probation must be in the contract; total duration in all cases not more than 180 days; either party may end the contract during that period. Regulations set which leaves are excluded from the count.
+Article 54 (M/46): no second probation with the same employer except by written agreement for a different occupation or after at least six months away. Ending during probation: no compensation and no EOSB.
+
+Hours, overtime, rest
+Article 98: 8 hours/day or 48/week. Ramadan for Muslims: 6/day or 36/week.
+Article 99: minister may set some categories at 9 hours or hazardous work at 7 hours.
+Article 101 (M/46): no more than 5 consecutive hours without a break of at least 30 minutes; worker must not remain at the workplace more than 12 hours a day.
+Article 104: Friday weekly rest, full pay, at least 24 consecutive hours, not cashed out.
+Article 107 (M/44): overtime = hourly wage + 50% of basic wage; paid compensatory leave allowed with worker consent. Rest days and Eids count as overtime.
+Article 106 exceptional cases (stocktaking, accidents, unusual pressure, seasons): actual hours still not more than 10/day or 60/week.
+
+Leave
+Article 109: 21 days, 30 days after five continuous years; paid in advance; cannot waive or cash out while employed; 30 days' notice of dates.
+Article 110: worker may postpone with employer agreement; employer may postpone up to 90 days for work, longer only with written worker consent and not past the following year.
+Article 111: unused leave is paid out when the worker leaves, including a pro-rata part-year.
+Article 113 (M/44): 5 paid days marriage or death of spouse/ascendant/descendant; 3 paid days death of sibling from the event date; 3 paid days for a newborn within 7 days of birth.
+Article 114: Hajj 10–15 days including Eid al-Adha, once, after two continuous years, if Hajj not already performed.
+Article 115 (M/46): exam leave with pay for a non-repeat year if the employer approved study; unpaid if a repeat year; apply 15 days ahead.
+Article 116: unpaid leave by agreement; contract is suspended if unpaid leave exceeds 20 days unless agreed otherwise.
+Article 117: sick leave in one year from first sick day: 30 days full, 60 days at 75%, 30 days unpaid.
+Article 151 (M/44): maternity 12 weeks full pay; 6 weeks after birth mandatory; remaining 6 weeks she schedules from up to 4 weeks before expected date; shortfall if birth is late is unpaid; one extra unpaid month allowed; extra paid month if the child is sick/disabled and needs a constant companion.
+
+Ending the contract
+Article 74 (M/44 adds): ends by written mutual agreement; expiry of a fixed term; either party on an indefinite contract; retirement age per GOSI unless they agree to continue; force majeure; permanent closure; ending the activity unless agreed otherwise; resignation (new 3-bis); final court decision ending the contract in a bankruptcy procedure (new 7-bis).
+Article 75 (M/44): indefinite monthly contract — worker 30 days' written notice; employer 60 days; legitimate reason required. Non-monthly pay: 30 days either side.
+Article 76: fail to honour notice = pay a wage-equivalent for the notice (or remainder).
+Article 77 (M/46): unlawful termination compensation unless the contract sets an amount: 15 days' wage per year of service (indefinite); remaining term (fixed-term); never less than two months' wage.
+Article 78 (M/46): during employer notice, worker may take one full day or 8 hours a week to look for work, paid, if they notify the day before.
+Article 79 bis (M/44): resignation deemed accepted after 30 days silence; employer may postpone up to 60 days with written reasons before day 30; worker may withdraw within 7 days unless already accepted; no deferred date in the request; all statutory rights due on resignation.
+Article 80 (M/46): employer may terminate without award, notice, or compensation only in listed misconduct cases (assault, essential breach after written warning, dishonesty, intentional material loss reported within 24 hours, forgery to get the job, still on probation, absence more than 30 days in a contract year or 15 consecutive days after the stated warnings, abuse of position, disclosing industrial/commercial secrets) and must let the worker defend.
+Article 81: worker may leave without notice and keep all statutory rights if the employer fails essential duties, fraud at hiring, substantially different work, violence/indecency, cruelty, grave safety risk the employer knew and ignored, or constructive dismissal.
+
+End of service — Articles 84–88
+84: half month per year for the first five years; one month per year after that; last wage; pro-rata for part years.
+85: resignation reduction: 2–5 years one third; more than 5 and under 10 two thirds; 10+ full; under 2 years none.
+Worked example: last wage SAR 10,000, 8 years. Full award (Art 84) = 55,000. If the worker RESIGNED, Art 85 two thirds ≈ 36,667. Quote 36,667 for resignation, not 55,000.
+87: full award if leaving for force majeure; female worker ending within 6 months of marriage or 3 months of birth.
+88: settle within 1 week if employer ended; 2 weeks if worker ended.
+
+Wages and WPS
+Article 90: pay in Saudi currency; monthly staff once a month; pay into bank accounts at licensed banks. HRSD Wage Protection programme treats WPS/Mudad data as the approved reference in wage complaints. Documented Qiwa contract wage clause can be an enforceable instrument: HRSD 2025 guideline — enforce after 30 days (full non-payment) or 90 days (partial); employer has 5 days on Najiz to object or pay. https://www.hrsd.gov.sa/sites/default/files/2025-10/aldlyl-ala-rshady-lmbadrt--qd-al-ml-almwthq-sndana-tnfydhyana---en.pdf
+
+Complaints path
+1. HRSD amicable settlement (not for domestic workers): https://www.hrsd.gov.sa/en/ministry-services/services/269970 — about 21 working days then labour court. Phone 19911. File within 12 months.
+2. Labour court through Najiz: File statement of claim, category labour. https://najiz.sa https://my.gov.sa/en/services/19682
+3. Domestic workers: Musaned https://www.musaned.com.sa
+
+Frequently asked questions
+Q: How do I calculate end of service?
+A: Article 84 on last wage, then Article 85 if the worker resigned. Confirm on the settlement and HRSD.
+Q: Notice to resign?
+A: Article 75 M/44: 30 days on a monthly indefinite contract, plus Article 79 bis.
+Q: Hello, labour law.
+A: Ask whether they need hours, leave, EOSB, or a Qiwa transfer.
+
+Official sources
+https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/08381293-6388-48e2-8ad2-a9a700f2aa94/1
+https://www.hrsd.gov.sa
+https://qiwa.sa
+Compiled for KSA Guide from the BOE Labour Law page. Never invent a fine. Prefer BOE + Qiwa over blogs.

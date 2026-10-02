@@ -1,0 +1,43 @@
+GOSI — social insurance (التأمينات الاجتماعية, ساند, الأخطار المهنية)
+Also searched as: التأمينات, جوسى, اشتراك, ساند, تعطل عن العمل, شهادة تأمينات, occupational hazards, SANED.
+
+Official platform: General Organization for Social Insurance https://www.gosi.gov.sa
+GOSI Online (English registration/FAQ pages):
+https://www.gosi.gov.sa/GOSIOnline/Registration&locale=en_US
+https://www.gosi.gov.sa/GOSIOnline/Occupational_Hazards_Branch&locale=en_US
+https://www.gosi.gov.sa/GOSIOnline/FAQ_Contributor&locale=en_US
+Phone published on GOSI Online: 199044
+Sign in with Nafath on the portal/app.
+
+What GOSI covers
+GOSI is the social insurance scheme for private-sector and some other workers. Employers must register an establishment that employs one worker or more. Notify GOSI of new joiners during the first fifteen days of the following month; same window when a worker leaves (Form 3/insurance).
+
+Contribution rates copied from GOSI Online Registration (English)
+- Annuities Branch: Saudis only. 18% of the basic wage plus housing allowance, paid monthly. Employer 9%, contributor 9%.
+- Occupational Hazards Branch: mandatory for all workers without distinction of sex, nationality or age. 2% of the wage, paid monthly by the employer only.
+GOSI FAQ: the Occupational Hazards rate may be raised to double (4%) as a maximum if the employer refuses safety instructions after warning and a time limit, per a GOSI report.
+Arabic GOSI FAQ (FAQ10) also lists SANED (unemployment) at 1.5% of contributory wage: employer 0.75% and contributor 0.75%. Confirm SANED eligibility and the live rate on gosi.gov.sa / the contributor's GOSI account. SANED reimbursement eligibility and payment services are on GOSI Online.
+
+Who is covered
+GOSI Registration: worker must have a contractual relation with an employer for work primarily in the Kingdom for a wage. Annuities: Saudis. Occupational Hazards: Saudi and non-Saudi. Non-Saudis receive Occupational Hazards cover, not Annuities. GOSI Occupational Hazards page: a non-Saudi injured person is paid a lump-sum instead of a periodic benefit (examples on that page include a maximum of SAR 330,000 for 100% permanent disability lump sum, and SAR 165,000 maximum for 50–99% partial). Read https://www.gosi.gov.sa/GOSIOnline/Occupational_Hazards_Branch&locale=en_US for the full table; do not invent other caps.
+
+Certificates and accounts
+Contributor may export a certificate of wages and contribution periods. Employers can issue a GOSI certificate if there are no blocking violations. View contribution history after Nafath login. GOSI is not Qiwa: Qiwa is MHRSD labour services; GOSI is insurance.
+
+Why residents care
+Qiwa and employment records should match GOSI registration. Wage Protection salary payments are checked against employment records. When leaving a job, check that GOSI contribution history and end date look correct before signing a final settlement.
+
+Frequently asked questions
+Q: Is GOSI the same as Qiwa?
+A: No. Qiwa = HRSD contracts, transfers, work permits. GOSI = social insurance. https://www.gosi.gov.sa https://qiwa.sa
+Q: What % is deducted from my salary?
+A: For a Saudi: Annuities 9% worker + 9% employer, plus SANED as listed on GOSI (FAQ10: 0.75% each), plus Occupational Hazards 2% employer-only. For a non-Saudi: Occupational Hazards 2% employer-only on GOSI Registration; Annuities does not apply. Confirm on your GOSI statement.
+Q: Hello, I need GOSI.
+A: Start at https://www.gosi.gov.sa and say whether you are a worker checking history or an employer registering staff. Phone 199044.
+
+Official sources
+https://www.gosi.gov.sa
+https://www.gosi.gov.sa/GOSIOnline/Registration&locale=en_US
+https://www.gosi.gov.sa/GOSIOnline/Occupational_Hazards_Branch&locale=en_US
+https://qiwa.sa
+Compiled for KSA Guide from GOSI Online. Confirm contribution rates on GOSI if a later circular changes them.

@@ -1,0 +1,52 @@
+Buying property in Saudi Arabia — sak, Wafi off-plan, RETT (شراء عقار, صك, وافي, ضريبة التصرفات)
+Also searched as: شراء بيت, شراء شقة, إفراغ, بيع على الخارطة, وافي, سكني, صك إلكتروني, off-plan, title deed.
+
+Official platforms
+- Title / deed / conveyance: Najiz https://najiz.sa  Ministry of Justice https://www.moj.gov.sa
+- Owned properties inquiry: https://my.gov.sa/en/services/19733
+- Digitize or amend a deed: https://my.gov.sa/en/services/99971
+- Off-plan regulator Wafi (REGA): https://rega.gov.sa/en/rega-services/platforms/wafi-off-plan-sales-and-lease/
+- Licensed project inquiry: https://rega.gov.sa/en/rega-services/real-estate-inquiries/
+- Off-plan sales licence (escrow): https://rega.gov.sa/en/rega-services/eservices/off-plan-real-estate-project-sales-license/
+- RETT: https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+- Ejar is for leases, not purchase: https://www.ejar.sa
+REGA/Ejar help: 199011. Najiz/MoJ: 1950.
+
+Do not invent a purchase price, commission, or deed fee. If a page says cost depends on the service, say that.
+
+1. Check the title (sak / صك)
+Inquiry on owned properties: Real Estate Market / Najiz with Nafath; choose personal or PoA capacity; Real Estate Inquiries → Owned Properties; open the deed. https://my.gov.sa/en/services/19733
+Paper or missing deeds can be digitized; electronic deeds can be amended without visiting a notary. https://my.gov.sa/en/services/99971
+A buyer should confirm the electronic deed and that the seller can convey, using Najiz search. Power of attorney for a sale is issued on Najiz (electronic PoA max one year). https://my.gov.sa/en/services/19916
+
+2. Off-plan (Wafi — بيع على الخارطة)
+REGA: Wafi grants licenses for selling off-plan units and registers developers. Law basis published by REGA: Council of Ministers Resolution 196 dated 04/03/1445 AH. Call 199011 or use the Wafi platform.
+Before paying: inquire licensed projects and qualified companies on https://rega.gov.sa/en/rega-services/real-estate-inquiries/
+REGA off-plan sales licence lets a developer sell units under construction and receive instalments into an escrow account dedicated to the project at a bank licensed in the Kingdom. Licence prerequisites published by REGA include a valid building permit, ownership deed, consulting-office agreement, CPA agreement, sales-agreement form, and escrow-account agreement.
+Nitaq licence is the developer qualification to practise off-plan sales. Do not pay cash outside the licensed escrow flow that REGA describes.
+
+3. Real Estate Transaction Tax
+ZATCA: 5% on real estate transactions. Current law in effect 10 April 2025 (12 Shawwal 1446 AH). Seller pays before or during conveyance. Sales are generally RETT not 15% VAT. First-home support for citizens is on ZATCA pages — read the live cap. https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+
+4. After agreement
+Conveyance (ifragh) is a Ministry of Justice process via Najiz / notarial real-estate services. Search Najiz rather than inventing a button name. Pay RETT as ZATCA requires. Register any subsequent lease on Ejar if the unit will be rented.
+
+5. Sakani
+Sakani is the Ministry of Municipalities and Housing citizen housing programme. If a live sakani.sa page is not available in this compilation, tell the user to confirm the current portal URL from official housing / my.gov.sa search. Do not invent subsidy amounts.
+
+Frequently asked questions
+Q: How do I know the sak is real?
+A: Najiz / Real Estate Market owned-properties or deed inquiry after Nafath login. https://my.gov.sa/en/services/19733
+Q: Can I buy off-plan?
+A: Only check REGA Wafi licensed projects and pay through the project escrow. https://rega.gov.sa/en/rega-services/platforms/wafi-off-plan-sales-and-lease/
+Q: What tax?
+A: RETT 5% unless exempt. https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+Q: Hello, I want to buy a house.
+A: Ask whether ready unit (sak on Najiz) or off-plan (Wafi). Then RETT on zatca.gov.sa.
+
+Official sources
+https://najiz.sa
+https://rega.gov.sa/en/rega-services/platforms/wafi-off-plan-sales-and-lease/
+https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+https://www.ejar.sa
+Compiled for KSA Guide from Najiz/National Platform, REGA Wafi, and ZATCA. Confirm fees on the live screen.

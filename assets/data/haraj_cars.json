@@ -1,0 +1,9 @@
+{
+  "source": "haraj.com.sa",
+  "scraped_at": "2026-10-01",
+  "count": 17502,
+  "oldest": "2026-09-17T12:33:55+00:00",
+  "newest": "2026-10-01T12:49:28+00:00",
+  "note": "Public Haraj car ads with photos, last 14 days, via GraphQL posts() on brand tags. Started 2026-10-01T12:33:06.117332+00:00. Phone numbers were not collected. Up to 90 ads per brand per day so the 2-week window is covered. Full listings are in haraj_cars.json.gz.",
+  "listings": []
+}

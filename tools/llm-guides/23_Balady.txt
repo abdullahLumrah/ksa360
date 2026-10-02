@@ -1,0 +1,38 @@
+Balady — municipal licences, building permits, and complaints
+Official platform: Balady https://balady.gov.sa
+Mobile app: Balady
+Ministry: Municipalities and Housing
+
+What Balady is
+Balady is the national municipal platform. People and businesses use it for a commercial activity licence (the shop or office licence), a building permit, a fencing permit, a demolition permit, municipal complaints, and related housing and municipal requests. A business that opens a shop, restaurant, clinic, or office usually cannot rely on a commercial registration alone. The activity also needs the municipal licence that matches the location.
+
+Commercial licence, in practice
+1. Create or sign in to a Balady account. Individuals often use National Single Sign-On.
+2. Start a commercial activity licence (issuing a municipal licence).
+3. Select the activity from the activity list. The activity must match what the shop actually does. A restaurant activity is not a grocery activity.
+4. Link the shop location. The unit should have a national address and, where required, an Ejar contract or an ownership deed.
+5. Complete the requirements Balady lists for that activity. Food activities usually need extra clearances such as civil defence and, where the activity requires it, a health certificate. Balady shows the exact list on the request. Do not assume every shop needs the same papers.
+6. Pay the licence fee shown on Balady. Fees depend on the activity, the size, and the city. Never invent the fee. Read the invoice.
+7. Download the licence from Balady when the request is approved. Renew it before it expires from the same account.
+
+Building permit
+A building permit is also a Balady request. The owner or the engineering office submits the land, the drawings, and the supervision office Balady asks for. Work should not start before the permit is issued. A fencing permit and a demolition permit are separate requests. Inspections during construction are part of the permit, not an optional visit.
+
+Complaints
+Street cleaning, waste, encroachment, and similar municipal issues can be reported in the Balady app. The report should include the location. Balady gives a request number.
+
+Frequently asked questions
+Q: I have a commercial registration. Can I open the shop?
+A: The commercial registration is Ministry of Commerce. The right to operate in that unit is the Balady municipal licence, plus any extra clearance Balady lists for the activity.
+Q: How much is a Balady licence?
+A: The fee is calculated inside the Balady request. It is not one national price.
+Q: My restaurant licence was rejected.
+A: Open the request notes. The usual causes are the wrong activity, a missing civil-defence or health paper, or a location that does not match the deed or the Ejar contract.
+Q: Hello, I want a balcony permit.
+A: Greet them, then point them to a building or fencing request on balady.gov.sa and tell them not to build before the permit is issued.
+
+Arabic names for search: بلدي, رخصة بلدية, تصريح بناء, أمانة.
+
+Official source
+https://balady.gov.sa
+Compiled for KSA Guide. Requirements on the live Balady request override this summary. Do not invent a licence fee.

@@ -1,0 +1,56 @@
+Riyadh rent freeze — five years — official REGA rules
+Question this document answers: Does rent in KSA freeze for 5 years? Is there a rent freeze in Saudi Arabia? Does rent in Riyadh freeze for 5 years? Can my landlord raise the rent in Riyadh?
+
+Short answer
+Yes, but only inside Riyadh's urban boundary, not in the whole of Saudi Arabia. From 25 September 2025 (3 Rabi' Al-Akhir 1447), landlords may not increase the total rental value of residential or commercial leases in Riyadh for five years. This covers existing contracts and new contracts. It does not automatically apply to Jeddah, Dammam, Makkah, or other cities unless REGA's board later extends it, with approval from the Council of Economic and Development Affairs.
+
+Official source
+Real Estate General Authority (REGA), published 25 September 2025:
+https://rega.gov.sa/en/media-center/news-announcements/in-line-with-hrh-crown-prince-s-directive-to-take-several-measures-to-achieve-balance-in-the-real-estate-sector-in-riyadh-approval-has-been-issued-for-regulatory-provisions-aimed-at-regulating-the-relationship-between-landlords-and-tenants/
+The rules follow a directive from HRH Crown Prince Mohammed bin Salman and were approved by the Council of Ministers and a Royal Decree. Ejar is the contract platform: https://www.ejar.sa
+
+What is frozen
+Suspension of annual increases in the total rental value of residential and commercial property lease contracts, existing or new, for properties inside Riyadh's urban boundaries, for five years starting 25 September 2025. A landlord may not increase the total rent agreed in an existing or new contract from that date.
+
+Vacant units in Riyadh
+If a residential or commercial property inside Riyadh's urban boundary was leased before and is now vacant, the total rent is fixed to the total rental value of the last executed Ejar contract.
+If the property has never been leased, the landlord and tenant agree the rent. After that first contract, the five-year freeze on increases applies to new contracts as well.
+
+Automatic renewal — all cities, not only Riyadh
+Across the Kingdom, a lease is automatically renewed unless one party tells the other they do not want to renew, at least 60 days before the contract ends.
+Exceptions: a fixed-term contract with 90 days or less left when these rules started, or both parties agree to end the contract after the non-renewal notice window.
+
+Riyadh renewal — landlord cannot refuse except in three cases
+If the tenant in Riyadh wants to renew, the landlord may not refuse renewal and may not force the tenant to leave, except:
+1. The tenant did not pay.
+2. Structural defects affect safety, confirmed by a technical report from the competent government body.
+3. The landlord wants the residential unit for personal use, or for a first-degree relative.
+REGA's board may add other cases later.
+
+Unregistered contracts
+A landlord must register a lease that is not on Ejar. The tenant may also apply to register it. The other party has 60 days from notice to object to REGA. If nobody objects, the contract details stand.
+
+Landlord objections to the set rent
+For cases other than existing contracts, a landlord may object if the unit had substantial structural or construction renovations that changed its rental value, or if the last lease was signed before 2024, or in other cases REGA's board approves.
+
+Fines
+A violator can be fined up to 12 months' rent for that unit, must fix the violation, and must compensate the affected party. Someone who reports a violation (and is not an enforcer) can receive up to 20 percent of the collected fine if the report leads to a final decision. Appeal a violation decision within 30 days.
+
+What REGA already enforced
+On 16 October 2025 REGA said it had received 268 reports in Riyadh. It identified 18 landlords who broke the rules, including raising rent in Riyadh, charging more for a vacant unit than the last contract, not registering on Ejar, and refusing renewal or forcing a tenant out outside the allowed cases. It referred 11 brokers who enabled those breaches.
+
+Frequently asked questions
+Q: Does rent freeze for 5 years in all of Saudi Arabia?
+A: No. The five-year suspension of rent increases is for properties inside Riyadh's urban boundaries, from 25 September 2025. Other cities are not covered unless REGA later extends the rule.
+Q: Does rent in Riyadh freeze for 5 years?
+A: Yes. Landlords cannot increase the total rental value of residential or commercial contracts in Riyadh for five years from 25 September 2025. This includes existing and new contracts.
+Q: Can my landlord in Jeddah raise the rent?
+A: This five-year freeze is a Riyadh rule. Jeddah is not automatically included. Automatic renewal (60 days' notice) does apply across the Kingdom.
+Q: My Riyadh landlord raised the rent after September 2025. What do I do?
+A: That increase is a violation inside Riyadh. Register or check the contract on Ejar and report it to REGA. A fine can reach 12 months' rent plus correction and compensation.
+Q: Hello, is there a rent cap?
+A: In Riyadh, yes: no increase in total rent for five years from 25 September 2025. It is not a nationwide freeze.
+
+REGA FAQ on the Ejar platform page (https://rega.gov.sa/en/rega-services/platforms/ejar/) restates the same freeze: no increase for residential and commercial property inside Riyadh urban boundaries for five years from 3 Rabi' Al-Thani 1447 / 25 September 2025; other cities follow mutual agreement in the contract; vacant previously leased Riyadh units cannot exceed the last contract except listed objection cases; automatic renewal; Riyadh landlords may refuse renewal only for non-payment, safety defects with an official technical report, personal/first-degree use, or other Board cases; violation reports can earn up to 20% of the collected fine.
+
+Compiled for KSA Guide from the REGA announcement of 25 September 2025, the REGA enforcement note of 16 October 2025, and the REGA Ejar FAQ. Confirm any later amendment on rega.gov.sa.

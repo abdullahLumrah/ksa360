@@ -1,0 +1,35 @@
+Muroor, cars, driving licence, violations, istimara, and Fahas
+Muroor is the General Department of Traffic. Most resident services are inside Absher, not a separate Muroor website.
+Absher: https://www.absher.sa
+Vehicle inspection (Fahas): the periodic inspection centres linked from Absher
+Accidents with another vehicle: Najm https://najm.sa
+Roads: Roads General Authority https://www.rga.gov.sa
+
+Driving licence
+A private driving licence is issued and renewed on Absher after the person passes the required test or renewal conditions. The KSA Guide traffic notes list private-licence fees as: 1 year SAR 40, 2 years SAR 80, 5 years SAR 200, 10 years SAR 400, and a replacement for a lost or damaged licence on the Absher fee screen. Confirm the figure Absher shows before paying, because a category such as motorcycle or public transport can differ.
+A visitor or a new resident cannot drive on a foreign licence forever. Follow the rule Absher and the licensing school show for converting a foreign licence. Do not invent an exemption.
+
+Vehicle registration (istimara) and inspection (Fahas)
+The istimara is the vehicle registration card. Renewal is done on Absher after the vehicle passes Fahas (periodic technical inspection) when an inspection is due, and after insurance is valid. The owner pays the renewal fee shown on Absher. Selling a car is an ownership transfer on Absher between seller and buyer. Both sides need Absher access. The buyer should not pay the seller in full until the transfer shows in Absher.
+
+Violations
+Traffic violations are listed in Absher under the traffic services. You can see the violation, the amount, and pay it there. Do not quote a fine from memory. Read the amount on that violation. Unpaid violations can block renewal of a licence or a vehicle registration. The user should open Absher, Traffic, and query violations by their ID.
+
+Accidents
+For a collision, Najm handles many insurance accident reports. People can also use the Najm app. Injuries or a disputed criminal case are a police and traffic matter, not only an insurance photo. Exchange no cash settlement until Najm or traffic has a report if the insurance will be claimed.
+
+Frequently asked questions
+Q: Where do I pay a Muroor fine?
+A: Absher, traffic violations. The amount on that screen is the amount due.
+Q: My istimara expired.
+A: Valid insurance, Fahas if it is due, then renew the registration on Absher. Do not drive on an expired istimara while you sort it out.
+Q: I bought a car from a person.
+A: Complete the ownership transfer in Absher before you rely on a paper istimara with the old owner's name.
+Q: Hello, I got a camera ticket.
+A: Greet them, then tell them to open Absher and read the violation. The assistant should not guess the fine.
+
+Official sources
+https://www.absher.sa
+https://najm.sa
+https://www.rga.gov.sa
+Compiled for KSA Guide. Licence fee figures match the existing KSA Guide traffic notes. Always pay the amount displayed in Absher.

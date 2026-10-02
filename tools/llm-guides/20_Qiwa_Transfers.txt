@@ -1,0 +1,63 @@
+Qiwa — contracts, work permits, employee transfer (قوى, نقل خدمات)
+Also searched as: قوى, نقل كفالة, نقل خدمات, عقد عمل, رخصة عمل, نطاقات, مبادرة تحسين العلاقة التعاقدية, LRI, sponsorship transfer.
+
+Official platform: https://qiwa.sa
+Ministry: HRSD https://www.hrsd.gov.sa
+Employee transfer (HRSD): establishments hire a non-Saudi already working for another employer, or move staff between their own establishments. https://www.hrsd.gov.sa (search Employee Transfer)
+Freedom of movement / transfer of services: https://www.hrsd.gov.sa/en/ministry-services/services/نقل-خدمات-من-صاحب-عمل-آخر-حرية-التنقل
+Contract management: https://www.hrsd.gov.sa/en/ministry-services/services/إدارة-العقود
+Individuals sign in with Nafath. Employers use a Qiwa business account.
+
+What Qiwa does
+Qiwa is the MHRSD portal for private-sector labour services: authenticated contracts, work permits, employee transfer, Nitaqat (Saudization) certificates, occupation correction, skill verification. HRSD Contract Management: establishment creates the contract (job title, duration, hours, financial obligations, extra items); employee approves, rejects, or requests amendment on Qiwa Afrad. If both agree, the contract is certified by HRSD. Establishment must be running; employee must not already have a valid Qiwa contract.
+
+Employee transfer — HRSD published steps
+HRSD Employee Transfer: fully automated, no paperwork listed on that service page.
+HRSD “Transfer of services from another employer (Freedom of movement)”:
+- New employer submits a job offer on Qiwa
+- Worker logs in and accepts or rejects
+- Existing employer is notified
+- System verifies requirements; after approval, data is updated and the new work permit is issued
+Service fees on that HRSD page: Free. Duration: Immediately. Always read the live Qiwa request for whose turn it is.
+
+Practical status lines workers see (KSA Guide notes / Qiwa screens — confirm on the user's request, do not treat as BOE law)
+Pending laborer approval → worker must accept (offers can expire; read the deadline on screen).
+Pending current employer's approval → when consent is required.
+Pending notice period completion → a contractual/legal notice may still be running.
+Pending completing transfer in Absher by new employer → new employer finishes sponsorship change in Absher/Muqeem and pays any transfer fee shown there.
+The new employer needs an active CR, GOSI registration, and wage-protection compliance as Qiwa requires. Transfer fee is paid by the new employer at the amount shown in Qiwa or Absher. Do not invent SAR 2000 or any other figure.
+
+Labour Reform Initiative — official ministerial decree (HRSD English PDF)
+https://www.hrsd.gov.sa/sites/default/files/2023-02/E51848.pdf
+Ministerial Decree (Minister’s Office No. 51484, dated 19/03/1442H / 05/11/2020G), in force 01/08/1442H corresponding to 14 March 2021G, amending Implementing Regulations Article 14 (Second):
+1. An expatriate worker may work for another employer without a required waiting period if the current employer agrees, unless Nitaqat controls say otherwise.
+2. Upon expiration of the authenticated employment contract, the expatriate may work for another employer without the current employer's consent.
+3. Without current employer consent, considering Labour Law Article 77, if: (a) employed for twelve months from the date of entry into the Kingdom; and (b) notifies the current employer at least ninety days before terminating the contractual relation, unless both parties agree otherwise.
+HRSD news on LRI also states the initiative regulates job mobility and Exit/Re-Entry, and that services are through Absher and Qiwa. https://www.hrsd.gov.sa/en/media-center/news/770957
+
+Unpaid wages and other no-consent cases
+Qiwa's live request lists the cases the system can auto-check. Official pieces you can cite:
+- Expired authenticated contract: no current-employer consent (decree above)
+- 12 months from entry + 90 days' notice: no consent, subject to Article 77 (decree above)
+- Wage Protection / Mudad is HRSD's approved reference for wage disputes; documented wage clause may be enforced on Najiz after 30 days (full non-payment) or 90 days (partial) per HRSD's 2025 enforceable-contract guideline
+If the user's Qiwa screen names a specific no-consent case (for example unpaid wages or expired Iqama/work permit), follow that screen. Do not invent extra cases that are not on the decree, HRSD page, or the user's Qiwa request.
+
+After Qiwa accepts, the new employer still completes Absher/Muqeem so the Iqama sponsor changes.
+
+Frequently asked questions
+Q: I accepted the contract. Why is it not finished?
+A: Worker acceptance is one step. HRSD: existing employer is notified; the system verifies; then the new work permit is issued. Absher/Muqeem may still be pending. Read the Qiwa status line.
+Q: Can my current employer block me forever?
+A: They can object when the law/Qiwa gives them that role. They cannot block a transfer Qiwa accepts as a no-consent case (expired authenticated contract; or 12 months from entry plus 90 days' notice per the 2021 decree, subject to Article 77).
+Q: Where do I accept?
+A: https://qiwa.sa individual account, Employee Transfer, view the contract, accept or reject.
+Q: Hello, I want to change sponsor.
+A: Greet them, then ask for the Qiwa status line.
+
+Official sources
+https://qiwa.sa
+https://www.hrsd.gov.sa
+https://www.hrsd.gov.sa/sites/default/files/2023-02/E51848.pdf
+https://www.absher.sa
+https://muqeem.sa
+Compiled for KSA Guide from HRSD service pages and Ministerial Decree E51848. Read the deadline shown inside the user's own Qiwa request.

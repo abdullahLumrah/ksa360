@@ -1,0 +1,44 @@
+Saudi Post (SPL) — national address, Wasel, and parcels
+Official platform: Saudi Post SPL, https://splonline.com.sa/en/
+National address registration for individuals is also listed on the National Platform: https://my.gov.sa/en/services/182790
+Modify an address: https://my.gov.sa/en/services/116335
+
+What the national address is
+The national address is the official addressing system for homes and businesses in Saudi Arabia. It was approved by Council of Ministers Resolution 252 dated 3 June 2013. It replaces a vague description of a location with a standard address that government services, banks, and delivery companies use. Saudi Post says registration of a national address for individuals is free.
+
+A national address has: building number, street name, district, city, postal code, and additional number. The short form people often see is the building number, the street, the district, the city, and the postal code plus the additional number.
+
+How an individual registers
+1. Open the Saudi Post national address service, or start it from my.gov.sa.
+2. Sign in with National Single Sign-On using the same identity used on Absher.
+3. Fill in the required details and place the address on the map or enter the address fields.
+4. Submit. The National Platform says activation is ready within 24 hours, and you receive a transaction number.
+5. You can later change the registered address online without visiting a branch. Select the address, locate the new one on the map or by details, and save.
+
+Why residents need it
+Banks, Absher-linked services, Ejar brokerage offices, and many deliveries ask for a national address. A real-estate broker registering contracts on Ejar must have the office national address registered with Saudi Post.
+
+Wasel
+Wasel is Saudi Post's home and office delivery product tied to the national address. Registering the national address gives access to standard postal services. Business and government packages (sometimes called Wasel Premium for organisations) are separate products on splonline.com.sa. Confirm the current package on the SPL site before paying.
+
+Parcels and post office services
+Track and send parcels through the SPL website or app. Branch services include parcels and PO boxes. Fees and delivery times change by service and city. Do not guess a shipping price. Check splonline.com.sa or the SPL app for the live rate.
+
+Frequently asked questions
+Q: Is the national address free for a person?
+A: Saudi Post states that an individual can register a national address for free. Confirm on splonline.com.sa if a paid Wasel option is offered.
+Q: How do I log in?
+A: Use National Single Sign-On / Absher credentials, as described on my.gov.sa.
+Q: How fast is a new address activated?
+A: The National Platform says within 24 hours after submission.
+Q: Can I update my address after I move?
+A: Yes. Use the modify-national-address service on my.gov.sa or SPL. You do not need to visit a branch for that change.
+Q: Hello, I only wanted to ask about the post office.
+A: Saudi Post (SPL) handles the national address, Wasel, and parcels. Start at https://splonline.com.sa
+
+Official sources
+https://splonline.com.sa/en/
+https://portal.splonline.com.sa/en/national-address/
+https://my.gov.sa/en/services/182790
+https://my.gov.sa/en/services/116335
+Compiled for KSA Guide. Confirm live fees and steps on SPL.

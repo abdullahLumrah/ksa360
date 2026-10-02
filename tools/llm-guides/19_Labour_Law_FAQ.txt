@@ -1,0 +1,100 @@
+Saudi Labour Law — practical FAQ (نظام العمل, مكتب العمل, نهاية الخدمة, إجازة)
+Also searched as: نظام العمل, قانون العمل, ساعات العمل, إجازة سنوية, إجازة مرضية, إجازة وضع, مكافأة نهاية الخدمة, فترة تجربة, إشعار, فصل, استقالة, حماية الأجور, مكتب العمل, وزارة الموارد البشرية, قوى, التسوية الودية.
+
+Official text (controls all numbers below): Bureau of Experts at the Council of Ministers
+https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/08381293-6388-48e2-8ad2-a9a700f2aa94/1
+Labour Law issued by Royal Decree M/51 dated 23/8/1426H (27/09/2005). Status: in force.
+2025 amendments: Royal Decree M/44 dated 8/2/1446H, in force from 20/8/1446H (BOE). Ministry: HRSD https://www.hrsd.gov.sa  Contracts/transfers: Qiwa https://qiwa.sa  Wages: Mudad / Wage Protection, linked to GOSI https://gosi.gov.sa  Labour court: Najiz https://najiz.sa
+
+Do not invent a fee or a fine. If the contract or a later BOE amendment differs, BOE controls.
+
+THIS GUIDE IS FOR PRIVATE-SECTOR WORKERS UNDER THE LABOUR LAW / QIWA. It is NOT for Musaned domestic workers (their EOSB is different: one month per four years on musaned.com.sa).
+
+RESIGNATION END-OF-SERVICE — APPLY ARTICLE 85 AFTER ARTICLE 84
+Full award (Article 84) at last wage: half a month per year for the first 5 years + one month per year after that.
+Then if the WORKER RESIGNED (Article 85), reduce that full award:
+- under 2 years: SAR 0
+- 2 years up to 5 years: one third of the full award
+- more than 5 years and under 10 years: two thirds of the full award
+- 10 years or more: full award
+Example the user often asks: salary SAR 10,000, resign after 8 years.
+Full award = (5 × 0.5 × 10,000) + (3 × 1 × 10,000) = SAR 55,000.
+Because they RESIGNED at 8 years (between 5 and 10), pay TWO THIRDS: about SAR 36,667.
+Do NOT quote SAR 55,000 for a resignation at 8 years. 55,000 would be employer-ending or contract-end without the Article 85 cut.
+
+Working time — Article 98
+Actual work may not exceed 8 hours a day (daily standard) or 48 hours a week (weekly standard). During Ramadan, actual hours for Muslims must not exceed 6 hours a day or 36 hours a week.
+
+Overtime — Article 107 as amended by M/44
+Employer pays hourly wage plus 50% of the basic wage. With the worker's agreement, paid compensatory leave may replace overtime pay. Hours on rest days and Eids count as overtime.
+
+Rest during the day — Article 101 as amended
+No more than 5 consecutive hours without a rest/prayer/meal break of at least half an hour. The worker must not remain at the workplace more than 12 hours in a day (M/46 text). Rest periods are not actual working hours (Article 102). Weekly rest is Friday with full pay, at least 24 consecutive hours, not replaceable by cash (Article 104), unless the employer substitutes another weekday after notifying the labour office.
+
+Annual leave — Article 109
+Not less than 21 days per year, increased to not less than 30 days after five continuous years with the same employer. Paid in advance. The worker must take it in the year it is due; it cannot be waived or cashed out while still employed. Employer sets dates according to work needs and must notify at least 30 days in advance.
+
+Sick leave — Article 117
+In one year (starting from the first sick-leave day): first 30 days full pay; next 60 days three-quarters pay; following 30 days unpaid. Continuous or interrupted.
+
+Marriage / death / paternity — Article 113 as amended by M/44
+Five paid days for marriage, or death of spouse or an ascendant or descendant. Three paid days for death of a brother or sister (from the date of the event). Three paid days for birth of a child, to be used within seven days of the birth. Employer may request supporting documents.
+
+Maternity — Article 151 as amended by M/44
+Twelve weeks fully paid. Six weeks after birth are mandatory. The remaining six weeks she may distribute, starting up to four weeks before the expected date (medical certificate). If remaining leave is less than six weeks because birth was later than expected, the completing period is unpaid. She may extend one month unpaid. If she gives birth to a sick or disabled child who needs a constant companion: one extra paid month after maternity, extendable one month unpaid.
+
+Hajj leave — Article 114
+10 to 15 days including Eid al-Adha, once during service, if the worker has not performed Hajj before and has two continuous years with the employer.
+
+Probation — Article 53 as amended by M/44
+Must be written in the contract. Total duration in all cases must not exceed 180 days. Either party may end the contract during probation. Implementing regulations set which leaves are excluded from the count.
+
+Non-Saudi contract length — Article 37 as amended by M/44
+Must be written and fixed-term. If the contract does not state a duration, it is treated as one year from the worker's actual start date, and if work continues after that it renews for the same period.
+
+Notice on indefinite contracts — Article 75 as amended by M/44
+Monthly-paid indefinite contract: worker ending it must give at least 30 days' written notice; employer ending it must give at least 60 days' written notice. Both need a legitimate reason. If wages are not monthly, either party gives at least 30 days. If the notice period is not honoured, Article 76: pay the other party an amount equal to the worker's wage for the notice period (or the remainder), unless they agreed more.
+
+Resignation process — Article 79 bis (added by M/44)
+Resignation is deemed accepted if 30 days pass with no employer reply. Employer may postpone acceptance up to 60 days for work interest, with a written reasoned notice to the worker before the 30 days end. Worker may withdraw resignation within 7 days of submitting it unless the employer already accepted it. The request must not set a deferred resignation date. The contract stays in force during the request. The worker who ends by resignation is entitled to all rights under the Law.
+
+End of service (EOSB / gratuity) — Articles 84–87
+Calculated on the last wage. Half a month's wage for each of the first five years; one full month's wage for each year after five; fractions of a year in proportion.
+If the worker resigns (Article 85): less than two consecutive years = none of the award; from two years up to five years = one third; more than five and less than ten = two thirds; ten years or more = full award.
+Full award still applies if the worker leaves because of force majeure, or a female worker ends the contract within six months of marriage or three months of giving birth (Article 87).
+Settlement: employer must pay wages and settle rights within one week if the employer ended the relationship; within two weeks if the worker ended it (Article 88).
+
+Wages
+Article 90 (as amended): monthly workers paid once a month; establishments must pay wages into workers' bank accounts through licensed banks in the Kingdom (minister may exempt some establishments). Wage Protection / Mudad records are the reference HRSD uses for wage disputes.
+HRSD guideline “Documented Employment Contract as an Enforceable Instrument” (2025 PDF on hrsd.gov.sa): if the full wage is unpaid, the employee may enforce against the employer after 30 days from the due date; if partially paid, after 90 days. Verification uses Wage Protection (Mudad). The employer has 5 days on Najiz to object or pay. https://www.hrsd.gov.sa
+
+Complaints
+Friendly (amicable) settlement is the first stage: https://www.hrsd.gov.sa/en/ministry-services/services/269970
+HRSD: received electronically; about one week for direct negotiation; if not settled, refer to the labour court within 21 working days from the first lawsuit. Service duration listed as 21 days; fees: free. Phone 19911. Domestic workers are excluded from this track (they use Musaned). You must file the complaint within 12 months (deadline to start the case). The 12 months is not the settlement waiting time. Then labour court via Najiz https://najiz.sa — File statement of claim (labour category) https://my.gov.sa/en/services/19682
+
+EOSB examples (illustrations using Articles 84–85; last wage = the figure the user gives)
+Salary SAR 10,000, 8 years, employer ends without Article 80 misconduct: (5 × 0.5 × 10,000) + (3 × 1 × 10,000) = SAR 55,000.
+Same person resigns at 8 years: two thirds ≈ SAR 36,667.
+Salary SAR 20,000, 5 years, employer ends: 5 × 0.5 × 20,000 = SAR 50,000.
+Resigning with less than 2 years: SAR 0 under Article 85.
+
+Frequently asked questions
+Q: How many hours in Ramadan?
+A: Article 98: 6 hours a day or 36 a week for Muslim workers. Outside Ramadan: 8 a day or 48 a week.
+Q: End of service if I resign after 3 years?
+A: Article 85: one third of the full award. Full award for 3 years is 3 × 0.5 × last wage.
+Q: How much notice to resign?
+A: Article 75 (M/44): 30 days written notice on a monthly-paid indefinite contract. Also follow Article 79 bis (30-day deemed acceptance). Fixed-term contracts follow the end date and Article 77 compensation if ended early without a lawful reason.
+Q: Employer does not pay me.
+A: Keep evidence. Use Wage Protection / Mudad. HRSD: enforce documented wage clause via Najiz after 30 days (full non-payment) or 90 days (partial). Also file amicable settlement (HRSD, 21 working days to court). Qiwa may list unpaid wages as a no-consent transfer case — read the live Qiwa request.
+Q: Hello, labour question.
+A: Greet them, then ask hours, leave, end of service, or Qiwa transfer.
+
+Official sources
+https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/08381293-6388-48e2-8ad2-a9a700f2aa94/1
+https://www.hrsd.gov.sa
+https://www.hrsd.gov.sa/en/ministry-services/services/269970
+https://qiwa.sa
+https://gosi.gov.sa
+https://najiz.sa
+Compiled for KSA Guide from the BOE Labour Law text including Royal Decree M/44 (in force 20/8/1446H) and HRSD service pages. Confirm any later amendment on laws.boe.gov.sa.

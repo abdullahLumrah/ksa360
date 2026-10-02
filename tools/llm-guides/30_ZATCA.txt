@@ -1,0 +1,38 @@
+ZATCA — Zakat, VAT, customs, e-invoicing, Real Estate Transaction Tax
+Also searched as: الزكاة, ضريبة القيمة المضافة, ضريبة التصرفات العقارية, فاتورة, فاتورة إلكترونية, جمارك, هيئة الزكاة والضريبة والجمارك.
+
+Official platform: Zakat, Tax and Customs Authority https://zatca.gov.sa
+RETT law page: https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+RETT implementing regulation: https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/New-RETT.aspx
+Simplified RETT guide PDF: https://zatca.gov.sa/en/HelpCenter/guidelines/Documents/Simplified%20guide%20to%20the%20real%20estate%20transaction%20tax.pdf
+E-invoicing (Fatoora): Fatoora portal login is published as fatoora.zatca.gov.sa in ZATCA Phase 2 “How to Get Ready” PDF.
+
+What ZATCA covers
+ZATCA administers Zakat, VAT, excise, customs, RETT, and e-invoicing. Residents who only hold a work Iqama and do not run a business usually do not file VAT returns. Buying goods, they still pay VAT in the price when it applies. Business owners and freelancers with a commercial registration follow zatca.gov.sa.
+
+VAT
+ZATCA e-invoicing XML implementation standard uses 15 as the standard VAT rate in its worked examples (category S, rate 15 / 15%). Treat 15% as the standard rate published in those official technical documents. Confirm any reduced or zero-rated category on zatca.gov.sa. Do not invent a registration threshold; read the live VAT registration page.
+
+E-invoicing (Fatoora)
+Phase 1: generate and store compliant e-invoices. Phase 2: integrate the solution with the Fatoora portal (XML or PDF/A-3 with embedded XML). How to get ready PDF: login to Fatoora.zatca.gov.sa, onboard a solution unit, generate OTP. Ordinary salaried employees do not issue Fatoora invoices.
+
+Real Estate Transaction Tax (RETT)
+ZATCA: RETT is 5% on real estate transactions. Introduced under Royal Order A/84 dated 14/02/1442 AH; current law Royal Decree M/84 dated 19/03/1446 AH, in effect 12 Shawwal 1446 AH corresponding to 10 April 2025. https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+ZATCA simplified guide (English PDF, version 5, 3 May 2024 on the file header): imposed at 5% on sale, bequest, financial leasing, lease-to-own, and long-term usufruct of more than 50 years. Calculated on the price agreed between seller and buyer, which should not be below fair market value at the time of the transaction. Seller is obliged to pay before or during conveyance. Real estate sales are exempt from 15% VAT and instead subject to RETT. First-home support for Saudi citizens is described on ZATCA RETT pages (the state bears RETT up to a published cap). Read zatca.gov.sa for the live first-home cap; do not invent a remaining amount. Leasing residential or commercial property for less than 50 years is outside RETT in the simplified comparison table.
+
+Customs
+Travellers and importers use ZATCA customs channels. Airport customs rules are separate from Iqama exit visas.
+
+Frequently asked questions
+Q: Do I pay VAT as a salaried expat?
+A: You pay VAT in the shelf price when it applies (standard rate in ZATCA e-invoice examples is 15%). Filing VAT returns is for registered businesses.
+Q: What tax when I buy property?
+A: RETT 5% on the transaction unless an exemption applies. https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+Q: Hello, I need ZATCA.
+A: Open https://zatca.gov.sa and say whether you need VAT, Zakat, e-invoicing, RETT, or customs.
+
+Official sources
+https://zatca.gov.sa
+https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/RETTRegulation.aspx
+https://zatca.gov.sa/en/HelpCenter/guidelines/Documents/Simplified%20guide%20to%20the%20real%20estate%20transaction%20tax.pdf
+Compiled for KSA Guide from ZATCA. Confirm rates on ZATCA if amended.

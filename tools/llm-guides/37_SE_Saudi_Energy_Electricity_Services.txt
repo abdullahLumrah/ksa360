@@ -1,0 +1,103 @@
+كهرباء / السعودية للطاقة / الشركة السعودية للكهرباء / halalas
+SE (Saudi Energy), formerly Saudi Electricity Company (SEC): electricity services
+Also searched as: SEC, SE, Saudi Energy, Saudi Electricity, "الشركة السعودية للكهرباء", "السعودية للطاقة", electricity bill, kahraba, Alkahraba app, power cut, meter.
+
+New name
+Saudi Electricity Company now uses the brand "SE (Saudi Energy)". SE says the new name "marks our shift from electricity provider to energy leader". It is the same company, the same accounts and the same website. Users may say SEC, SE, Saudi Electricity or Saudi Energy. Treat them as the same company.
+
+Official channels (from se.com.sa)
+- Website: https://www.se.com.sa (log in or create an account there).
+- App: "Saudi Energy" app, previously called the Alkahraba app. On the App Store, Google Play and Huawei AppGallery.
+- Call centre: 933. Open 24/7, immediate response. Use it for outages and electrical danger.
+- WhatsApp: +966 92 000 1100 (920001100). 24/7.
+- Live chat in the app and website: 24/7.
+- Virtual office (video or voice call with an agent): every day 7 am to 11 pm.
+- Service offices: Sunday to Thursday, 7 am to 3 pm.
+- X (Twitter): @SaudiEnergy, 24/7, reply in about 0 to 10 minutes.
+- Email: 24/7, reply within about one hour.
+- Report an outage without logging in: https://www.se.com.sa/en/GuestReportOutage/
+- View a bill without logging in: https://www.se.com.sa/en/GuestViewBill/
+
+Power cut or danger
+1. Check the SE app for an outage on your meter, and check whether the bill is unpaid.
+2. Report it in the app, on the guest outage page above, or call 933.
+3. Anything that endangers people (a broken cable, an open cabinet, unsafe works near the network): use the "Energy Friends" reporting service in the app or website, or call 933.
+
+Consumption tariffs (official SE table, halalas per kWh; 100 halalas = 1 riyal)
+- Residential: 18 halalas for 1 to 6,000 kWh a month, 30 halalas above 6,000 kWh.
+- Commercial: 22 halalas up to 6,000 kWh, 32 halalas above.
+- Agricultural: 18 halalas up to 6,000 kWh, 22 halalas above.
+- Charities, cooperative institutions and similar: 16 halalas up to 6,000 kWh, 20 halalas above.
+- Governmental: 32 halalas.
+- Private schools and private medical facilities: 18 halalas.
+- Industrial: 20 halalas.
+- Saline Water Conversion Corporation pumping stations: 6.5 halalas.
+- Cloud computing: 18 halalas.
+Heavy-consumption tariff (eligible industrial, commercial and agricultural facilities only): first category 12 halalas on the transmission network, 18 on the distribution network; second category 18 and 24 halalas.
+The bill also shows a meter service fee and VAT. Read the exact lines on your bill. Do not invent the monthly total.
+
+Fixed Bill
+Pay the same amount every month, based on your average consumption over the past 12 months. The difference is settled over the following year, the average is recalculated with each detailed bill, and you can cancel at any time (a settlement bill is issued).
+Apply: log in, "Consumption and Billing", "Fixed Bill", subscribe.
+Installment plans are available for all customer categories except government accounts.
+
+Meter declaration (who uses the meter) – mandatory
+Meter declaration records your relationship with the meter: owner, investor, tenant or heir.
+- The actual beneficiary is whoever is using the meter now, owner or tenant, and must declare all meters they use.
+- While a lease is active, the tenant declares the meter. When the tenant leaves, responsibility goes back to the owner. If the meter is shared with a tenant, the owner declares it.
+- A declared meter has an account number starting with 300.
+- No office visit is needed, but you must create an account on the app or website.
+- Tenants must include the electricity meter number when documenting the lease (Ejar).
+- Tenants do NOT have to pay old electricity bills linked to earlier use. When the lease ends, the meter goes back to the owner's name.
+- Getting alerts for a meter that is not yours? Choose "Account not mine" in the app or website.
+- To contest a declaration, use live chat in the app or call 933.
+- If a bank or SADAD payment shows "meter must be declared", you can still pay, then complete the declaration in the app.
+How to declare: log in, "My Services", "Account Management", "Add Account" (Add Account/Meter Declaration), enter the account details, choose the beneficiary type, accept the Consumption Agreement and submit.
+
+Moving in and moving out
+- Moving in (add beneficiary): Account Management, "Add Beneficiary". Choose the start date and accept the Consumption Agreement.
+- Moving out (remove beneficiary): Account Management, "Remove Beneficiary". Choose the removal date. A removal (final) bill is issued, and you complete it to close your registration.
+
+New electricity connection
+- Apply for a permanent service connection through the Balady platform (or Modon for industrial cities). After the building permit, you get a Coordination Certificate with service availability, meter locations, load, number of units, breaker capacity and cable specifications.
+- For new homes and shops you need: a valid building permit, the meter location prepared to the certificate's technical standards, and earthing work completed.
+- SE connects and installs the meter within a maximum of 20 working days from the payment date, if the account has no outstanding balance. Track it on the website or app.
+- Official residential and commercial connection cost (SAR per kVA of breaker capacity): above 1 to 30 kVA 60; 30 to 60 kVA 95; 60 to 120 kVA 120; 120 to 500 kVA 175; 500 to 4,000 kVA 250.
+- Examples from SE's table, 400 V network: 20 A (13.8 kVA) SAR 828; 30 A SAR 1,242; 40 A SAR 1,656; 50 A SAR 3,278; 70 A SAR 4,589; 100 A SAR 8,280; 150 A SAR 12,420; 200 A SAR 24,150.
+- Examples, 220 V network: 30 A (11.43 kVA) SAR 686; 40 A SAR 914; 50 A SAR 1,143; 70 A SAR 1,600; 100 A SAR 3,620; 150 A SAR 5,429; 200 A SAR 9,144.
+- A temporary service connection is available for construction sites and short-term needs.
+
+Meter changes
+- Add a meter (new independent units): municipal building permit showing the added units, plus a field inspection. Electricity Service Management, "Add Meter", upload documents.
+- Temporary meter removal (renovation or rebuilding): a valid demolition, reconstruction or renovation permit, the bill paid, the required costs paid, and no other beneficiary on the meter. Electricity Service Management, "Temporary Meter Removal".
+- Reinstall a temporarily removed meter: the building permit and the latest bill. Connection fees are paid only if the new load is higher. Moving the meter's location may cost extra.
+- Remove a meter permanently (demolition): the demolition permit, all dues settled and the subscription cancelled, and no other beneficiary.
+- Meter upgrade ("Reinforce Meter"), for more load: latest bill paid, owner approval if you are a tenant or investor, and a certified load statement.
+- Meter splitting ("Meter Division"): a letter or building permit with an approved site plan showing the units, a field inspection, and the latest bill paid.
+- Meter combining ("Meter Consolidation"): all the meters settled, owner approval if tenant or investor.
+- Relocate or remove network equipment: municipality approval if outside your facility, technical feasibility, and costs if any.
+
+Safety and special care
+- Atmain: priority, as far as the network allows, in restoring power during unexpected outages, and flexible payment options, for homes where someone depends on life-support electrical devices. Apply with the approved medical report (log in, choose the account, fill in the form, upload the report).
+- Aamin: SE checks worksites near electrical networks for safety compliance. Enter the worksite location and neighbourhood and upload a photo.
+- Energy Friends: report anything that endangers people or breaches electrical safety.
+
+Other bill tools
+- How to read your bill, consumption analysis, and paying the bill with Qitaf points are available under Bills & Consumption on se.com.sa.
+- Complaints not solved by SE can be escalated to the Saudi Electricity Regulatory Authority (SERA).
+
+Frequently asked questions
+Q: Is SE the same as SEC?
+A: Yes. Saudi Electricity Company rebranded as SE (Saudi Energy). Same accounts, app and website (se.com.sa).
+Q: What number do I call for a power cut?
+A: 933, 24/7. You can also report it in the Saudi Energy app or on se.com.sa/en/GuestReportOutage without logging in.
+Q: How much is electricity per unit for a home?
+A: 18 halalas per kWh for the first 6,000 kWh in a month, 30 halalas above that, plus the meter fee and VAT shown on the bill.
+Q: I rented a flat. Do I pay the old electricity bills?
+A: No. SE says tenants are not responsible for previous bills. Declare the meter in your name (Account Management, Add Account) and include the meter number in your Ejar contract.
+Q: I am moving out.
+A: In the app, Account Management, Remove Beneficiary, choose the date and complete the final bill.
+Q: Someone at home is on oxygen or dialysis.
+A: Apply for Atmain in the app with the approved medical report, for priority restoration during outages.
+
+Source: se.com.sa service pages (Meter Declaration, Add/Remove Account, Permanent Service Connection, Add/Remove Meter, Upgrade/Split Meter, Consumption Tariffs, Fixed Bill, Atmain, Aamin, Service Channels, Our Brand), checked 30 September 2026.
