@@ -25,7 +25,6 @@ class SouqHomeScreen extends StatefulWidget {
 
 class _SouqHomeScreenState extends State<SouqHomeScreen> {
   final _scroll = ScrollController();
-  bool _compactSearch = false;
   List<Ad> _featured = [];
   List<Ad> _recent = [];
   List<Ad> _near = [];
@@ -34,7 +33,6 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _scroll.addListener(_onScroll);
     SouqController.instance.addListener(_onCtrl);
     WidgetsBinding.instance.addPostFrameCallback((_) => _boot());
   }
@@ -60,13 +58,6 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
 
   void _onCtrl() {
     if (mounted) setState(() {});
-  }
-
-  void _onScroll() {
-    final compact = _scroll.offset > 80;
-    if (compact != _compactSearch) {
-      setState(() => _compactSearch = compact);
-    }
   }
 
   @override
@@ -96,50 +87,51 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
           slivers: [
             SliverAppBar(
               pinned: true,
-              expandedHeight: 96,
+              toolbarHeight: 56,
               backgroundColor: AppColors.bg,
               automaticallyImplyLeading: false,
-              flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.pin,
-                background: _HeroHeader(
-                  compact: _compactSearch,
-                  onFavorites: () => openSouqFavorites(context),
-                  onMyAds: () => openSouqMyAds(context),
-                  onChats: () => openSouqChats(context),
-                ),
+              titleSpacing: 12,
+              title: _HeroHeader(
+                onFavorites: () => openSouqFavorites(context),
+                onMyAds: () => openSouqMyAds(context),
+                onChats: () => openSouqChats(context),
               ),
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+                padding: const EdgeInsets.fromLTRB(12, 4, 12, 0),
                 child: Row(
                   children: [
                     Expanded(
                       child: Material(
                         color: AppColors.card,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(12),
                           side: const BorderSide(color: AppColors.stroke),
                         ),
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(12),
                           onTap: () =>
                               openCard(context, const SouqSearchScreen()),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 12,
+                              horizontal: 10,
+                              vertical: 7,
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.search_rounded, size: 22),
-                                const SizedBox(width: 10),
+                                const Icon(Icons.search_rounded, size: 18),
+                                const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     l10n.searchHint,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       color: AppColors.muted,
                                       fontWeight: FontWeight.w600,
+                                      fontSize: 13,
+                                      height: 1.1,
                                     ),
                                   ),
                                 ),
@@ -155,18 +147,23 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
                       style: FilledButton.styleFrom(
                         backgroundColor: AppColors.green,
                         foregroundColor: Colors.white,
+                        visualDensity: VisualDensity.compact,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 12,
+                          horizontal: 10,
+                          vertical: 8,
                         ),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      icon: const Icon(Icons.add_rounded, size: 20),
+                      icon: const Icon(Icons.add_rounded, size: 16),
                       label: Text(
                         l10n.placeAd,
-                        style: const TextStyle(fontWeight: FontWeight.w800),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ],
@@ -256,7 +253,7 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
             if (_featured.isNotEmpty)
               SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 280,
+                  height: 296,
                   child: PageView.builder(
                     controller: PageController(viewportFraction: 0.88),
                     itemCount: _featured.length,
@@ -343,12 +340,10 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
 
 class _HeroHeader extends StatelessWidget {
   const _HeroHeader({
-    required this.compact,
     required this.onFavorites,
     required this.onMyAds,
     required this.onChats,
   });
-  final bool compact;
   final VoidCallback onFavorites;
   final VoidCallback onMyAds;
   final VoidCallback onChats;
@@ -356,111 +351,72 @@ class _HeroHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = SouqL10n.of(context);
-    return ColoredBox(
-      color: AppColors.bg,
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 16, 0),
-          child: Stack(
+    return Row(
+      children: [
+        Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [AppColors.greenDeep, AppColors.green],
+            ),
+          ),
+          child: const Icon(
+            Icons.storefront_rounded,
+            color: AppColors.goldBright,
+            size: 16,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              PositionedDirectional(
-                end: -8,
-                top: -16,
-                child: IgnorePointer(
-                  child: Container(
-                    width: 128,
-                    height: 128,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: RadialGradient(
-                        colors: [
-                          AppColors.green.withValues(alpha: 0.16),
-                          AppColors.green.withValues(alpha: 0),
-                        ],
-                      ),
-                    ),
-                  ),
+              Text(
+                l10n.souq,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: AppColors.navy,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 16,
+                  height: 1.1,
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: compact ? 38 : 44,
-                    height: compact ? 38 : 44,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [AppColors.greenDeep, AppColors.green],
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.green.withValues(alpha: 0.28),
-                          blurRadius: 16,
-                          offset: const Offset(0, 6),
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.storefront_rounded,
-                      color: AppColors.goldBright,
-                      size: compact ? 20 : 24,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          l10n.souq,
-                          style: TextStyle(
-                            color: AppColors.navy,
-                            fontWeight: FontWeight.w900,
-                            fontSize: compact ? 22 : 28,
-                            letterSpacing: -0.6,
-                            height: 1.05,
-                          ),
-                        ),
-                        if (!compact) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            l10n.greeting,
-                            style: const TextStyle(
-                              color: AppColors.muted,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                  _HeaderIcon(
-                    tooltip: l10n.favorites,
-                    icon: Icons.favorite_outline_rounded,
-                    onTap: onFavorites,
-                  ),
-                  _HeaderIcon(
-                    tooltip: l10n.chats,
-                    icon: Icons.chat_bubble_outline_rounded,
-                    onTap: onChats,
-                  ),
-                  _HeaderIcon(
-                    tooltip: l10n.myAds,
-                    icon: Icons.storefront_outlined,
-                    onTap: onMyAds,
-                  ),
-                ],
+              Text(
+                l10n.greeting,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: AppColors.muted,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 11,
+                  height: 1.15,
+                ),
               ),
             ],
           ),
         ),
-      ),
+        _HeaderIcon(
+          tooltip: l10n.favorites,
+          icon: Icons.favorite_outline_rounded,
+          onTap: onFavorites,
+        ),
+        _HeaderIcon(
+          tooltip: l10n.chats,
+          icon: Icons.chat_bubble_outline_rounded,
+          onTap: onChats,
+        ),
+        _HeaderIcon(
+          tooltip: l10n.myAds,
+          icon: Icons.storefront_outlined,
+          onTap: onMyAds,
+        ),
+      ],
     );
   }
 }
@@ -481,6 +437,9 @@ class _HeaderIcon extends StatelessWidget {
     return IconButton(
       tooltip: tooltip,
       visualDensity: VisualDensity.compact,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints.tightFor(width: 30, height: 30),
+      iconSize: 18,
       onPressed: onTap,
       icon: Icon(icon, color: AppColors.navy),
     );

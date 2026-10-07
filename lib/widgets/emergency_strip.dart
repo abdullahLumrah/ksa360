@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data/dial.dart';
 import '../data/emergencies.dart';
+import '../data/healthcare_repository.dart';
 import '../theme/app_theme.dart';
 import 'motion.dart';
 
@@ -14,8 +15,23 @@ class EmergencyStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lines = EmergencyData.hotlines.take(4).toList();
-    return Padding(
+    return ListenableBuilder(
+      listenable: HealthcareRepository.instance,
+      builder: (context, _) {
+        final api = HealthcareRepository.instance.hotlines;
+        final lines = (api.isNotEmpty
+                ? [
+                    for (final line in api)
+                      EmergencyNumber(
+                        label: line.label,
+                        number: line.number,
+                        detail: line.detail,
+                      ),
+                  ]
+                : EmergencyData.hotlines)
+            .take(4)
+            .toList();
+        return Padding(
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,6 +78,8 @@ class EmergencyStrip extends StatelessWidget {
           ),
         ],
       ),
+    );
+      },
     );
   }
 }

@@ -9,6 +9,7 @@ import '../data/dial.dart';
 import '../data/maps_config.dart';
 import '../data/place_videos.dart';
 import '../data/restaurant_menus.dart';
+import '../data/restaurant_repository.dart';
 import '../models/restaurant.dart';
 import '../theme/app_theme.dart';
 import '../widgets/motion.dart';
@@ -25,11 +26,22 @@ class RestaurantDetailScreen extends StatefulWidget {
 
 class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   String? _videoId;
+  Restaurant? _place;
+
+  Restaurant get place => _place ?? widget.place;
 
   @override
   void initState() {
     super.initState();
+    _place = widget.place;
     _loadVideo();
+    _loadMenu();
+  }
+
+  Future<void> _loadMenu() async {
+    final next = await RestaurantRepository.instance.fetchDetail(widget.place);
+    if (!mounted) return;
+    setState(() => _place = next);
   }
 
   Future<void> _loadVideo() async {
@@ -40,10 +52,10 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final place = widget.place;
+    final place = this.place;
     final dishes = dishesFor(place);
     final point = LatLng(place.lat, place.lng);
-    final ownPhoto = place.image.trim();
+    final ownPhoto = foodPhotoFor(place);
     final hasOwnPhoto = ownPhoto.isNotEmpty;
     return Scaffold(
       backgroundColor: AppColors.bg,
@@ -72,6 +84,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                 width: double.infinity,
                 child: CachedNetworkImage(
                   imageUrl: ownPhoto,
+                  httpHeaders: foodPhotoHeaders(ownPhoto),
                   fit: BoxFit.cover,
                   placeholder: (_, __) => ColoredBox(
                     color: cuisineColor(place.kind).withValues(alpha: 0.3),
@@ -150,7 +163,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               if (place.cuisine.isNotEmpty) place.cuisine.replaceAll('_', ' '),
               if (place.city.isNotEmpty) place.city,
               if (place.rating > 0)
-                '★ ${place.rating.toStringAsFixed(1)} (${place.ratings})',
+                '★ ${place.rating.toStringAsFixed(1)} (${place.ratings}${place.reviewSource.isNotEmpty ? ' ${place.reviewSource}' : ''})',
               if (place.km > 0)
                 '${place.km < 10 ? place.km.toStringAsFixed(1) : place.km.toStringAsFixed(0)} km away',
             ].join('  ·  '),
@@ -225,6 +238,18 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (dish.image.isNotEmpty) ...[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: CachedNetworkImage(
+                        imageUrl: dish.image,
+                        width: 56,
+                        height: 56,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                  ],
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,6 +288,9 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   }
 
   String _menuNote(Restaurant place) {
+    if (place.dishes.isNotEmpty) {
+      return 'Menu from HungerStation. Prices are what the listing showed.';
+    }
     final n = place.name.toLowerCase();
     if (n.contains('baik') || n.contains('herfy') || n.contains('kudu')) {
       return 'Well-known items at this chain. Prices move by city.';

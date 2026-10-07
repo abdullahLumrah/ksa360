@@ -9,9 +9,9 @@ class SouqL10n {
     return SouqL10n(code == 'ar');
   }
 
-  String get souq => ar ? 'السوق' : 'Souq';
+  String get souq => ar ? 'السوق' : 'Marketplace';
   String get greeting => ar ? 'بيع واشترِ بالقرب منك' : 'Buy and sell nearby';
-  String get searchHint => ar ? 'ابحث في السوق' : 'Search Souq';
+  String get searchHint => ar ? 'ابحث في السوق' : 'Search Marketplace';
   String get featured => ar ? 'سيارات مميزة' : 'Featured cars';
   String get recent => ar ? 'أضيف حديثاً' : 'Recently added';
   String get nearYou => ar ? 'بالقرب منك' : 'Near you';
@@ -22,7 +22,7 @@ class SouqL10n {
       ar ? 'تصفح حسب النوع' : 'Browse by what you need';
   String get featuredSub => ar ? 'من حراج' : 'From Haraj';
   String get recentSub =>
-      ar ? 'أحدث الإعلانات في السوق' : 'Fresh listings across Souq';
+      ar ? 'أحدث الإعلانات في السوق' : 'Fresh listings across the marketplace';
   String get browseCars => ar ? 'تصفح السيارات' : 'Browse cars';
   String get filters => ar ? 'تصفية' : 'Filters';
   String get sort => ar ? 'ترتيب' : 'Sort';

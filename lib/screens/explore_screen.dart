@@ -5,47 +5,308 @@ import 'package:flutter/material.dart';
 
 import '../data/app_analytics.dart';
 import '../data/app_search.dart';
+import '../data/auth_session.dart';
 import '../data/category_style.dart';
 import '../data/content_repository.dart';
 import '../data/dial.dart';
 import '../data/emergencies.dart';
 import '../data/life_settings.dart';
 import '../data/restaurant_repository.dart';
+import '../data/school_repository.dart';
 import '../features/souq/domain/souq_models.dart';
 import '../features/souq/presentation/screens/souq_ad_details_screen.dart';
+import '../features/souq/presentation/screens/souq_home_screen.dart';
 import '../models/activity.dart';
+import '../models/job.dart';
 import '../models/models.dart';
 import '../models/restaurant.dart';
+import '../models/school.dart';
 import '../theme/app_theme.dart';
 import '../widgets/activity_photo.dart';
 import '../widgets/category_widgets.dart';
 import '../widgets/motion.dart';
 import '../widgets/post_cards.dart';
 import 'activity_detail_screen.dart';
+import 'auth_sheet.dart';
 import 'category_screen.dart';
+import 'directory_panes.dart';
 import 'embassy_directory_screen.dart';
+import 'emergency_screen.dart';
+import 'guide_submit_screen.dart';
+import 'job_detail_screen.dart';
+import 'jobs_screen.dart';
 import 'post_detail_screen.dart';
 import 'restaurant_detail_screen.dart';
+import 'school_detail_screen.dart';
 
-class ExploreScreen extends StatelessWidget {
+class _AppFeature {
+  const _AppFeature({
+    required this.id,
+    required this.title,
+    required this.titleAr,
+    required this.thumb,
+    required this.page,
+  });
+
+  final String id;
+  final String title;
+  final String titleAr;
+  final String thumb;
+  final Widget page;
+
+  String label(BuildContext context) {
+    return Directionality.of(context) == TextDirection.rtl ? titleAr : title;
+  }
+}
+
+const _features = <_AppFeature>[
+  _AppFeature(
+    id: 'marketplace',
+    title: 'Marketplace',
+    titleAr: 'السوق',
+    thumb: 'assets/categories/rail_marketplace.jpg',
+    page: SouqHomeScreen(),
+  ),
+  _AppFeature(
+    id: 'jobs',
+    title: 'Jobs',
+    titleAr: 'وظائف',
+    thumb: 'assets/categories/rail_jobs.jpg',
+    page: JobsScreen(),
+  ),
+  _AppFeature(
+    id: 'daily',
+    title: 'Daily in KSA',
+    titleAr: 'يومياً في السعودية',
+    thumb: 'assets/categories/rail_daily.jpg',
+    page: DailyKsaPane(),
+  ),
+  _AppFeature(
+    id: 'clinics',
+    title: 'Clinics',
+    titleAr: 'العيادات',
+    thumb: 'assets/categories/rail_clinics.jpg',
+    page: ClinicsPane(),
+  ),
+  _AppFeature(
+    id: 'study',
+    title: 'Study here',
+    titleAr: 'الدراسة هنا',
+    thumb: 'assets/categories/rail_study.jpg',
+    page: StudyPane(),
+  ),
+  _AppFeature(
+    id: 'eat',
+    title: 'Eat nearby',
+    titleAr: 'طعام قريب',
+    thumb: 'assets/categories/rail_eat.jpg',
+    page: EatPane(),
+  ),
+  _AppFeature(
+    id: 'activities',
+    title: 'Activities',
+    titleAr: 'أنشطة',
+    thumb: 'assets/categories/rail_activities.jpg',
+    page: ActivitiesPane(),
+  ),
+  _AppFeature(
+    id: 'emergency',
+    title: 'Emergency',
+    titleAr: 'طوارئ',
+    thumb: 'assets/categories/rail_emergency.jpg',
+    page: EmergencyScreen(),
+  ),
+  _AppFeature(
+    id: 'guides',
+    title: 'Guides',
+    titleAr: 'الأدلة',
+    thumb: 'assets/categories/rail_guides.jpg',
+    page: _GuidesHub(),
+  ),
+];
+
+class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
 
   @override
+  State<ExploreScreen> createState() => _ExploreScreenState();
+}
+
+class _ExploreScreenState extends State<ExploreScreen> {
+  var _index = 0;
+
+  void _open(int index) {
+    if (index == _index) return;
+    setState(() => _index = index);
+    AppAnalytics.instance.section(_features[index].id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final repo = ContentRepository.instance;
-    final tops = repo.topCategories;
-    return CustomScrollView(
+    final pad = MediaQuery.paddingOf(context);
+    final feature = _features[_index];
+    return ColoredBox(
+      color: AppColors.bg,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 92,
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                color: AppColors.card,
+                border: BorderDirectional(
+                  end: BorderSide(color: AppColors.stroke),
+                ),
+              ),
+              child: ListView.separated(
+                padding: EdgeInsetsDirectional.fromSTEB(
+                  4,
+                  pad.top + 10,
+                  4,
+                  pad.bottom + 96,
+                ),
+                itemCount: _features.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 6),
+                itemBuilder: (context, index) {
+                  final item = _features[index];
+                  final on = index == _index;
+                  return _FeatureRailTile(
+                    feature: item,
+                    selected: on,
+                    onTap: () => _open(index),
+                  );
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: ClipRect(
+              child: Navigator(
+                key: ValueKey(feature.id),
+                onGenerateRoute: (settings) {
+                  return PageRouteBuilder<void>(
+                    settings: settings,
+                    pageBuilder: (_, __, ___) => feature.page,
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeatureRailTile extends StatelessWidget {
+  const _FeatureRailTile({
+    required this.feature,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final _AppFeature feature;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: PressableScale(
+      borderRadius: BorderRadius.circular(14),
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        width: double.infinity,
+        padding: const EdgeInsets.fromLTRB(4, 8, 4, 7),
+        decoration: BoxDecoration(
+          color: selected ? const Color(0xFFE4F0E8) : Colors.transparent,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: selected
+                ? AppColors.goldSoft.withValues(alpha: 0.35)
+                : Colors.transparent,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                feature.thumb,
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 5),
+            SizedBox(
+              width: double.infinity,
+              height: 26,
+              child: Text(
+                feature.label(context),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: selected ? AppColors.navy : AppColors.muted,
+                  fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+                  fontSize: 10,
+                  height: 1.15,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      ),
+    );
+  }
+}
+
+class _GuidesHub extends StatelessWidget {
+  const _GuidesHub();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: ContentRepository.instance,
+      builder: (context, _) {
+        final repo = ContentRepository.instance;
+        final tops = repo.topCategories;
+        return Scaffold(
+          backgroundColor: AppColors.bg,
+          body: CustomScrollView(
       slivers: [
         SliverAppBar(
           pinned: true,
-          title: const Text('Categories'),
+          title: const Text('Guides'),
           automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              tooltip: 'Suggest a guide',
+              icon: const Icon(Icons.add_rounded),
+              onPressed: () async {
+                if (!AuthSession.instance.isSignedIn) {
+                  await showAuthSheet(context);
+                  if (!context.mounted) return;
+                  if (!AuthSession.instance.isSignedIn) return;
+                }
+                if (!context.mounted) return;
+                openCard(context, const GuideSubmitScreen());
+              },
+            ),
+          ],
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
             child: Text(
-              'Browse every topic. Open a category to see its guides as cards.',
+              'Posts and topics. Open a guide, or suggest one for review.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.muted,
               ),
@@ -56,10 +317,10 @@ class ExploreScreen extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           sliver: SliverGrid(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+              crossAxisCount: 2,
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              childAspectRatio: 0.86,
+              childAspectRatio: 0.92,
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -97,10 +358,10 @@ class ExploreScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
               sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 0.86,
+                  childAspectRatio: 0.92,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
@@ -123,7 +384,10 @@ class ExploreScreen extends StatelessWidget {
             ),
           ],
         const SliverToBoxAdapter(child: SizedBox(height: 96)),
-      ],
+          ],
+        ),
+      );
+      },
     );
   }
 }
@@ -161,6 +425,11 @@ class _SearchScreenState extends State<SearchScreen> {
         settings.prayerLat,
         settings.prayerLng,
       );
+      SchoolRepository.instance.searchRemote(
+        query,
+        settings.prayerLat,
+        settings.prayerLng,
+      );
     });
   }
 
@@ -188,6 +457,16 @@ class _SearchScreenState extends State<SearchScreen> {
       openCard(context, EmbassyDirectoryScreen(initialQuery: data.country));
     } else if (data is Ad) {
       openCard(context, SouqAdDetailsScreen(adId: data.id));
+    } else if (data is Job) {
+      openCard(context, JobDetailScreen(id: data.id, job: data));
+    } else if (data is School) {
+      AppAnalytics.instance.open(
+        section: 'schools',
+        targetId: data.id,
+        title: data.name,
+        category: 'search',
+      );
+      openCard(context, SchoolDetailScreen(school: data));
     }
   }
 
@@ -232,6 +511,7 @@ class _SearchScreenState extends State<SearchScreen> {
               listenable: Listenable.merge([
                 LifeSettings.instance,
                 RestaurantRepository.instance,
+                SchoolRepository.instance,
               ]),
               builder: (context, _) {
                 final query = _controller.text.trim();
@@ -388,6 +668,8 @@ class _GlobalHitTile extends StatelessWidget {
       AppSearchSection.play => Icons.sports_esports_rounded,
       AppSearchSection.life => Icons.health_and_safety_rounded,
       AppSearchSection.souq => Icons.storefront_rounded,
+      AppSearchSection.schools => Icons.school_rounded,
+      AppSearchSection.jobs => Icons.work_outline_rounded,
     };
     return Container(
       width: 56,

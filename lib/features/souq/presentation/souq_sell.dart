@@ -52,21 +52,3 @@ Future<bool> toggleSouqFavorite(BuildContext context, String id) async {
   await SouqController.instance.toggleFavorite(id);
   return true;
 }
-
-Future<void> openSouqFavorites(BuildContext context) async {
-  if (!await ensureSouqSignedIn(context)) return;
-  if (!context.mounted) return;
-  openCard(context, const SouqFavoritesScreen());
-}
-
-Future<void> openSouqMyAds(BuildContext context) async {
-  if (!await ensureSouqSignedIn(context)) return;
-  if (!context.mounted) return;
-  openCard(context, const SouqMyAdsScreen());
-}
-
-Future<bool> toggleSouqFavorite(BuildContext context, String id) async {
-  if (!await ensureSouqSignedIn(context)) return false;
-  await SouqController.instance.toggleFavorite(id);
-  return true;
-}

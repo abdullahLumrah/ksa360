@@ -207,13 +207,13 @@ class _SouqAdCardState extends State<SouqAdCard>
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+                padding: EdgeInsets.fromLTRB(12, widget.wide ? 8 : 10, 12, widget.wide ? 10 : 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       ad.title,
-                      maxLines: 2,
+                      maxLines: widget.wide ? 1 : 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
@@ -225,9 +225,12 @@ class _SouqAdCardState extends State<SouqAdCard>
                     const SizedBox(height: 6),
                     Text(
                       '${ad.city} · ${SouqFormat.relativeTime(ad.createdAt, ar: l10n.ar)}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.muted,
                         fontSize: 12,
+                        height: 1.2,
                       ),
                     ),
                     if (ad.categoryId == SouqCatalog.cars) ...[

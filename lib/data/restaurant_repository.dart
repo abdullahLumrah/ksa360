@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
@@ -5,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import '../models/restaurant.dart';
 import 'app_api.dart';
 import 'app_api_config.dart';
+import 'google_places.dart';
 import 'life_settings.dart';
 import 'saudi_cities.dart';
 
@@ -19,6 +21,8 @@ class RestaurantRepository extends ChangeNotifier {
   String? refreshError;
   ({double lat, double lng})? _queued;
   final _fetchedCells = <String>{};
+  final _googleCells = <String>{};
+  bool _googleBusy = false;
 
   Future<void> load() async {
     if (loaded) return;
@@ -142,12 +146,30 @@ class RestaurantRepository extends ChangeNotifier {
         );
         if (incoming.isEmpty) continue;
         if (_merge(incoming) > 0) notifyListeners();
+        unawaited(_enrichGooglePhotos(next.lat, next.lng));
       }
     } catch (e) {
       refreshError = e.toString();
     } finally {
       refreshing = false;
       notifyListeners();
+    }
+  }
+
+  Future<Restaurant> fetchDetail(Restaurant place) async {
+    try {
+      final res = await AppApi.get(AppApi.uri('/restaurants/${place.id}'));
+      if (res.statusCode != 200) return place;
+      final body = jsonDecode(res.body);
+      if (body is! Map) return place;
+      final next = Restaurant.fromJson(
+        Map<String, dynamic>.from(body),
+      ).withDistance(place.km);
+      _merge([next]);
+      notifyListeners();
+      return next;
+    } catch (_) {
+      return place;
     }
   }
 
@@ -166,7 +188,7 @@ class RestaurantRepository extends ChangeNotifier {
     required double lng,
     String query = '',
     String kind = 'nearby',
-    int limit = 400,
+    int limit = 800,
     double radiusKm = 80,
   }) async {
     final cell = '${(lat * 20).round()}_${(lng * 20).round()}_$kind';
@@ -206,13 +228,16 @@ class RestaurantRepository extends ChangeNotifier {
     if (incoming.isEmpty) return 0;
     final byId = {for (final p in places) p.id: p};
     var added = 0;
+    var updated = 0;
     for (final place in incoming) {
       final existingId = _duplicateId(place, byId.values);
       if (existingId != null) {
         final current = byId[existingId]!;
-        final richerImage = place.image.isNotEmpty && current.image.isEmpty;
+        final richerImage = _betterImage(place.image, current.image);
         final richerVideo = place.video.isNotEmpty && current.video.isEmpty;
-        if (richerImage || richerVideo) {
+        final richerRating = place.rating > current.rating ||
+            place.ratings > current.ratings;
+        if (richerImage || richerVideo || richerRating) {
           byId[existingId] = Restaurant(
             id: current.id,
             name: current.name,
@@ -226,21 +251,26 @@ class RestaurantRepository extends ChangeNotifier {
             web: current.web,
             amenity: current.amenity,
             image: richerImage ? place.image : current.image,
-            rating: current.rating,
-            ratings: current.ratings,
+            rating: place.rating > current.rating ? place.rating : current.rating,
+            ratings: place.ratings > current.ratings ? place.ratings : current.ratings,
             video: richerVideo ? place.video : current.video,
             km: current.km,
+            dishes: place.dishes.isNotEmpty ? place.dishes : current.dishes,
+            reviewSource: place.reviewSource.isNotEmpty
+                ? place.reviewSource
+                : current.reviewSource,
           );
+          updated += 1;
         }
         continue;
       }
       byId[place.id] = place;
       added++;
     }
-    if (added == 0 && places.isNotEmpty) return 0;
+    if (added == 0 && updated == 0) return 0;
     places = byId.values.toList();
     _recount();
-    return added == 0 ? places.length : added;
+    return added + updated;
   }
 
   String? _duplicateId(Restaurant place, Iterable<Restaurant> existing) {
@@ -248,8 +278,14 @@ class RestaurantRepository extends ChangeNotifier {
     for (final other in existing) {
       if (other.id == place.id) return other.id;
       if (needle.length < 4) continue;
-      if (km(place.lat, place.lng, other.lat, other.lng) > 0.09) continue;
-      if (_norm(other.name) == needle) return other.id;
+      if (km(place.lat, place.lng, other.lat, other.lng) > 0.14) continue;
+      final otherName = _norm(other.name);
+      if (otherName == needle) return other.id;
+      if (needle.length >= 6 && otherName.length >= 6) {
+        if (needle.startsWith(otherName) || otherName.startsWith(needle)) {
+          return other.id;
+        }
+      }
     }
     return null;
   }
@@ -263,6 +299,204 @@ class RestaurantRepository extends ChangeNotifier {
       if (az || digit || ar) buf.writeCharCode(rune);
     }
     return buf.toString();
+  }
+
+  static bool _googleImage(String url) {
+    return url.contains('places.googleapis.com') ||
+        url.contains('maps.googleapis.com') ||
+        url.contains('googleusercontent.com');
+  }
+
+  static bool _betterImage(String incoming, String current) {
+    if (incoming.isEmpty) return false;
+    if (current.isEmpty) return true;
+    if (_googleImage(incoming) && !_googleImage(current)) return true;
+    if (current.contains('unsplash.com') && !incoming.contains('unsplash.com')) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> _enrichGooglePhotos(double lat, double lng) async {
+    final cell = '${(lat * 40).round()}_${(lng * 40).round()}';
+    if (_googleBusy || _googleCells.contains(cell)) return;
+    _googleBusy = true;
+    try {
+      final goog = <Restaurant>[];
+      const step = 0.016;
+      final jobs = <Future<List<Restaurant>>>[
+        GooglePlaces.nearby(lat: lat, lng: lng, radius: 1800),
+        GooglePlaces.nearby(lat: lat + step, lng: lng, radius: 1600),
+        GooglePlaces.nearby(lat: lat - step, lng: lng, radius: 1600),
+        GooglePlaces.nearby(lat: lat, lng: lng + step, radius: 1600),
+        GooglePlaces.nearby(lat: lat, lng: lng - step, radius: 1600),
+      ];
+      for (final chunk in await Future.wait(jobs)) {
+        goog.addAll(chunk);
+      }
+      final byGoogleId = <String, Restaurant>{};
+      for (final place in goog) {
+        if (place.image.isEmpty) continue;
+        byGoogleId[place.id] = place;
+      }
+      final resolved = <Restaurant>[];
+      final raw = byGoogleId.values.toList();
+      const batch = 8;
+      for (var i = 0; i < raw.length; i += batch) {
+        final end = math.min(i + batch, raw.length);
+        resolved.addAll(
+          await Future.wait(
+            raw.sublist(i, end).map(GooglePlaces.withDisplayPhoto),
+          ),
+        );
+      }
+      final overlay = <Restaurant>[];
+      final payload = <Map<String, dynamic>>[];
+      final known = {for (final p in places) p.id: p};
+      for (final google in resolved) {
+        if (google.image.isEmpty) continue;
+        final matchId = _duplicateId(google, known.values);
+        final googlePlaceId = google.id.startsWith('g-')
+            ? google.id.substring(2)
+            : google.id;
+        if (matchId != null) {
+          final current = known[matchId]!;
+          if (!_betterImage(google.image, current.image) &&
+              google.rating <= current.rating) {
+            continue;
+          }
+          overlay.add(
+            Restaurant(
+              id: current.id,
+              name: current.name,
+              lat: current.lat,
+              lng: current.lng,
+              kind: current.kind,
+              cuisine: current.cuisine,
+              city: current.city,
+              phone: current.phone,
+              hours: current.hours,
+              web: current.web,
+              amenity: current.amenity,
+              image: google.image,
+              rating: google.rating,
+              ratings: google.ratings,
+              video: current.video,
+              km: current.km,
+            ),
+          );
+          payload.add({
+            'id': current.id,
+            'image': google.image,
+            'googlePlaceId': googlePlaceId,
+          });
+        } else {
+          overlay.add(google);
+          payload.add({
+            'id': google.id,
+            'name': google.name,
+            'lat': google.lat,
+            'lng': google.lng,
+            'kind': google.kind,
+            'cuisine': google.cuisine,
+            'city': google.city,
+            'phone': google.phone,
+            'hours': google.hours,
+            'web': google.web,
+            'amenity': google.amenity,
+            'image': google.image,
+            'rating': google.rating,
+            'ratings': google.ratings,
+            'googlePlaceId': googlePlaceId,
+          });
+        }
+      }
+      final missing = nearby(lat: lat, lng: lng, limit: 36)
+          .where((p) => !_googleImage(p.image))
+          .take(18)
+          .toList();
+      for (var i = 0; i < missing.length; i += 6) {
+        final slice = missing.sublist(i, math.min(i + 6, missing.length));
+        final found = await Future.wait(
+          slice.map(
+            (place) => GooglePlaces.searchText(
+              query: place.name,
+              lat: place.lat,
+              lng: place.lng,
+              radius: 600,
+            ),
+          ),
+        );
+        for (var j = 0; j < slice.length; j++) {
+          final current = slice[j];
+          Restaurant? hit;
+          var best = 0.25;
+          for (final candidate in found[j]) {
+            if (candidate.image.isEmpty) continue;
+            final dist = km(current.lat, current.lng, candidate.lat, candidate.lng);
+            if (dist > best) continue;
+            final same = _duplicateId(candidate, [current]) != null;
+            if (!same && dist > 0.08) continue;
+            best = dist;
+            hit = candidate;
+          }
+          if (hit == null) continue;
+          final withPhoto = await GooglePlaces.withDisplayPhoto(hit);
+          if (!_betterImage(withPhoto.image, current.image)) continue;
+          overlay.add(
+            Restaurant(
+              id: current.id,
+              name: current.name,
+              lat: current.lat,
+              lng: current.lng,
+              kind: current.kind,
+              cuisine: current.cuisine,
+              city: current.city,
+              phone: current.phone,
+              hours: current.hours,
+              web: current.web,
+              amenity: current.amenity,
+              image: withPhoto.image,
+              rating: withPhoto.rating,
+              ratings: withPhoto.ratings,
+              video: current.video,
+              km: current.km,
+            ),
+          );
+          payload.add({
+            'id': current.id,
+            'image': withPhoto.image,
+            'googlePlaceId': withPhoto.id.startsWith('g-')
+                ? withPhoto.id.substring(2)
+                : withPhoto.id,
+          });
+        }
+      }
+      final changed = _merge(overlay);
+      if (changed > 0) notifyListeners();
+      if (payload.isNotEmpty) {
+        try {
+          await AppApi.post(
+            AppApi.uri('/restaurants/photos'),
+            body: jsonEncode({'items': payload}),
+            timeout: const Duration(seconds: 20),
+          );
+        } catch (e) {
+          debugPrint('restaurant photo save skipped: $e');
+        }
+      }
+      _googleCells.add(cell);
+      debugPrint(
+        'Google restaurant photos: ${resolved.length} fetched, $changed applied',
+      );
+    } on GooglePlacesException catch (e) {
+      debugPrint('Google Places photos skipped: ${e.message}');
+      if (e.blocked) _googleCells.add(cell);
+    } catch (e) {
+      debugPrint('Google Places photos skipped: $e');
+    } finally {
+      _googleBusy = false;
+    }
   }
 }
 

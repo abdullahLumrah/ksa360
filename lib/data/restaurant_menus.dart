@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/restaurant.dart';
+import 'maps_config.dart';
 
 const cuisineKinds = <CuisineKind>[
   CuisineKind(
@@ -193,6 +194,7 @@ const Map<String, List<Dish>> _byKind = {
 };
 
 List<Dish> dishesFor(Restaurant place) {
+  if (place.dishes.isNotEmpty) return place.dishes;
   final n = place.name.toLowerCase();
   if (n.contains('baik') || n.contains('البيك')) return _alBaik;
   if (n.contains('herfy') || n.contains('هرفي')) return _herfy;
@@ -356,10 +358,16 @@ const _cuisinePhotos = <String, List<String>>{
 
 String cuisineFallbackPhoto(Restaurant place) {
   final shots = _cuisinePhotos[place.kind] ?? _cuisinePhotos['arab']!;
-  return shots[place.id.hashCode.abs() % shots.length];
+  return shots.first;
 }
 
 String foodPhotoFor(Restaurant place) {
-  if (place.image.isNotEmpty) return place.image;
+  final url = place.image.trim();
+  if (url.isNotEmpty && !url.contains('unsplash.com')) return url;
   return cuisineFallbackPhoto(place);
+}
+
+Map<String, String> foodPhotoHeaders(String url) {
+  if (url.contains('googleapis.com')) return kGooglePlacesAndroidHeaders;
+  return const {};
 }

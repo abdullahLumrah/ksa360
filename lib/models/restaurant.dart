@@ -16,6 +16,8 @@ class Restaurant {
     this.ratings = 0,
     this.video = '',
     this.km = 0,
+    this.dishes = const [],
+    this.reviewSource = '',
   });
 
   final String id;
@@ -34,6 +36,8 @@ class Restaurant {
   final int ratings;
   final String video;
   final double km;
+  final List<Dish> dishes;
+  final String reviewSource;
 
   Restaurant withDistance(double value) => Restaurant(
         id: id,
@@ -52,6 +56,8 @@ class Restaurant {
         ratings: ratings,
         video: video,
         km: value,
+        dishes: dishes,
+        reviewSource: reviewSource,
       );
 
   factory Restaurant.fromJson(Map<String, dynamic> json) {
@@ -72,6 +78,11 @@ class Restaurant {
       ratings: (json['ratings'] as num?)?.toInt() ?? 0,
       video: json['video'] as String? ?? '',
       km: (json['km'] as num?)?.toDouble() ?? 0,
+      dishes: (json['dishes'] as List? ?? const [])
+          .whereType<Map>()
+          .map((item) => Dish.fromJson(Map<String, dynamic>.from(item)))
+          .toList(),
+      reviewSource: json['reviewSource'] as String? ?? '',
     );
   }
 }
@@ -81,11 +92,25 @@ class Dish {
     required this.name,
     required this.detail,
     required this.price,
+    this.image = '',
+    this.category = '',
   });
 
   final String name;
   final String detail;
   final String price;
+  final String image;
+  final String category;
+
+  factory Dish.fromJson(Map<String, dynamic> json) {
+    return Dish(
+      name: (json['name'] ?? '').toString(),
+      detail: (json['detail'] ?? json['description'] ?? '').toString(),
+      price: (json['price'] ?? '').toString(),
+      image: (json['image'] ?? '').toString(),
+      category: (json['category'] ?? '').toString(),
+    );
+  }
 }
 
 class CuisineKind {

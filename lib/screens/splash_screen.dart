@@ -10,8 +10,11 @@ import '../data/activity_store.dart';
 import '../data/reels_repository.dart';
 import '../data/reel_watch_store.dart';
 import '../data/content_repository.dart';
+import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
 import '../data/restaurant_repository.dart';
+import '../data/shop_repository.dart';
+import '../data/school_repository.dart';
 import '../theme/app_theme.dart';
 import '../widgets/ksa360_mark.dart';
 import 'home_shell.dart';
@@ -91,6 +94,9 @@ class _SplashScreenState extends State<SplashScreen>
         ContentRepository.instance.load(),
         LifeSettings.instance.load(),
         RestaurantRepository.instance.load(),
+        ShopRepository.instance.load(),
+        HealthcareRepository.instance.load(),
+        SchoolRepository.instance.load(),
         ActivityRepository.instance.load(),
         ReelsRepository.instance.load(),
         ActivityStore.instance.load(),

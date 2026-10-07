@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../data/dial.dart';
 import '../data/emergencies.dart';
+import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
+import '../models/health_facility.dart';
 import '../theme/app_theme.dart';
 import '../widgets/motion.dart';
 import 'embassy_directory_screen.dart';
+import 'healthcare_detail_screen.dart';
+import 'healthcare_screen.dart';
 
 class EmergencyScreen extends StatelessWidget {
   const EmergencyScreen({super.key});
@@ -16,9 +20,32 @@ class EmergencyScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Emergency')),
       body: ListenableBuilder(
-        listenable: settings,
+        listenable: Listenable.merge([
+          settings,
+          HealthcareRepository.instance,
+        ]),
         builder: (context, _) {
-          final hospitals = EmergencyData.hospitalsNear(settings.cityId);
+          final health = HealthcareRepository.instance;
+          final hotlines = health.hotlines.isNotEmpty
+              ? health.hotlines
+              : [
+                  for (final line in EmergencyData.hotlines)
+                    HealthHotline(
+                      id: line.number,
+                      label: line.label,
+                      number: line.number,
+                      detail: line.detail,
+                    ),
+                ];
+          final nearby = health.nearby(
+            lat: settings.prayerLat,
+            lng: settings.prayerLng,
+            emergencyOnly: true,
+            limit: 8,
+          );
+          final hospitals = nearby.isNotEmpty
+              ? nearby
+              : const <HealthFacility>[];
           final posts = EmergencyData.embassiesFor(settings.nationality);
           return ListView(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
@@ -28,21 +55,69 @@ class EmergencyScreen extends StatelessWidget {
                 style: TextStyle(color: AppColors.muted),
               ),
               const SizedBox(height: 12),
-              for (final line in EmergencyData.hotlines)
+              for (final line in hotlines)
                 _CallTile(
                   title: '${line.label}  ·  ${line.number}',
                   subtitle: line.detail,
                   number: line.number,
                   highlight: line.number == '911',
                 ),
+              if (health.steps.isNotEmpty) ...[
+                const SizedBox(height: 18),
+                const Text(
+                  'What to do',
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+                ),
+                const SizedBox(height: 8),
+                for (final step in health.steps)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      '${step.title}\n${step.detail}',
+                      style: const TextStyle(
+                        color: AppColors.muted,
+                        height: 1.35,
+                      ),
+                    ),
+                  ),
+              ],
               const SizedBox(height: 18),
-              Text(
-                'Hospitals near ${settings.city.name}',
-                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Hospitals near ${settings.gpsLat != null ? settings.locationLabel : settings.city.name}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () =>
+                        openCard(context, const HealthcareScreen()),
+                    child: const Text('Map'),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
-              for (final h in hospitals)
-                _CallTile(title: h.name, subtitle: h.phone, number: h.phone),
+              if (hospitals.isNotEmpty)
+                for (final h in hospitals)
+                  _CallTile(
+                    title: h.name,
+                    subtitle: [
+                      if (h.phone.isNotEmpty) h.phone,
+                      healthKindTitle(h.kind),
+                      if (h.km > 0)
+                        '${h.km < 10 ? h.km.toStringAsFixed(1) : h.km.toStringAsFixed(0)} km',
+                    ].join('  ·  '),
+                    number: h.phone,
+                    onOpen: () =>
+                        openCard(context, HealthcareDetailScreen(place: h)),
+                  )
+              else
+                for (final h in EmergencyData.hospitalsNear(settings.cityId))
+                  _CallTile(title: h.name, subtitle: h.phone, number: h.phone),
               const SizedBox(height: 18),
               const Text(
                 'Embassy / consulate',
@@ -184,19 +259,27 @@ class _CallTile extends StatelessWidget {
     required this.subtitle,
     required this.number,
     this.highlight = false,
+    this.onOpen,
   });
 
   final String title;
   final String subtitle;
   final String number;
   final bool highlight;
+  final VoidCallback? onOpen;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: PressableScale(
-        onTap: () => callNumber(number),
+        onTap: () {
+          if (number.trim().isNotEmpty) {
+            callNumber(number);
+          } else {
+            onOpen?.call();
+          }
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(

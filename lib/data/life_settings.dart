@@ -65,7 +65,6 @@ class LifeSettings extends ChangeNotifier {
       final enabled = await Geolocator.isLocationServiceEnabled();
       if (!enabled) {
         locationError = 'Location is turned off';
-        useGps = false;
         notifyListeners();
         return;
       }
@@ -76,13 +75,23 @@ class LifeSettings extends ChangeNotifier {
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
         locationError = 'Location permission needed';
-        useGps = false;
         notifyListeners();
         return;
       }
+      final last = await Geolocator.getLastKnownPosition();
+      if (last != null) {
+        gpsLat = last.latitude;
+        gpsLng = last.longitude;
+        useGps = true;
+        if (SaudiCities.insideKingdom(last.latitude, last.longitude)) {
+          cityId = SaudiCities.nearest(last.latitude, last.longitude).id;
+        }
+        notifyListeners();
+      }
       final pos = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.medium,
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 8),
         ),
       );
       gpsLat = pos.latitude;
@@ -94,8 +103,9 @@ class LifeSettings extends ChangeNotifier {
         await prefs.setString(_cityKey, cityId);
       }
     } catch (_) {
-      locationError = 'Could not read GPS';
-      useGps = false;
+      if (gpsLat == null) {
+        locationError = 'Could not read GPS';
+      }
     }
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();

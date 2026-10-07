@@ -103,8 +103,8 @@ class SouqCategoryTile extends StatelessWidget {
                           fontSize: featured
                               ? 26
                               : compact
-                                  ? 12
-                                  : 13,
+                                  ? 10
+                                  : 11,
                           height: 1.15,
                           letterSpacing: featured ? -0.4 : -0.1,
                         ),
@@ -117,7 +117,7 @@ class SouqCategoryTile extends StatelessWidget {
                         style: TextStyle(
                           color: category.accent,
                           fontWeight: FontWeight.w700,
-                          fontSize: featured ? 13 : 10.5,
+                          fontSize: featured ? 13 : 9.5,
                         ),
                       ),
                     ],

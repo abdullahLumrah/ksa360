@@ -2,13 +2,16 @@ import '../features/souq/presentation/souq_controller.dart';
 import '../features/souq/presentation/souq_format.dart';
 import '../models/activity.dart';
 import '../models/models.dart';
+import '../models/school.dart';
 import 'content_repository.dart';
+import 'job_repository.dart';
 import 'emergencies.dart';
 import 'ksa_activities.dart';
 import 'life_settings.dart';
 import 'restaurant_repository.dart';
+import 'school_repository.dart';
 
-enum AppSearchSection { category, guide, eat, play, life, souq }
+enum AppSearchSection { category, guide, eat, play, life, souq, schools, jobs }
 
 class AppSearchHit {
   const AppSearchHit({
@@ -39,6 +42,8 @@ class AppSearchGroup {
         AppSearchSection.play => 'Play',
         AppSearchSection.life => 'Life',
         AppSearchSection.souq => 'Souq',
+        AppSearchSection.schools => 'Schools',
+        AppSearchSection.jobs => 'Jobs',
       };
 }
 
@@ -66,6 +71,10 @@ class AppSearch {
         AppSearchGroup(section: AppSearchSection.life, hits: hits),
       if (_souq(q) case final hits when hits.isNotEmpty)
         AppSearchGroup(section: AppSearchSection.souq, hits: hits),
+      if (_schools(lat, lng, q) case final hits when hits.isNotEmpty)
+        AppSearchGroup(section: AppSearchSection.schools, hits: hits),
+      if (_jobs(q) case final hits when hits.isNotEmpty)
+        AppSearchGroup(section: AppSearchSection.jobs, hits: hits),
     ];
     return out;
   }
@@ -240,6 +249,52 @@ class AppSearch {
             title: ad.title,
             subtitle: '${ad.city} · ${SouqFormat.sar(ad.price)}',
             data: ad,
+          ),
+        )
+        .toList();
+  }
+
+  static List<AppSearchHit> _schools(double lat, double lng, String q) {
+    final places = SchoolRepository.instance.nearby(
+      lat: lat,
+      lng: lng,
+      query: q,
+      limit: 8,
+    );
+    return [
+      for (final school in places)
+        AppSearchHit(
+          section: AppSearchSection.schools,
+          title: school.name,
+          subtitle: [
+            if (school.district.isNotEmpty) school.district,
+            if (school.city.isNotEmpty) school.city,
+            schoolFeeLabel(school),
+            if (school.km > 0) '${school.km.toStringAsFixed(1)} km',
+          ].join(' · '),
+          data: school,
+        ),
+    ];
+  }
+
+  static List<AppSearchHit> _jobs(String q) {
+    return JobRepository.instance.jobs
+        .where((job) {
+          final blob =
+              '${job.title} ${job.companyName} ${job.category} ${job.city}'
+                  .toLowerCase();
+          return blob.contains(q);
+        })
+        .take(8)
+        .map(
+          (job) => AppSearchHit(
+            section: AppSearchSection.jobs,
+            title: job.title,
+            subtitle: [
+              if (job.companyName.isNotEmpty) job.companyName,
+              if (job.place.isNotEmpty) job.place,
+            ].join(' · '),
+            data: job,
           ),
         )
         .toList();

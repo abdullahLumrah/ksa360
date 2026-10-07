@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 
 import '../data/app_analytics.dart';
 import '../data/app_tabs.dart';
+import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
+import '../data/restaurant_repository.dart';
 import '../features/souq/presentation/screens/souq_home_screen.dart';
 import '../features/souq/presentation/souq_controller.dart';
 import '../theme/app_theme.dart';
@@ -14,6 +16,7 @@ import '../widgets/motion.dart';
 import 'explore_screen.dart';
 import 'home_screen.dart';
 import 'eat_screen.dart';
+import 'jobs_screen.dart';
 import 'ksa_chat_screen.dart';
 import 'play_screen.dart';
 import 'profile_screen.dart';
@@ -34,17 +37,27 @@ class _HomeShellState extends State<HomeShell> {
     AppTabs.index.value = 0;
     AppTabs.index.addListener(_syncTab);
     SouqController.instance.ensureReady();
-    if (LifeSettings.instance.useGps) {
-      LifeSettings.instance.refreshGps(request: false);
-    }
+    _refreshPlacesFromGps();
     AppAnalytics.instance.section('home');
+  }
+
+  Future<void> _refreshPlacesFromGps() async {
+    final settings = LifeSettings.instance;
+    if (settings.useGps) {
+      await settings.refreshGps(request: true);
+    }
+    if (!mounted) return;
+    final lat = settings.prayerLat;
+    final lng = settings.prayerLng;
+    HealthcareRepository.instance.refreshAround(lat, lng);
+    RestaurantRepository.instance.refreshAround(lat, lng);
   }
 
   void _syncTab() {
     final next = AppTabs.index.value;
     if (next != _index && mounted) {
       setState(() => _index = next);
-      const names = ['home', 'guides', 'souq', 'eat', 'play', 'profile'];
+      const names = ['home', 'guides', 'souq', 'jobs', 'eat', 'play', 'profile'];
       AppAnalytics.instance.section(names[next.clamp(0, names.length - 1)]);
     }
   }
@@ -68,6 +81,7 @@ class _HomeShellState extends State<HomeShell> {
               HomeScreen(),
               ExploreScreen(),
               SouqHomeScreen(),
+              JobsScreen(),
               EatScreen(),
               PlayScreen(),
               ProfileScreen(),
@@ -144,8 +158,9 @@ class _TabSpec {
 
 const _tabs = [
   _TabSpec(Icons.home_rounded, 'Home'),
-  _TabSpec(Icons.grid_view_rounded, 'Guides'),
+  _TabSpec(Icons.grid_view_rounded, 'Categories'),
   _TabSpec(Icons.storefront_rounded, 'Souq'),
+  _TabSpec(Icons.work_outline_rounded, 'Jobs'),
   _TabSpec(Icons.restaurant_rounded, 'Eat'),
   _TabSpec(Icons.local_activity_rounded, 'Play'),
   _TabSpec(Icons.person_rounded, 'Profile'),
@@ -385,7 +400,7 @@ class _DockItem extends StatelessWidget {
             child: Icon(
               spec.icon,
               color: Color.lerp(AppColors.muted, AppColors.goldSoft, t),
-              size: 22,
+              size: 20,
             ),
           ),
           const SizedBox(height: 3),
@@ -395,7 +410,7 @@ class _DockItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: Color.lerp(AppColors.muted, AppColors.goldSoft, t),
-              fontSize: 9,
+              fontSize: 8,
               fontWeight: t > 0.55 ? FontWeight.w800 : FontWeight.w600,
               height: 1,
             ),

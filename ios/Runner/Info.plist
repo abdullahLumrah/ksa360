@@ -48,10 +48,17 @@
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>KSA Guide turns your speech into text and sends the question to your local assistant.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>KSA 360 uses the local network to reach the assistant running on your Mac.</string>
+	<string>KSA 360 uses the local network to load restaurants, schools, and guides from your Mac.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_http._tcp</string>
+		<string>_https._tcp</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
+		<true/>
+		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
 	<key>LSApplicationQueriesSchemes</key>

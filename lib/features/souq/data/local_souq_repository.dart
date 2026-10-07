@@ -221,14 +221,6 @@ class LocalSouqRepository implements SouqRepository {
 
   bool _matches(Ad ad, SearchFilters f) {
     if (ad.status == AdStatus.draft) return false;
-    if (ad.isImported) {
-      if (f.categoryId != null &&
-          f.categoryId!.isNotEmpty &&
-          f.categoryId != SouqCatalog.cars) {
-        return false;
-      }
-      if (ad.categoryId != SouqCatalog.cars) return false;
-    }
     if (!_visibleInCategory(ad, f.categoryId)) return false;
     if (f.subcategoryId != null && ad.subcategoryId != f.subcategoryId) {
       return false;

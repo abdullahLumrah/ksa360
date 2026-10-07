@@ -449,6 +449,7 @@ class _PlacePhoto extends StatelessWidget {
         width: width,
         child: CachedNetworkImage(
           imageUrl: url,
+          httpHeaders: foodPhotoHeaders(url),
           fit: BoxFit.cover,
           placeholder: (_, __) =>
               ColoredBox(color: cuisineColor(place.kind).withValues(alpha: 0.35)),
@@ -461,6 +462,7 @@ class _PlacePhoto extends StatelessWidget {
             }
             return CachedNetworkImage(
               imageUrl: fallback,
+              httpHeaders: foodPhotoHeaders(fallback),
               fit: BoxFit.cover,
               errorWidget: (_, __, ___) => ColoredBox(
                 color: cuisineColor(place.kind).withValues(alpha: 0.4),

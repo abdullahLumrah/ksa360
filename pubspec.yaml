@@ -1,7 +1,7 @@
 name: ksa_guide
 description: A Dubizzle-style guide to living in Saudi Arabia, from lifeinsaudiarabia.net and saudiexpatriate.com.
 publish_to: "none"
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.10.7

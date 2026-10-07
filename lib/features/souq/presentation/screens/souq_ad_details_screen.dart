@@ -207,19 +207,30 @@ class _SouqAdDetailsScreenState extends State<SouqAdDetailsScreen> {
                         runSpacing: 10,
                         children: [
                           _Spec(Icons.verified_outlined, SouqFormat.conditionLabel(ad.condition, ar: l10n.ar)),
-                          if (ad.year != null) _Spec(Icons.event_rounded, '${ad.year}'),
-                          if (ad.mileage != null)
-                            _Spec(Icons.speed_rounded, SouqFormat.km(ad.mileage)),
-                          if (ad.transmission != null)
-                            _Spec(Icons.settings_rounded, ad.transmission!),
-                          if (ad.fuel != null) _Spec(Icons.local_gas_station, ad.fuel!),
+                          if (ad.categoryId == SouqCatalog.cars) ...[
+                            if (ad.year != null) _Spec(Icons.event_rounded, '${ad.year}'),
+                            if (ad.mileage != null)
+                              _Spec(Icons.speed_rounded, SouqFormat.km(ad.mileage)),
+                            if (ad.transmission != null)
+                              _Spec(Icons.settings_rounded, ad.transmission!),
+                            if (ad.fuel != null) _Spec(Icons.local_gas_station, ad.fuel!),
+                            if (ad.bodyType != null)
+                              _Spec(Icons.directions_car_filled_outlined, ad.bodyType!),
+                            if (ad.attributes['engine'] != null)
+                              _Spec(Icons.memory_rounded, '${ad.attributes['engine']}'),
+                            if (ad.attributes['origin'] != null)
+                              _Spec(Icons.public_rounded, '${ad.attributes['origin']}'),
+                          ] else ...[
+                            if (ad.attributes['brand'] != null)
+                              _Spec(Icons.sell_outlined, '${ad.attributes['brand']}'),
+                            if (ad.attributes['model'] != null)
+                              _Spec(Icons.memory_rounded, '${ad.attributes['model']}'),
+                            if (ad.attributes['storage'] != null)
+                              _Spec(Icons.sd_storage_outlined, '${ad.attributes['storage']}'),
+                            if (ad.attributes['battery'] != null)
+                              _Spec(Icons.battery_charging_full_rounded, '${ad.attributes['battery']}'),
+                          ],
                           if (ad.color != null) _Spec(Icons.palette_outlined, ad.color!),
-                          if (ad.bodyType != null)
-                            _Spec(Icons.directions_car_filled_outlined, ad.bodyType!),
-                          if (ad.attributes['engine'] != null)
-                            _Spec(Icons.memory_rounded, '${ad.attributes['engine']}'),
-                          if (ad.attributes['origin'] != null)
-                            _Spec(Icons.public_rounded, '${ad.attributes['origin']}'),
                         ],
                       ),
                       const SizedBox(height: 22),

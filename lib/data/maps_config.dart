@@ -2,6 +2,17 @@
 /// apps (`com.ksaguide.ksa360`), Maps SDK, and Places API (New).
 const kGoogleMapsApiKey = 'AIzaSyAUjMG0glAvJsfUZJ-D0KPU_JC_foYbJqM';
 
+/// Debug/release signing fingerprint so Places Photo HTTP calls match the
+/// Android app restriction on this Maps key.
+const kGooglePlacesAndroidHeaders = <String, String>{
+  'X-Android-Package': 'com.ksaguide.ksa360',
+  'X-Android-Cert': 'D64E44D00BC4131C8DD7621B08B7972D31135ED8',
+};
+
+const kGooglePlacesIosHeaders = <String, String>{
+  'X-Ios-Bundle-Identifier': 'com.ksaguide.ksa360',
+};
+
 const kGoogleMapsDarkStyle = '''
 [
   {"elementType":"geometry","stylers":[{"color":"#0E1412"}]},

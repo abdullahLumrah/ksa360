@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/models.dart';
@@ -54,7 +56,7 @@ class ContentRepository extends ChangeNotifier {
       ];
       posts = [
         for (final item in map['posts'] as List<dynamic>? ?? const [])
-          GuidePost.fromJson(item as Map<String, dynamic>),
+          GuidePost.fromJson(_withMedia(item as Map<String, dynamic>)),
       ]..sort((a, b) => b.date.compareTo(a.date));
       loadError = null;
     } catch (e) {
@@ -139,7 +141,7 @@ class ContentRepository extends ChangeNotifier {
       final uri = Uri.parse('${AppApiConfig.baseUrl}/guides/posts/$id');
       final res = await AppApi.get(uri);
       if (res.statusCode == 200) {
-        final map = jsonDecode(res.body) as Map<String, dynamic>;
+        final map = _withMedia(jsonDecode(res.body) as Map<String, dynamic>);
         final body = (map['body'] as String?)?.trim() ?? '';
         if (body.isNotEmpty) {
           _bodies[id] = body;
@@ -227,6 +229,45 @@ class ContentRepository extends ChangeNotifier {
     }).toList();
     if (hits.length > limit) return hits.sublist(0, limit);
     return hits;
+  }
+
+  static Map<String, dynamic> _withMedia(Map<String, dynamic> json) {
+    final image = '${json['image'] ?? ''}'.trim();
+    if (image.startsWith('/uploads/')) {
+      return {...json, 'image': '${AppApiConfig.baseUrl}$image'};
+    }
+    return json;
+  }
+
+  Future<GuidePost> submitPost({
+    required String title,
+    required String description,
+    String? imagePath,
+  }) async {
+    final files = <http.MultipartFile>[];
+    if (imagePath != null && imagePath.isNotEmpty) {
+      final file = File(imagePath);
+      if (file.existsSync()) {
+        files.add(await http.MultipartFile.fromPath('image', file.path));
+      }
+    }
+    final res = await AppApi.postMultipart(
+      AppApi.uri('/guides/posts'),
+      fields: {
+        'title': title.trim(),
+        'description': description.trim(),
+      },
+      files: files,
+    );
+    if (res.statusCode >= 400) {
+      var message = 'Could not send this guide';
+      try {
+        final map = jsonDecode(res.body);
+        if (map is Map && map['error'] != null) message = '${map['error']}';
+      } catch (_) {}
+      throw Exception(message);
+    }
+    return GuidePost.fromJson(_withMedia(jsonDecode(res.body) as Map<String, dynamic>));
   }
 
   Future<void> toggleSaved(String id) async {
