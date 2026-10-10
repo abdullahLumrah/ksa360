@@ -46,8 +46,12 @@ class LocalSouqRepository implements SouqRepository {
     await refreshMine();
     await refreshFavorites();
     await refreshChats();
+    await refreshCatalog();
+  }
+
+  Future<void> refreshCatalog() async {
     try {
-      final recent = await SouqApi.list(limit: 40);
+      final recent = await SouqApi.list(limit: 40, sort: 'newest');
       _preview
         ..clear()
         ..addAll(recent);

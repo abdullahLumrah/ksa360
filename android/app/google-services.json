@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "704535183084",
+    "project_id": "ksa-360-efc00",
+    "storage_bucket": "ksa-360-efc00.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704535183084:android:d992850a0658a495de6fc9",
+        "android_client_info": {
+          "package_name": "com.ksaguide.ksa360"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL0xLzRFzIG1EurXBkBiLaQXKiXmft_14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

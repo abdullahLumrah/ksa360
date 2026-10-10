@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../data/auth_session.dart';
 import '../models/app_user.dart';
 import '../theme/app_theme.dart';
+import 'profile_complete_sheet.dart';
 
 Future<void> showProfileEditSheet(BuildContext context) {
   return showModalBottomSheet<void>(
@@ -12,19 +13,20 @@ Future<void> showProfileEditSheet(BuildContext context) {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     barrierColor: const Color(0x661C1915),
-    builder: (context) => const _ProfileEditSheet(),
+    builder: (context) => const _ManageProfileSheet(),
   );
 }
 
-class _ProfileEditSheet extends StatefulWidget {
-  const _ProfileEditSheet();
+class _ManageProfileSheet extends StatefulWidget {
+  const _ManageProfileSheet();
 
   @override
-  State<_ProfileEditSheet> createState() => _ProfileEditSheetState();
+  State<_ManageProfileSheet> createState() => _ManageProfileSheetState();
 }
 
-class _ProfileEditSheetState extends State<_ProfileEditSheet> {
+class _ManageProfileSheetState extends State<_ManageProfileSheet> {
   late final TextEditingController _name;
+  late final TextEditingController _phone;
   DateTime? _dob;
   String _gender = '';
   var _busy = false;
@@ -37,6 +39,7 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
     super.initState();
     final user = _user;
     _name = TextEditingController(text: user?.name ?? '');
+    _phone = TextEditingController(text: normalizeSaudiMobile(user?.phone ?? ''));
     _gender = user?.gender ?? '';
     final raw = user?.dateOfBirth ?? '';
     if (RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(raw)) {
@@ -47,6 +50,7 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
   @override
   void dispose() {
     _name.dispose();
+    _phone.dispose();
     super.dispose();
   }
 
@@ -70,17 +74,54 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
       if (_name.text.trim().length < 2) {
         throw Exception('Enter your name');
       }
-      if (_dob == null) {
-        throw Exception('Add your date of birth');
+      if (!isSaudiMobile(_phone.text)) {
+        throw Exception('Enter a valid Saudi mobile number');
       }
-      if (_gender.isEmpty) {
-        throw Exception('Choose a gender');
-      }
+      if (_dob == null) throw Exception('Add your date of birth');
+      if (_gender.isEmpty) throw Exception('Choose a gender');
       await AuthSession.instance.updateProfile(
         name: _name.text.trim(),
+        phone: '+966${normalizeSaudiMobile(_phone.text)}',
         dateOfBirth: DateFormat('yyyy-MM-dd').format(_dob!),
         gender: _gender,
       );
+      if (mounted) Navigator.of(context).pop();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _error = e.toString().replaceFirst('Exception: ', ''));
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _delete() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete account?'),
+        content: const Text(
+          'Your account will be deactivated now. You can sign in again within 15 days to restore it. After 15 days it is permanently deleted.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: FilledButton.styleFrom(backgroundColor: AppColors.red),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
+    try {
+      await AuthSession.instance.deleteAccount();
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
       if (!mounted) return;
@@ -121,7 +162,7 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
                 ),
                 const SizedBox(height: 18),
                 const Text(
-                  'Edit profile',
+                  'Manage profile',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 22,
@@ -130,7 +171,7 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
                 ),
                 const SizedBox(height: 6),
                 const Text(
-                  'Name, birthday, and gender stay with your account. Email cannot be changed.',
+                  'Name, mobile, birthday, and gender stay with your account. Email cannot be changed.',
                   style: TextStyle(color: AppColors.muted, height: 1.4),
                 ),
                 const SizedBox(height: 18),
@@ -139,6 +180,22 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
                   textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
                     labelText: 'Name',
+                    filled: true,
+                    fillColor: AppColors.bg,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: _phone,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(9),
+                  ],
+                  decoration: const InputDecoration(
+                    labelText: 'Mobile number',
+                    prefixText: '+966  ',
+                    hintText: '5X XXX XXXX',
                     filled: true,
                     fillColor: AppColors.bg,
                   ),
@@ -253,6 +310,14 @@ class _ProfileEditSheetState extends State<_ProfileEditSheet> {
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : const Text('Save'),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: _busy ? null : _delete,
+                  child: const Text(
+                    'Delete account',
+                    style: TextStyle(color: AppColors.red, fontWeight: FontWeight.w800),
                   ),
                 ),
               ],

@@ -4,6 +4,7 @@ import '../data/dial.dart';
 import '../data/emergencies.dart';
 import '../data/life_settings.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_filter_chip.dart';
 
 class EmbassyDirectoryScreen extends StatefulWidget {
   const EmbassyDirectoryScreen({super.key, this.initialQuery = ''});
@@ -107,8 +108,8 @@ class _EmbassyDirectoryScreenState extends State<EmbassyDirectoryScreen> {
                 for (final city in const ['All', 'Riyadh', 'Jeddah'])
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
-                    child: ChoiceChip(
-                      label: Text(city == 'All' ? 'All cities' : city),
+                    child: AppFilterChip(
+                      label: city == 'All' ? 'All cities' : city,
                       selected: _city == city,
                       onSelected: (_) => setState(() => _city = city),
                     ),

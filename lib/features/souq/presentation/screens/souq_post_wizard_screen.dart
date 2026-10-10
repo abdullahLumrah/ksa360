@@ -12,6 +12,7 @@ import '../../../../data/life_settings.dart';
 import '../../../../data/saudi_cities.dart';
 import '../../../../screens/auth_sheet.dart';
 import '../../../../theme/app_theme.dart';
+import '../../../../widgets/app_filter_chip.dart';
 import '../../../../widgets/motion.dart';
 import '../../domain/souq_categories.dart';
 import '../../domain/souq_models.dart';
@@ -635,9 +636,9 @@ class _CategoryStepState extends State<_CategoryStep> {
             spacing: 8,
             children: selected.subcategories
                 .map(
-                  (s) => ChoiceChip(
+                  (s) => AppFilterChip(
                     selected: widget.subId == s.id,
-                    label: Text(s.name(l10n.ar)),
+                    label: s.name(l10n.ar),
                     onSelected: (_) => widget.onSub(s.id),
                   ),
                 )
@@ -879,9 +880,9 @@ class _DetailsStep extends StatelessWidget {
           spacing: 8,
           children: AdCondition.values
               .map(
-                (c) => ChoiceChip(
+                (c) => AppFilterChip(
                   selected: condition == c,
-                  label: Text(SouqFormat.conditionLabel(c, ar: l10n.ar)),
+                  label: SouqFormat.conditionLabel(c, ar: l10n.ar),
                   onSelected: (_) => onCondition(c),
                 ),
               )
@@ -935,9 +936,9 @@ class _AttrField extends StatelessWidget {
               spacing: 8,
               children: field.options
                   .map(
-                    (o) => ChoiceChip(
+                    (o) => AppFilterChip(
                       selected: value == o,
-                      label: Text(o),
+                      label: o,
                       onSelected: (_) {
                         attrs[field.key] = o;
                         onChanged();

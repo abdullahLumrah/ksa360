@@ -87,7 +87,17 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                   httpHeaders: foodPhotoHeaders(ownPhoto),
                   fit: BoxFit.cover,
                   placeholder: (_, __) => ColoredBox(
-                    color: cuisineColor(place.kind).withValues(alpha: 0.3),
+                    color: cuisineColor(place.kind).withValues(alpha: 0.22),
+                    child: const Center(
+                      child: SizedBox(
+                        width: 28,
+                        height: 28,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.4,
+                          color: AppColors.gold,
+                        ),
+                      ),
+                    ),
                   ),
                   errorWidget: (_, __, ___) => ColoredBox(
                     color: cuisineColor(place.kind).withValues(alpha: 0.4),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
+import '../data/app_legal.dart';
 import '../data/auth_session.dart';
 import '../theme/app_theme.dart';
+import 'in_app_browser_screen.dart';
 
 enum _AuthStage { pick, login, register }
 
@@ -32,10 +32,9 @@ class _AuthSheetState extends State<_AuthSheet> {
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _confirm = TextEditingController();
-  DateTime? _dob;
-  String _gender = '';
   var _hidePass = true;
   var _busy = false;
+  var _agreed = false;
   String? _error;
 
   @override
@@ -53,7 +52,19 @@ class _AuthSheetState extends State<_AuthSheet> {
     super.dispose();
   }
 
+  void _openPrivacy() {
+    openInAppBrowser(
+      context,
+      url: AppLegal.privacyUrl,
+      title: AppLegal.privacyLabel,
+    );
+  }
+
   Future<void> _run(Future<void> Function() action) async {
+    if (!_agreed) {
+      setState(() => _error = 'Please agree to the Privacy Policy to continue');
+      return;
+    }
     setState(() {
       _busy = true;
       _error = null;
@@ -80,32 +91,13 @@ class _AuthSheetState extends State<_AuthSheet> {
       );
 
   Future<void> _submitRegister() => _run(() {
-        if (_dob == null) {
-          throw Exception('Add your date of birth');
-        }
-        if (_gender.isEmpty) {
-          throw Exception('Choose a gender');
-        }
         return AuthSession.instance.register(
           name: _name.text.trim(),
           email: _email.text.trim(),
           password: _password.text,
           confirmPassword: _confirm.text,
-          dateOfBirth: DateFormat('yyyy-MM-dd').format(_dob!),
-          gender: _gender,
         );
       });
-
-  Future<void> _pickDob() async {
-    final now = DateTime.now();
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime(now.year - 24, 1, 1),
-      firstDate: DateTime(now.year - 80),
-      lastDate: DateTime(now.year - 13, now.month, now.day),
-    );
-    if (picked != null) setState(() => _dob = picked);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +156,10 @@ class _AuthSheetState extends State<_AuthSheet> {
         return _Pick(
           register: widget.startRegister,
           busy: _busy,
+          agreed: _agreed,
           error: _error,
+          onToggleAgree: () => setState(() => _agreed = !_agreed),
+          onPrivacy: _openPrivacy,
           onGoogle: _google,
           onEmail: () => setState(() {
             _error = null;
@@ -177,8 +172,11 @@ class _AuthSheetState extends State<_AuthSheet> {
           password: _password,
           hidePass: _hidePass,
           busy: _busy,
+          agreed: _agreed,
           error: _error,
           onTogglePass: () => setState(() => _hidePass = !_hidePass),
+          onToggleAgree: () => setState(() => _agreed = !_agreed),
+          onPrivacy: _openPrivacy,
           onGoogle: _google,
           onSubmit: _submitLogin,
           onBack: () => setState(() => _stage = _AuthStage.pick),
@@ -190,14 +188,13 @@ class _AuthSheetState extends State<_AuthSheet> {
           email: _email,
           password: _password,
           confirm: _confirm,
-          dob: _dob,
-          gender: _gender,
           hidePass: _hidePass,
           busy: _busy,
+          agreed: _agreed,
           error: _error,
           onTogglePass: () => setState(() => _hidePass = !_hidePass),
-          onDob: _pickDob,
-          onGender: (value) => setState(() => _gender = value),
+          onToggleAgree: () => setState(() => _agreed = !_agreed),
+          onPrivacy: _openPrivacy,
           onSubmit: _submitRegister,
           onBack: () => setState(() => _stage = _AuthStage.pick),
           onLogin: () => setState(() => _stage = _AuthStage.login),
@@ -210,14 +207,20 @@ class _Pick extends StatelessWidget {
   const _Pick({
     required this.register,
     required this.busy,
+    required this.agreed,
     required this.error,
+    required this.onToggleAgree,
+    required this.onPrivacy,
     required this.onGoogle,
     required this.onEmail,
   });
 
   final bool register;
   final bool busy;
+  final bool agreed;
   final String? error;
+  final VoidCallback onToggleAgree;
+  final VoidCallback onPrivacy;
   final VoidCallback onGoogle;
   final VoidCallback onEmail;
 
@@ -255,6 +258,8 @@ class _Pick extends StatelessWidget {
           filled: true,
           onTap: onEmail,
         ),
+        const SizedBox(height: 14),
+        _AgreeLine(agreed: agreed, onToggle: onToggleAgree, onPrivacy: onPrivacy),
         if (error != null) ...[
           const SizedBox(height: 14),
           Text(error!, style: const TextStyle(color: AppColors.red, fontSize: 13)),
@@ -270,8 +275,11 @@ class _LoginForm extends StatelessWidget {
     required this.password,
     required this.hidePass,
     required this.busy,
+    required this.agreed,
     required this.error,
     required this.onTogglePass,
+    required this.onToggleAgree,
+    required this.onPrivacy,
     required this.onGoogle,
     required this.onSubmit,
     required this.onBack,
@@ -282,8 +290,11 @@ class _LoginForm extends StatelessWidget {
   final TextEditingController password;
   final bool hidePass;
   final bool busy;
+  final bool agreed;
   final String? error;
   final VoidCallback onTogglePass;
+  final VoidCallback onToggleAgree;
+  final VoidCallback onPrivacy;
   final VoidCallback onGoogle;
   final VoidCallback onSubmit;
   final VoidCallback onBack;
@@ -315,6 +326,8 @@ class _LoginForm extends StatelessWidget {
           const SizedBox(height: 10),
           Text(error!, style: const TextStyle(color: AppColors.red, fontSize: 13)),
         ],
+        const SizedBox(height: 12),
+        _AgreeLine(agreed: agreed, onToggle: onToggleAgree, onPrivacy: onPrivacy),
         const SizedBox(height: 16),
         _AuthButton(label: 'Log in', filled: true, busy: busy, onTap: onSubmit),
         const SizedBox(height: 10),
@@ -342,14 +355,13 @@ class _RegisterForm extends StatelessWidget {
     required this.email,
     required this.password,
     required this.confirm,
-    required this.dob,
-    required this.gender,
     required this.hidePass,
     required this.busy,
+    required this.agreed,
     required this.error,
     required this.onTogglePass,
-    required this.onDob,
-    required this.onGender,
+    required this.onToggleAgree,
+    required this.onPrivacy,
     required this.onSubmit,
     required this.onBack,
     required this.onLogin,
@@ -359,14 +371,13 @@ class _RegisterForm extends StatelessWidget {
   final TextEditingController email;
   final TextEditingController password;
   final TextEditingController confirm;
-  final DateTime? dob;
-  final String gender;
   final bool hidePass;
   final bool busy;
+  final bool agreed;
   final String? error;
   final VoidCallback onTogglePass;
-  final VoidCallback onDob;
-  final ValueChanged<String> onGender;
+  final VoidCallback onToggleAgree;
+  final VoidCallback onPrivacy;
   final VoidCallback onSubmit;
   final VoidCallback onBack;
   final VoidCallback onLogin;
@@ -379,31 +390,6 @@ class _RegisterForm extends StatelessWidget {
         _SheetBack(label: 'Create account', onBack: onBack),
         const SizedBox(height: 16),
         _Field(controller: name, label: 'Name', textCapitalization: TextCapitalization.words),
-        const SizedBox(height: 10),
-        _TapField(
-          label: dob == null ? 'Date of birth' : DateFormat.yMMMMd().format(dob!),
-          muted: dob == null,
-          onTap: onDob,
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            for (final item in const [
-              ('male', 'Male'),
-              ('female', 'Female'),
-              ('other', 'Other'),
-            ]) ...[
-              if (item.$1 != 'male') const SizedBox(width: 8),
-              Expanded(
-                child: _GenderChip(
-                  label: item.$2,
-                  selected: gender == item.$1,
-                  onTap: () => onGender(item.$1),
-                ),
-              ),
-            ],
-          ],
-        ),
         const SizedBox(height: 10),
         _Field(controller: email, label: 'Email', keyboard: TextInputType.emailAddress),
         const SizedBox(height: 10),
@@ -426,10 +412,67 @@ class _RegisterForm extends StatelessWidget {
           const SizedBox(height: 10),
           Text(error!, style: const TextStyle(color: AppColors.red, fontSize: 13)),
         ],
+        const SizedBox(height: 12),
+        _AgreeLine(agreed: agreed, onToggle: onToggleAgree, onPrivacy: onPrivacy),
         const SizedBox(height: 16),
         _AuthButton(label: 'Create account', filled: true, busy: busy, onTap: onSubmit),
         const SizedBox(height: 14),
         _SwitchLine(prompt: 'Already have an account?', action: 'Log in', onTap: onLogin),
+      ],
+    );
+  }
+}
+
+class _AgreeLine extends StatelessWidget {
+  const _AgreeLine({
+    required this.agreed,
+    required this.onToggle,
+    required this.onPrivacy,
+  });
+
+  final bool agreed;
+  final VoidCallback onToggle;
+  final VoidCallback onPrivacy;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Checkbox(
+            value: agreed,
+            onChanged: (_) => onToggle(),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              const Text(
+                'I agree to the ',
+                style: TextStyle(color: AppColors.muted, fontSize: 13),
+              ),
+              GestureDetector(
+                onTap: onPrivacy,
+                child: const Text(
+                  AppLegal.privacyLabel,
+                  style: TextStyle(
+                    color: AppColors.gold,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13,
+                    decoration: TextDecoration.underline,
+                    decorationColor: AppColors.gold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -488,91 +531,6 @@ class _Field extends StatelessWidget {
         filled: true,
         fillColor: AppColors.bg,
         suffixIcon: suffix,
-      ),
-    );
-  }
-}
-
-class _TapField extends StatelessWidget {
-  const _TapField({
-    required this.label,
-    required this.muted,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool muted;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.bg,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          height: 56,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.stroke),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: muted ? AppColors.muted : AppColors.navy,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _GenderChip extends StatelessWidget {
-  const _GenderChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: selected ? const Color(0xFFE4F0E8) : AppColors.bg,
-      borderRadius: BorderRadius.circular(14),
-      child: InkWell(
-        onTap: () {
-          HapticFeedback.selectionClick();
-          onTap();
-        },
-        borderRadius: BorderRadius.circular(14),
-        child: Container(
-          height: 42,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: selected ? AppColors.green.withValues(alpha: 0.35) : AppColors.stroke,
-            ),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-              color: selected ? AppColors.greenDeep : AppColors.muted,
-            ),
-          ),
-        ),
       ),
     );
   }

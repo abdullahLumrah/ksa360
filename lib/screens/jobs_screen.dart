@@ -7,6 +7,7 @@ import '../data/auth_session.dart';
 import '../data/job_repository.dart';
 import '../models/job.dart';
 import '../theme/app_theme.dart';
+import '../widgets/app_filter_chip.dart';
 import '../widgets/motion.dart';
 import 'auth_sheet.dart';
 import 'job_detail_screen.dart';
@@ -370,23 +371,11 @@ class _FilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.only(end: 6),
-      child: ChoiceChip(
-        label: Text(label),
+      child: AppFilterChip(
+        label: label,
         selected: selected,
+        compact: compact,
         onSelected: (_) => onTap(),
-        visualDensity: VisualDensity.compact,
-        labelStyle: TextStyle(
-          fontSize: compact ? 11 : 12,
-          fontWeight: FontWeight.w700,
-          color: selected ? Colors.white : AppColors.navy,
-        ),
-        selectedColor: AppColors.green,
-        backgroundColor: AppColors.card,
-        side: const BorderSide(color: AppColors.stroke),
-        padding: EdgeInsets.symmetric(
-          horizontal: compact ? 4 : 6,
-          vertical: 0,
-        ),
       ),
     );
   }

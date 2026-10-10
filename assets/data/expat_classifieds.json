@@ -1,0 +1,27 @@
+{
+  "source": "expatriates.com",
+  "city": "Riyadh",
+  "scraped_at": "2026-10-06",
+  "count": 9027,
+  "oldest": "2026-09-29T08:54:20+00:00",
+  "newest": "2026-10-06T08:49:27+00:00",
+  "note": "Public Riyadh classifieds (all categories except cars), last 7 days. Phones not collected. Listings in expat_classifieds.json.gz.",
+  "categories": {
+    "realestate": 2067,
+    "services": 5149,
+    "furniture": 705,
+    "appliances": 296,
+    "cars": 18,
+    "fashion": 117,
+    "motors": 6,
+    "electronics": 322,
+    "mobiles": 117,
+    "tools": 43,
+    "kids": 69,
+    "sports": 58,
+    "books": 29,
+    "animals": 14,
+    "other": 17
+  },
+  "listings": []
+}

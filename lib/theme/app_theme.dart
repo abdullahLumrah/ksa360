@@ -72,6 +72,9 @@ class AppTheme {
       onPrimary: AppColors.onDark,
       secondary: AppColors.gold,
       onSecondary: AppColors.onDark,
+      // M3 ChoiceChip / FilterChip selected fill + checkmark contrast
+      secondaryContainer: AppColors.greenDeep,
+      onSecondaryContainer: Colors.white,
       surface: AppColors.card,
       onSurface: AppColors.navy,
       error: AppColors.red,
@@ -125,13 +128,26 @@ class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.chip,
-        selectedColor: Color(0xFFE3F0E8),
+        selectedColor: AppColors.greenDeep,
+        checkmarkColor: Colors.white,
+        deleteIconColor: Colors.white,
         side: const BorderSide(color: AppColors.stroke),
         labelStyle: const TextStyle(
           color: AppColors.navy,
           fontWeight: FontWeight.w700,
           fontSize: 12,
         ),
+        secondaryLabelStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 12,
+        ),
+        color: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return AppColors.greenDeep;
+          }
+          return AppColors.chip;
+        }),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,

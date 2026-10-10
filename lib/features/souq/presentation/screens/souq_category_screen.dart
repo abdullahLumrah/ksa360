@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/app_analytics.dart';
 import '../../../../theme/app_theme.dart';
+import '../../../../widgets/app_filter_chip.dart';
 import '../../domain/souq_categories.dart';
 import '../../domain/souq_models.dart';
 import '../souq_controller.dart';
@@ -153,9 +154,9 @@ class _SouqCategoryScreenState extends State<SouqCategoryScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ChoiceChip(
+                    child: AppFilterChip(
                       selected: _filters.subcategoryId == null,
-                      label: const Text('All'),
+                      label: 'All',
                       onSelected: (_) {
                         _filters = _filters.copyWith(clearSubcategory: true);
                         _reload();
@@ -165,9 +166,9 @@ class _SouqCategoryScreenState extends State<SouqCategoryScreen> {
                   for (final sub in cat.subcategories)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: ChoiceChip(
+                      child: AppFilterChip(
                         selected: _filters.subcategoryId == sub.id,
-                        label: Text(sub.name(l10n.ar)),
+                        label: sub.name(l10n.ar),
                         onSelected: (on) {
                           _filters = _filters.copyWith(
                             subcategoryId: on ? sub.id : null,
@@ -306,12 +307,13 @@ class _SouqCategoryScreenState extends State<SouqCategoryScreen> {
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
               sliver: _grid
                   ? SliverGrid(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 12,
                         crossAxisSpacing: 12,
-                        childAspectRatio: 0.62,
+                        // Cars cards include a specs row — give them a bit more height.
+                        childAspectRatio:
+                            cat.id == SouqCatalog.cars ? 0.56 : 0.62,
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (context, i) {

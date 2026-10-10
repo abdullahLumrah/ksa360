@@ -11,6 +11,8 @@ class AppAnalytics {
 
   static const _deviceKey = 'analytics.device_id';
   String? _deviceId;
+  String _lastKey = '';
+  DateTime? _lastAt;
 
   Future<String> deviceId() async {
     if (_deviceId != null && _deviceId!.isNotEmpty) return _deviceId!;
@@ -32,6 +34,15 @@ class AppAnalytics {
     String targetTitle = '',
     String path = '',
   }) async {
+    final key = '$event|$section|$targetId';
+    final now = DateTime.now();
+    if (_lastKey == key &&
+        _lastAt != null &&
+        now.difference(_lastAt!) < const Duration(seconds: 8)) {
+      return;
+    }
+    _lastKey = key;
+    _lastAt = now;
     try {
       final device = await deviceId();
       await AppApi.post(

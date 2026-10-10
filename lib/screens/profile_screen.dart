@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../data/auth_session.dart';
-import '../data/content_repository.dart';
-import '../data/life_settings.dart';
 import '../models/app_user.dart';
 import '../theme/app_theme.dart';
-import '../widgets/motion.dart';
+import '../data/app_legal.dart';
 import 'auth_sheet.dart';
-import 'profile_edit_sheet.dart';
-import 'city_picker_screen.dart';
-import 'explore_screen.dart';
+import 'in_app_browser_screen.dart';
 import 'life_screen.dart';
-import 'lifestyle_screen.dart';
+import 'profile_edit_sheet.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -20,14 +16,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: Listenable.merge([
-        AuthSession.instance,
-        LifeSettings.instance,
-        ContentRepository.instance,
-      ]),
+      listenable: AuthSession.instance,
       builder: (context, _) {
-        final session = AuthSession.instance;
-        final user = session.user;
+        final user = AuthSession.instance.user;
         return CustomScrollView(
           slivers: [
             const SliverAppBar(
@@ -37,49 +28,14 @@ class ProfileScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 120),
-                child: Column(
-                  children: [
-                    if (user == null)
-                      const _GuestCard()
-                    else
-                      _SignedInCard(user: user),
-                    const SizedBox(height: 18),
-                    _QuietCard(
-                      children: [
-                        _RowTile(
-                          icon: Icons.mosque_rounded,
-                          title: 'Prayer times',
-                          subtitle: LifeSettings.instance.locationLabel,
-                          onTap: () => openCard(context, const LifeScreen()),
-                        ),
-                        _RowTile(
-                          icon: Icons.location_on_outlined,
-                          title: 'City',
-                          subtitle: LifeSettings.instance.city.name,
-                          onTap: () => openCard(context, const CityPickerScreen()),
-                        ),
-                        _RowTile(
-                          icon: Icons.tune_rounded,
-                          title: 'Lifestyle',
-                          subtitle: LifeSettings.instance.lifestyle == Lifestyle.family
-                              ? 'Family'
-                              : 'Bachelor',
-                          onTap: () => openCard(context, const LifestyleScreen()),
-                        ),
-                        _RowTile(
-                          icon: Icons.bookmark_outline_rounded,
-                          title: 'Saved guides',
-                          subtitle: '${ContentRepository.instance.savedIds.length} saved',
-                          last: true,
-                          onTap: () => openCard(context, const SavedScreen()),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                child: user == null
+                    ? const _GuestCard()
+                    : _SignedInCard(user: user),
               ),
             ),
+            const SliverToBoxAdapter(child: PrayerLifeBody()),
+            const SliverToBoxAdapter(child: SizedBox(height: 120)),
           ],
         );
       },
@@ -92,90 +48,113 @@ class _GuestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 22, 20, 18),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(26),
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF143D2C), Color(0xFF1E7A4C)],
+    return Material(
+      color: AppColors.card,
+      borderRadius: BorderRadius.circular(26),
+      clipBehavior: Clip.antiAlias,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(26),
+          border: Border.all(color: AppColors.stroke),
+          boxShadow: AppShadows.card,
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 54,
-                height: 54,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.onDark.withValues(alpha: 0.12),
-                  border: Border.all(color: AppColors.goldBright.withValues(alpha: 0.55)),
-                ),
-                child: const Text(
-                  'G',
-                  style: TextStyle(
-                    color: AppColors.onDark,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 22,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Guest',
-                      style: TextStyle(
-                        color: AppColors.onDark,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 22,
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      'Browsing KSA 360',
-                      style: TextStyle(color: AppColors.goldBright, fontWeight: FontWeight.w600),
-                    ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 6,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFE8B84A),
+                    Color(0xFFC45C4A),
+                    Color(0xFF4C8DFF),
+                    Color(0xFF2BB673),
                   ],
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'Keep saved guides and a lighter profile with you. No clutter — just your name when you need it.',
-            style: TextStyle(color: Color(0xD9F7F2E8), height: 1.4, fontSize: 13.5),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: _GhostButton(
-                  label: 'Create account',
-                  filled: true,
-                  onTap: () => showAuthSheet(context, register: true),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    children: [
+                      _AccentAvatar(letter: 'G', color: Color(0xFFC9842A)),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Guest',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 22,
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              'Browsing KSA 360',
+                              style: TextStyle(
+                                color: Color(0xFFC9842A),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  const Text(
+                    'Create an account for a lighter profile — just your name when you need it.',
+                    style: TextStyle(color: AppColors.muted, height: 1.4, fontSize: 13.5),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _GhostButton(
+                          label: 'Create account',
+                          filled: true,
+                          onTap: () => showAuthSheet(context, register: true),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: _GhostButton(
+                          label: 'Log in',
+                          filled: false,
+                          onTap: () => showAuthSheet(context, register: false),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: TextButton(
+                      onPressed: () => openInAppBrowser(
+                        context,
+                        url: AppLegal.privacyUrl,
+                        title: AppLegal.privacyLabel,
+                      ),
+                      child: const Text(
+                        AppLegal.privacyLabel,
+                        style: TextStyle(
+                          color: AppColors.gold,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: _GhostButton(
-                  label: 'Log in',
-                  filled: false,
-                  onTap: () => showAuthSheet(context, register: false),
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -190,30 +169,49 @@ class _SignedInCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(20, 22, 20, 18),
-          decoration: BoxDecoration(
-            color: AppColors.card,
-            borderRadius: BorderRadius.circular(26),
-            border: Border.all(color: AppColors.stroke),
-            boxShadow: AppShadows.card,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        Material(
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(26),
+          clipBehavior: Clip.antiAlias,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(26),
+              border: Border.all(color: AppColors.stroke),
+              boxShadow: AppShadows.card,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  height: 6,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFE8B84A),
+                        Color(0xFFC45C4A),
+                        Color(0xFF4C8DFF),
+                        Color(0xFF2BB673),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 18, 20, 18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
               Row(
                 children: [
                   CircleAvatar(
                     radius: 27,
-                    backgroundColor: const Color(0xFFE4F0E8),
+                    backgroundColor: const Color(0xFFF4E4C4),
                     backgroundImage:
                         user.avatar.isEmpty ? null : NetworkImage(user.avatar),
                     child: user.avatar.isEmpty
                         ? Text(
                             user.initials,
                             style: const TextStyle(
-                              color: AppColors.greenDeep,
+                              color: Color(0xFF8A5E2E),
                               fontWeight: FontWeight.w800,
                               fontSize: 18,
                             ),
@@ -257,9 +255,9 @@ class _SignedInCard extends StatelessWidget {
               ),
               if (user.needsDetails) ...[
                 const SizedBox(height: 14),
-                Text(
-                  'Add your date of birth and gender to finish this profile.',
-                  style: const TextStyle(color: AppColors.muted, height: 1.4),
+                const Text(
+                  'Add your mobile, date of birth, and gender to finish this profile.',
+                  style: TextStyle(color: AppColors.muted, height: 1.4),
                 ),
               ],
               const SizedBox(height: 14),
@@ -273,7 +271,11 @@ class _SignedInCard extends StatelessWidget {
                           HapticFeedback.lightImpact();
                           showProfileEditSheet(context);
                         },
-                        child: const Text('Edit profile'),
+                        style: FilledButton.styleFrom(
+                          backgroundColor: const Color(0xFFC9842A),
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text('Manage profile'),
                       ),
                     ),
                   ),
@@ -287,7 +289,11 @@ class _SignedInCard extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 14),
@@ -297,25 +303,47 @@ class _SignedInCard extends StatelessWidget {
               icon: Icons.person_outline_rounded,
               title: 'Name',
               subtitle: user.name,
+              accent: const Color(0xFFC9842A),
+              onTap: () => showProfileEditSheet(context),
+            ),
+            _RowTile(
+              icon: Icons.phone_outlined,
+              title: 'Mobile',
+              subtitle: user.phoneLabel,
+              accent: const Color(0xFFC45C4A),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.cake_outlined,
               title: 'Date of birth',
               subtitle: user.dateOfBirthLabel,
+              accent: const Color(0xFF4C8DFF),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.wc_outlined,
               title: 'Gender',
               subtitle: user.genderLabel,
+              accent: const Color(0xFF6B4C9A),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.mail_outline_rounded,
               title: 'Email',
               subtitle: user.email,
+              accent: const Color(0xFF2BB673),
+            ),
+            _RowTile(
+              icon: Icons.policy_outlined,
+              title: AppLegal.privacyLabel,
+              subtitle: 'How we use your data',
+              accent: const Color(0xFF1B1916),
               last: true,
+              onTap: () => openInAppBrowser(
+                context,
+                url: AppLegal.privacyUrl,
+                title: AppLegal.privacyLabel,
+              ),
             ),
           ],
         ),
@@ -346,6 +374,7 @@ class _RowTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.subtitle,
+    required this.accent,
     this.onTap,
     this.last = false,
   });
@@ -353,6 +382,7 @@ class _RowTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
+  final Color accent;
   final VoidCallback? onTap;
   final bool last;
 
@@ -371,7 +401,16 @@ class _RowTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(icon, color: AppColors.goldSoft, size: 22),
+              Container(
+                width: 34,
+                height: 34,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, color: accent, size: 18),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -396,6 +435,35 @@ class _RowTile extends StatelessWidget {
   }
 }
 
+class _AccentAvatar extends StatelessWidget {
+  const _AccentAvatar({required this.letter, required this.color});
+
+  final String letter;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 54,
+      height: 54,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color.withValues(alpha: 0.14),
+        border: Border.all(color: color.withValues(alpha: 0.4)),
+      ),
+      child: Text(
+        letter,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w800,
+          fontSize: 22,
+        ),
+      ),
+    );
+  }
+}
+
 class _GhostButton extends StatelessWidget {
   const _GhostButton({
     required this.label,
@@ -414,13 +482,13 @@ class _GhostButton extends StatelessWidget {
       child: FilledButton(
         onPressed: onTap,
         style: FilledButton.styleFrom(
-          backgroundColor: filled ? AppColors.onDark : Colors.transparent,
-          foregroundColor: filled ? AppColors.greenDeep : AppColors.onDark,
+          backgroundColor: filled ? const Color(0xFFC9842A) : Colors.transparent,
+          foregroundColor: filled ? Colors.white : AppColors.navy,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
             side: BorderSide(
-              color: filled ? Colors.transparent : AppColors.onDark.withValues(alpha: 0.28),
+              color: filled ? Colors.transparent : AppColors.stroke,
             ),
           ),
         ),

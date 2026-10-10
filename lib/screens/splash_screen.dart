@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 
 import '../data/auth_session.dart';
+import '../data/push_notifications.dart';
 import '../data/activity_repository.dart';
 import '../data/activity_store.dart';
 import '../data/reels_repository.dart';
@@ -90,6 +91,7 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _boot() async {
     try {
       await AuthSession.instance.load();
+      unawaited(PushNotifications.instance.start());
       await Future.wait([
         ContentRepository.instance.load(),
         LifeSettings.instance.load(),
@@ -276,7 +278,7 @@ class _SplashScreenState extends State<SplashScreen>
         child: const Column(
           children: [
             Text(
-              'SAUDI ARABIA · ALL AROUND YOU',
+              'ALL IN ONE · FOR EXPATS',
               style: TextStyle(
                 color: AppColors.muted,
                 fontSize: 12,
@@ -288,7 +290,7 @@ class _SplashScreenState extends State<SplashScreen>
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 32),
               child: Text(
-                'Visas, iqama, places and daily life, in one place.',
+                'Your KSA cheat code.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: AppColors.muted, fontSize: 14, height: 1.4),

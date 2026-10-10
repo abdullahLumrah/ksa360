@@ -71,9 +71,15 @@
 	<key>NSCameraUsageDescription</key>
 	<string>KSA 360 uses the camera so you can photograph items you list on Souq.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>KSA 360 uses your photos so you can add pictures to Souq listings.</string>
+	<string>KSA 360 uses your photos so you can add pictures to Souq listings and community posts.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>KSA 360 saves compressed Souq listing photos on this device.</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>KSA 360 sends alerts about your account, Souq, and community activity.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

@@ -2,6 +2,7 @@ import Flutter
 import GoogleMaps
 import Network
 import UIKit
+import UserNotifications
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -13,6 +14,8 @@ import UIKit
   ) -> Bool {
     GMSServices.provideAPIKey("AIzaSyAUjMG0glAvJsfUZJ-D0KPU_JC_foYbJqM")
     GeneratedPluginRegistrant.register(with: self)
+    UNUserNotificationCenter.current().delegate = self
+    application.registerForRemoteNotifications()
     promptLocalNetworkAccess()
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

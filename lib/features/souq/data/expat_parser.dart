@@ -125,7 +125,7 @@ class ExpatParser {
     var t = title.trim().replaceAll(RegExp(r'\s+'), ' ');
     double? price;
     final priceMatch = RegExp(
-      r'^(SAR|USD|AED|BHD|QAR|KWD)?\s*([\d,]+)\s*,\s*',
+      r'^(SAR|USD|AED|BHD|QAR|KWD|SR)?\s*([\d,]+(?:\.\d+)?)\s*(?:/\s*(?:month|year|week|day|mo|yr|munthly|monthly|yearly))?\s*,\s*',
       caseSensitive: false,
     ).firstMatch(t);
     if (priceMatch != null) {

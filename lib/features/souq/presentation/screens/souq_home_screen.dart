@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/app_analytics.dart';
+import '../../../../data/app_tabs.dart';
 import '../../../../data/life_settings.dart';
 import '../../../../theme/app_theme.dart';
 import '../../../../widgets/category_widgets.dart';
@@ -12,7 +13,6 @@ import '../souq_l10n.dart';
 import '../souq_motion.dart';
 import '../widgets/souq_ad_card.dart';
 import '../widgets/souq_widgets.dart';
-import 'souq_category_screen.dart';
 import '../souq_sell.dart';
 import 'souq_search_screen.dart';
 
@@ -23,17 +23,21 @@ class SouqHomeScreen extends StatefulWidget {
   State<SouqHomeScreen> createState() => _SouqHomeScreenState();
 }
 
-class _SouqHomeScreenState extends State<SouqHomeScreen> {
+class _SouqHomeScreenState extends State<SouqHomeScreen>
+    with WidgetsBindingObserver {
   final _scroll = ScrollController();
   List<Ad> _featured = [];
   List<Ad> _recent = [];
   List<Ad> _near = [];
   double _featuredPage = 0;
+  Future<void>? _loadJob;
 
   @override
   void initState() {
     super.initState();
     SouqController.instance.addListener(_onCtrl);
+    AppTabs.index.addListener(_onTab);
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) => _boot());
   }
 
@@ -42,7 +46,24 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
     await _load();
   }
 
-  Future<void> _load() async {
+  void _onTab() {
+    if (AppTabs.index.value == AppTabs.marketplace) _load();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed &&
+        AppTabs.index.value == AppTabs.marketplace) {
+      _load();
+    }
+  }
+
+  Future<void> _load() {
+    return _loadJob ??= _doLoad().whenComplete(() => _loadJob = null);
+  }
+
+  Future<void> _doLoad() async {
+    await SouqController.instance.refresh();
     final repo = SouqController.instance.repo;
     final city = LifeSettings.instance.city.name;
     final featured = await repo.featuredCars();
@@ -63,6 +84,8 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
   @override
   void dispose() {
     _scroll.dispose();
+    AppTabs.index.removeListener(_onTab);
+    WidgetsBinding.instance.removeObserver(this);
     SouqController.instance.removeListener(_onCtrl);
     super.dispose();
   }
@@ -198,10 +221,7 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
                       featured: true,
                       onTap: () {
                         AppAnalytics.instance.category('souq', SouqCatalog.cars);
-                        openCard(
-                          context,
-                          SouqCategoryScreen(categoryId: SouqCatalog.cars),
-                        );
+                        AppTabs.openMarketplaceCategory(SouqCatalog.cars);
                       },
                     ),
                   ),
@@ -232,10 +252,7 @@ class _SouqHomeScreenState extends State<SouqHomeScreen> {
                         category: cat,
                         onTap: () {
                           AppAnalytics.instance.category('souq', cat.id);
-                          openCard(
-                            context,
-                            SouqCategoryScreen(categoryId: cat.id),
-                          );
+                          AppTabs.openMarketplaceCategory(cat.id);
                         },
                       );
                     },

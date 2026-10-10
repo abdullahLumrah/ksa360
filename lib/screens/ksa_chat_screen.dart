@@ -10,6 +10,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import '../data/ksa_api_service.dart';
 import '../theme/app_theme.dart';
+import 'in_app_browser_screen.dart';
 
 enum _Role { user, assistant }
 
@@ -708,11 +709,26 @@ class _KsaChatScreenState extends State<KsaChatScreen>
                   _BlockKind.bullets => Padding(
                       padding: const EdgeInsets.only(top: 4, bottom: 6),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           for (final cell in block.bullets)
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 6),
-                              child: _TopicCell(label: cell),
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    '•  ',
+                                    style: TextStyle(
+                                      color: AppColors.navy,
+                                      fontWeight: FontWeight.w800,
+                                      height: 1.45,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Expanded(child: _RichLine(cell)),
+                                ],
+                              ),
                             ),
                         ],
                       ),
@@ -1105,37 +1121,82 @@ class _RichLine extends StatelessWidget {
 
   final String text;
 
+  static final _tokenRe = RegExp(
+    r'\[([^\]]+)\]\((https?:\/\/[^\s)]+|www\.[^\s)]+)\)'
+    r'|(https?:\/\/[^\s<>\[\]()]+|www\.[^\s<>\[\]()]+)'
+    r'|\*\*(.+?)\*\*',
+    caseSensitive: false,
+  );
+
   @override
   Widget build(BuildContext context) {
-    final spans = <TextSpan>[];
-    final pattern = RegExp(r'\*\*(.+?)\*\*');
+    const base = TextStyle(
+      color: AppColors.ink,
+      height: 1.45,
+      fontWeight: FontWeight.w500,
+      fontSize: 15,
+    );
+    const linkStyle = TextStyle(
+      color: AppColors.green,
+      height: 1.45,
+      fontWeight: FontWeight.w700,
+      fontSize: 15,
+      decoration: TextDecoration.underline,
+      decorationColor: AppColors.green,
+    );
+    const boldStyle = TextStyle(
+      fontWeight: FontWeight.w800,
+      color: AppColors.navy,
+      height: 1.45,
+      fontSize: 15,
+    );
+
+    final spans = <InlineSpan>[];
     var start = 0;
-    for (final match in pattern.allMatches(text)) {
+    for (final match in _tokenRe.allMatches(text)) {
       if (match.start > start) {
         spans.add(TextSpan(text: text.substring(start, match.start)));
       }
-      spans.add(
-        TextSpan(
-          text: match.group(1),
-          style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.navy),
-        ),
-      );
+      final mdLabel = match.group(1);
+      final mdUrl = match.group(2);
+      final bareUrl = match.group(3);
+      final bold = match.group(4);
+      if (mdLabel != null && mdUrl != null) {
+        final href = mdUrl;
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.baseline,
+            baseline: TextBaseline.alphabetic,
+            child: GestureDetector(
+              onTap: () => openInAppBrowser(context, url: href, title: mdLabel),
+              child: Text(mdLabel, style: linkStyle),
+            ),
+          ),
+        );
+      } else if (bareUrl != null) {
+        final href = bareUrl;
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.baseline,
+            baseline: TextBaseline.alphabetic,
+            child: GestureDetector(
+              onTap: () => openInAppBrowser(context, url: href),
+              child: Text(href, style: linkStyle),
+            ),
+          ),
+        );
+      } else if (bold != null) {
+        spans.add(TextSpan(text: bold, style: boldStyle));
+      }
       start = match.end;
     }
     if (start < text.length) {
       spans.add(TextSpan(text: text.substring(start)));
     }
-    return Text.rich(
-      TextSpan(
-        style: const TextStyle(
-          color: AppColors.ink,
-          height: 1.45,
-          fontWeight: FontWeight.w500,
-          fontSize: 15,
-        ),
-        children: spans,
-      ),
-    );
+    if (spans.isEmpty) {
+      return Text(text, style: base);
+    }
+    return Text.rich(TextSpan(style: base, children: spans));
   }
 }
 

@@ -451,8 +451,10 @@ class _PlacePhoto extends StatelessWidget {
           imageUrl: url,
           httpHeaders: foodPhotoHeaders(url),
           fit: BoxFit.cover,
-          placeholder: (_, __) =>
-              ColoredBox(color: cuisineColor(place.kind).withValues(alpha: 0.35)),
+          placeholder: (_, __) => _PhotoLoader(
+            color: cuisineColor(place.kind),
+            size: width < 70 ? 16 : 22,
+          ),
           errorWidget: (_, __, ___) {
             if (url == fallback) {
               return ColoredBox(
@@ -464,12 +466,40 @@ class _PlacePhoto extends StatelessWidget {
               imageUrl: fallback,
               httpHeaders: foodPhotoHeaders(fallback),
               fit: BoxFit.cover,
+              placeholder: (_, __) => _PhotoLoader(
+                color: cuisineColor(place.kind),
+                size: width < 70 ? 16 : 22,
+              ),
               errorWidget: (_, __, ___) => ColoredBox(
                 color: cuisineColor(place.kind).withValues(alpha: 0.4),
                 child: Icon(Icons.restaurant_rounded, color: cuisineColor(place.kind)),
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _PhotoLoader extends StatelessWidget {
+  const _PhotoLoader({required this.color, this.size = 22});
+
+  final Color color;
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return ColoredBox(
+      color: color.withValues(alpha: 0.22),
+      child: Center(
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: CircularProgressIndicator(
+            strokeWidth: size < 18 ? 2 : 2.4,
+            color: AppColors.gold,
+          ),
         ),
       ),
     );

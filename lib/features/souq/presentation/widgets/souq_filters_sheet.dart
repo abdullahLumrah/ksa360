@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../data/saudi_cities.dart';
 import '../../../../theme/app_theme.dart';
+import '../../../../widgets/app_filter_chip.dart';
 import '../../domain/souq_categories.dart';
 import '../../domain/souq_models.dart';
 import '../souq_controller.dart';
@@ -158,9 +159,9 @@ class _SouqFiltersSheetState extends State<SouqFiltersSheet> {
                       runSpacing: 8,
                       children: SaudiCities.all.take(18).map((c) {
                         final on = _f.cities.contains(c.name);
-                        return FilterChip(
+                        return AppFilterChip(
                           selected: on,
-                          label: Text(c.name),
+                          label: c.name,
                           onSelected: (v) {
                             final next = [..._f.cities];
                             if (v) {
@@ -179,9 +180,9 @@ class _SouqFiltersSheetState extends State<SouqFiltersSheet> {
                     Wrap(
                       spacing: 8,
                       children: AdCondition.values.map((c) {
-                        return ChoiceChip(
+                        return AppFilterChip(
                           selected: _f.condition == c,
-                          label: Text(SouqFormat.conditionLabel(c, ar: l10n.ar)),
+                          label: SouqFormat.conditionLabel(c, ar: l10n.ar),
                           onSelected: (v) => _set(_f.copyWith(
                             condition: v ? c : null,
                             clearCondition: !v,
@@ -210,9 +211,9 @@ class _SouqFiltersSheetState extends State<SouqFiltersSheet> {
                                   spacing: 8,
                                   children: field.options.map((o) {
                                     final on = '${_f.attributes[field.key] ?? ''}' == o;
-                                    return ChoiceChip(
+                                    return AppFilterChip(
                                       selected: on,
-                                      label: Text(o),
+                                      label: o,
                                       onSelected: (v) {
                                         final attrs = Map<String, dynamic>.from(_f.attributes);
                                         if (v) {

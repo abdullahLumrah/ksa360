@@ -6,19 +6,21 @@ import 'package:flutter/services.dart';
 
 import '../data/app_analytics.dart';
 import '../data/app_tabs.dart';
+import '../data/auth_session.dart';
 import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
 import '../data/restaurant_repository.dart';
+import '../features/souq/presentation/screens/souq_category_screen.dart';
 import '../features/souq/presentation/screens/souq_home_screen.dart';
 import '../features/souq/presentation/souq_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/motion.dart';
 import 'explore_screen.dart';
 import 'home_screen.dart';
-import 'eat_screen.dart';
-import 'jobs_screen.dart';
+import 'community_screen.dart';
 import 'ksa_chat_screen.dart';
 import 'play_screen.dart';
+import 'profile_complete_sheet.dart';
 import 'profile_screen.dart';
 
 class HomeShell extends StatefulWidget {
@@ -30,15 +32,19 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
+  var _askedProfile = false;
 
   @override
   void initState() {
     super.initState();
     AppTabs.index.value = 0;
     AppTabs.index.addListener(_syncTab);
+    AppTabs.pendingMarketplaceCategory.addListener(_openPendingMarketplaceCategory);
     SouqController.instance.ensureReady();
     _refreshPlacesFromGps();
     AppAnalytics.instance.section('home');
+    AuthSession.instance.addListener(_maybeCompleteProfile);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeCompleteProfile());
   }
 
   Future<void> _refreshPlacesFromGps() async {
@@ -57,15 +63,51 @@ class _HomeShellState extends State<HomeShell> {
     final next = AppTabs.index.value;
     if (next != _index && mounted) {
       setState(() => _index = next);
-      const names = ['home', 'guides', 'souq', 'jobs', 'eat', 'play', 'profile'];
+      const names = [
+        'home',
+        'guides',
+        'marketplace',
+        'community',
+        'play',
+        'profile',
+      ];
       AppAnalytics.instance.section(names[next.clamp(0, names.length - 1)]);
     }
+  }
+
+  void _openPendingMarketplaceCategory() {
+    final id = AppTabs.pendingMarketplaceCategory.value;
+    if (id == null || !mounted) return;
+    AppTabs.pendingMarketplaceCategory.value = null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      openCard(context, SouqCategoryScreen(categoryId: id));
+    });
   }
 
   @override
   void dispose() {
     AppTabs.index.removeListener(_syncTab);
+    AppTabs.pendingMarketplaceCategory
+        .removeListener(_openPendingMarketplaceCategory);
+    AuthSession.instance.removeListener(_maybeCompleteProfile);
     super.dispose();
+  }
+
+  void _maybeCompleteProfile() {
+    final session = AuthSession.instance;
+    if (!session.isSignedIn) {
+      _askedProfile = false;
+      return;
+    }
+    if (!mounted || _askedProfile) return;
+    final user = session.user;
+    if (user == null || !user.needsDetails) return;
+    _askedProfile = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      showProfileCompleteSheet(context);
+    });
   }
 
   @override
@@ -81,8 +123,7 @@ class _HomeShellState extends State<HomeShell> {
               HomeScreen(),
               ExploreScreen(),
               SouqHomeScreen(),
-              JobsScreen(),
-              EatScreen(),
+              CommunityScreen(),
               PlayScreen(),
               ProfileScreen(),
             ],
@@ -159,12 +200,14 @@ class _TabSpec {
 const _tabs = [
   _TabSpec(Icons.home_rounded, 'Home'),
   _TabSpec(Icons.grid_view_rounded, 'Categories'),
-  _TabSpec(Icons.storefront_rounded, 'Souq'),
-  _TabSpec(Icons.work_outline_rounded, 'Jobs'),
-  _TabSpec(Icons.restaurant_rounded, 'Eat'),
+  _TabSpec(Icons.storefront_rounded, 'Marketplace'),
+  _TabSpec(Icons.groups_rounded, 'Community'),
   _TabSpec(Icons.local_activity_rounded, 'Play'),
   _TabSpec(Icons.person_rounded, 'Profile'),
 ];
+
+/// Shared by the dock shell and the selected pill so corners match.
+const _dockRadius = 16.0;
 
 class _LiquidTabDock extends StatefulWidget {
   const _LiquidTabDock({
@@ -294,13 +337,13 @@ class _LiquidTabDockState extends State<_LiquidTabDock>
       duration: const Duration(milliseconds: 220),
       curve: Curves.easeOutCubic,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(_dockRadius),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 26, sigmaY: 26),
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: const Color(0xF7FFFCF7),
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(_dockRadius),
               border: Border.all(color: AppColors.stroke),
               boxShadow: AppShadows.card,
             ),
@@ -336,7 +379,7 @@ class _LiquidTabDockState extends State<_LiquidTabDock>
                             scaleY: 1 - stretch.abs() * 0.06,
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
+                                borderRadius: BorderRadius.circular(_dockRadius),
                                 gradient: LinearGradient(
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,

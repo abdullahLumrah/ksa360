@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
@@ -10,12 +11,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
     <application
         android:label="KSA 360"
-        android:name="${applicationName}"
+        android:name=".KsaApp"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUjMG0glAvJsfUZJ-D0KPU_JC_foYbJqM"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="ksa360_default"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_ksa"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -85,7 +85,8 @@ class AppApi {
     if (path.contains('/auth/login') ||
         path.contains('/auth/register') ||
         path.contains('/auth/google') ||
-        path.contains('/analytics/')) {
+        path.contains('/analytics/') ||
+        path.contains('/me/push-token')) {
       return;
     }
     await AuthSession.instance.clearLocal();

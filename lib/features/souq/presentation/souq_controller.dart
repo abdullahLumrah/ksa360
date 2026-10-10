@@ -75,6 +75,9 @@ class SouqController extends ChangeNotifier {
   }
 
   Future<void> refresh() async {
+    if (repo is LocalSouqRepository) {
+      await (repo as LocalSouqRepository).refreshCatalog();
+    }
     notifyListeners();
   }
 

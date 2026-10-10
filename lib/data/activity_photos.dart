@@ -180,6 +180,13 @@ List<String> photosForKind(String kind) {
 String kindPhotoFor(String kind) => photosForKind(kind).first;
 
 String activityPhotoFor(KsaActivity place) {
+  final image = place.image.trim();
+  if (image.isNotEmpty &&
+      !image.contains('unsplash.com') &&
+      !image.contains('ytimg.com') &&
+      !image.contains('youtube.com')) {
+    return image;
+  }
   final name = place.name.toLowerCase();
   var key = place.kind;
   if (place.kind == 'desert' &&

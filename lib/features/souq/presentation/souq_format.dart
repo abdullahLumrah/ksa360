@@ -72,20 +72,27 @@ class SouqFormat {
         lower.contains('على السوم')) {
       return null;
     }
-    s = s.replaceAll(',', '').replaceAll('،', '').replaceAll(' ', '');
-    var multiplier = 1.0;
-    if (s.contains('ألف') || s.contains('الف') || lower.contains('k')) {
-      multiplier = 1000;
-      s = s.replaceAll('ألف', '').replaceAll('الف', '').replaceAll(RegExp('[kK]'), '');
+    final labeled = RegExp(
+      r'(?:SAR|SR|USD|AED|ر\.?\s*س)\s*([\d,]+(?:\.\d+)?)',
+      caseSensitive: false,
+    ).firstMatch(s);
+    if (labeled != null) {
+      final n = double.tryParse(labeled.group(1)!.replaceAll(',', ''));
+      if (n != null && n > 0) return n;
     }
-    if (s.contains('مليون') || lower.contains('m')) {
-      multiplier = 1000000;
-      s = s.replaceAll('مليون', '').replaceAll(RegExp('[mM]'), '');
+    final thousands = RegExp(
+      r'(\d+(?:\.\d+)?)\s*(?:ألف|الف|(?<![A-Za-z])[kK](?![A-Za-z]))',
+    ).firstMatch(s);
+    if (thousands != null) {
+      final n = double.tryParse(thousands.group(1)!);
+      if (n != null && n > 0 && n < 1000) return n * 1000;
+      if (n != null && n >= 1000) return n;
     }
-    s = s.replaceAll(RegExp(r'[^0-9.]'), '');
-    final n = double.tryParse(s);
-    if (n == null || n <= 0) return null;
-    return n * multiplier;
+    final first = RegExp(r'[\d,]+(?:\.\d+)?').firstMatch(s);
+    if (first == null) return null;
+    final n = double.tryParse(first.group(0)!.replaceAll(',', ''));
+    if (n == null || n <= 0 || n == 1 || n == 12) return null;
+    return n;
   }
 
   static String sar(double? price, {bool ar = false, bool negotiable = false}) {

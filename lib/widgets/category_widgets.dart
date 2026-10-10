@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/category_style.dart';
 import '../models/models.dart';
 import '../theme/app_theme.dart';
+import 'marquee_text.dart';
 import 'motion.dart';
 
 class SectionHeader extends StatelessWidget {
@@ -11,16 +12,18 @@ class SectionHeader extends StatelessWidget {
     required this.title,
     this.subtitle,
     this.onSeeAll,
+    this.compact = false,
   });
 
   final String title;
   final String? subtitle;
   final VoidCallback? onSeeAll;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 8, 8, 10),
+      padding: EdgeInsets.fromLTRB(20, compact ? 4 : 8, 8, compact ? 2 : 10),
       child: Row(
         children: [
           Expanded(
@@ -168,10 +171,8 @@ class CategoryPhotoTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      category.name,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    MarqueeText(
+                      text: category.name,
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,

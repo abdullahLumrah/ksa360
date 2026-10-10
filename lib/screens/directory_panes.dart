@@ -256,16 +256,11 @@ class _DailyRow extends StatelessWidget {
                     ),
                   ),
                   if (extras.isNotEmpty) ...[
-                    const SizedBox(height: 6),
-                    Row(
-                      children: [
-                        for (final brand in extras) ...[
-                          _MiniThumb(
-                            url: brand.icon.isNotEmpty ? brand.icon : brand.image,
-                            size: 18,
-                          ),
-                          const SizedBox(width: 4),
-                        ],
+                    const SizedBox(height: 7),
+                    _DailyBrandCascade(
+                      urls: [
+                        for (final brand in extras)
+                          brand.icon.isNotEmpty ? brand.icon : brand.image,
                       ],
                     ),
                   ],
@@ -274,6 +269,56 @@ class _DailyRow extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _DailyBrandCascade extends StatelessWidget {
+  const _DailyBrandCascade({required this.urls});
+
+  final List<String> urls;
+
+  static const _sizes = <double>[22, 17, 13];
+
+  @override
+  Widget build(BuildContext context) {
+    if (urls.isEmpty) return const SizedBox.shrink();
+    final count = urls.length.clamp(0, _sizes.length);
+    final sizes = _sizes.take(count).toList();
+    final maxH = sizes.reduce((a, b) => a > b ? a : b);
+    final steps = <double>[];
+    var x = 0.0;
+    for (var i = 0; i < count; i++) {
+      steps.add(x);
+      if (i < count - 1) x += sizes[i] * 0.56;
+    }
+    return SizedBox(
+      width: steps.last + sizes.last + 2,
+      height: maxH + 2,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          for (var i = count - 1; i >= 0; i--)
+            Positioned(
+              left: steps[i],
+              bottom: (maxH - sizes[i]) / 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(sizes[i] * 0.28),
+                  border: Border.all(color: AppColors.card, width: 1.2),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x181C1915),
+                      blurRadius: 4,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: _MiniThumb(url: urls[i], size: sizes[i]),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -288,14 +333,18 @@ class _MiniThumb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(size > 28 ? 12 : 5),
+      borderRadius: BorderRadius.circular(size > 28 ? 12 : size * 0.28),
       child: url.isEmpty
           ? SizedBox(
               width: size,
               height: size,
-              child: const ColoredBox(
+              child: ColoredBox(
                 color: AppColors.bg,
-                child: Icon(Icons.storefront_rounded, color: AppColors.gold, size: 16),
+                child: Icon(
+                  Icons.storefront_rounded,
+                  color: AppColors.gold,
+                  size: size * 0.42,
+                ),
               ),
             )
           : CachedNetworkImage(
@@ -303,12 +352,17 @@ class _MiniThumb extends StatelessWidget {
               width: size,
               height: size,
               fit: BoxFit.cover,
+              memCacheWidth: (size * 3).round(),
               errorWidget: (_, __, ___) => SizedBox(
                 width: size,
                 height: size,
-                child: const ColoredBox(
+                child: ColoredBox(
                   color: AppColors.bg,
-                  child: Icon(Icons.storefront_rounded, color: AppColors.gold, size: 16),
+                  child: Icon(
+                    Icons.storefront_rounded,
+                    color: AppColors.gold,
+                    size: size * 0.42,
+                  ),
                 ),
               ),
             ),

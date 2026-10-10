@@ -57,16 +57,14 @@ class AuthSession extends ChangeNotifier {
     required String email,
     required String password,
     required String confirmPassword,
-    required String dateOfBirth,
-    required String gender,
+    String phone = '',
   }) {
     return _authPost('/auth/register', {
       'name': name,
       'email': email,
       'password': password,
       'confirmPassword': confirmPassword,
-      'dateOfBirth': dateOfBirth,
-      'gender': gender,
+      if (phone.trim().isNotEmpty) 'phone': phone.trim(),
     });
   }
 
@@ -133,12 +131,7 @@ class AuthSession extends ChangeNotifier {
     String clientId,
   ) async {
     final google = GoogleSignIn(
-      scopes: const [
-        'email',
-        'profile',
-        'https://www.googleapis.com/auth/user.birthday.read',
-        'https://www.googleapis.com/auth/user.gender.read',
-      ],
+      scopes: const ['email', 'profile'],
       serverClientId: clientId,
     );
     final account = await google.signIn();
@@ -153,6 +146,7 @@ class AuthSession extends ChangeNotifier {
 
   Future<void> updateProfile({
     required String name,
+    required String phone,
     required String dateOfBirth,
     required String gender,
   }) async {
@@ -164,6 +158,7 @@ class AuthSession extends ChangeNotifier {
         AppApi.uri('/auth/me'),
         body: jsonEncode({
           'name': name,
+          'phone': phone,
           'dateOfBirth': dateOfBirth,
           'gender': gender,
         }),
@@ -196,6 +191,26 @@ class AuthSession extends ChangeNotifier {
     return raw
         .replaceFirst('Exception: ', '')
         .replaceFirst(RegExp(r'PlatformException\([^)]*\)'), 'Google sign-in failed');
+  }
+
+  Future<void> deleteAccount() async {
+    busy = true;
+    error = null;
+    notifyListeners();
+    try {
+      final res = await AppApi.delete(AppApi.uri('/auth/me'));
+      if (res.statusCode >= 400) {
+        final map = jsonDecode(res.body) as Map<String, dynamic>;
+        throw Exception(map['error'] as String? ?? 'Could not delete account');
+      }
+      await clearLocal();
+    } catch (e) {
+      error = e.toString().replaceFirst('Exception: ', '');
+      rethrow;
+    } finally {
+      busy = false;
+      notifyListeners();
+    }
   }
 
   Future<void> signOut() async {

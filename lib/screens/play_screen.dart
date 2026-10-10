@@ -93,67 +93,23 @@ class _PlayScreenState extends State<PlayScreen> {
         ];
         final showBrowse = _search.text.isEmpty && _kind == 'all' && _sort != 'saved';
 
+        final topInset = MediaQuery.paddingOf(context).top;
+
         return Scaffold(
           backgroundColor: AppColors.bg,
           body: CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    16,
-                    MediaQuery.paddingOf(context).top + 10,
-                    16,
-                    0,
-                  ),
-                  child: FadeSlideIn(
-                    child: Material(
-                      color: Colors.transparent,
-                      child: TextField(
-                        controller: _search,
-                        onChanged: (_) => setState(() {}),
-                        decoration: const InputDecoration(
-                          hintText: 'Movies, bowling, karting, dunes…',
-                          prefixIcon: Icon(Icons.search_rounded),
-                          filled: true,
-                          fillColor: AppColors.card,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 52,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: activityKinds.length + 1,
-                    separatorBuilder: (_, __) => const SizedBox(width: 8),
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return _KindChip(
-                          label: '📍  All',
-                          color: AppColors.green,
-                          selected: _kind == 'all',
-                          onTap: () {
-                            setState(() => _kind = 'all');
-                            AppAnalytics.instance.category('play', 'all');
-                          },
-                        );
-                      }
-                      final kind = activityKinds[index - 1];
-                      return _KindChip(
-                        label: '${kind.icon}  ${kind.title}',
-                        color: Color(kind.color),
-                        selected: _kind == kind.id,
-                        onTap: () {
-                          setState(() => _kind = kind.id);
-                          AppAnalytics.instance.category('play', kind.id);
-                        },
-                      );
-                    },
-                  ),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _PlayPinnedControls(
+                  topInset: topInset,
+                  search: _search,
+                  selectedKind: _kind,
+                  onSearch: () => setState(() {}),
+                  onKind: (id) {
+                    setState(() => _kind = id);
+                    AppAnalytics.instance.category('play', id);
+                  },
                 ),
               ),
               SliverToBoxAdapter(
@@ -333,6 +289,102 @@ class _PlayScreenState extends State<PlayScreen> {
         );
       },
     );
+  }
+}
+
+class _PlayPinnedControls extends SliverPersistentHeaderDelegate {
+  _PlayPinnedControls({
+    required this.topInset,
+    required this.search,
+    required this.selectedKind,
+    required this.onSearch,
+    required this.onKind,
+  });
+
+  final double topInset;
+  final TextEditingController search;
+  final String selectedKind;
+  final VoidCallback onSearch;
+  final ValueChanged<String> onKind;
+
+  static const _searchH = 52.0;
+  static const _chipsH = 52.0;
+  static const _topGap = 10.0;
+  static const _bottomGap = 8.0;
+
+  @override
+  double get minExtent => topInset + _topGap + _searchH + _chipsH + _bottomGap;
+
+  @override
+  double get maxExtent => minExtent;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return Material(
+      color: AppColors.bg,
+      elevation: overlapsContent ? 3 : 0,
+      shadowColor: Colors.black26,
+      child: Column(
+        children: [
+          SizedBox(height: topInset + _topGap),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              height: _searchH,
+              child: TextField(
+                controller: search,
+                onChanged: (_) => onSearch(),
+                decoration: const InputDecoration(
+                  hintText: 'Movies, bowling, karting, dunes…',
+                  prefixIcon: Icon(Icons.search_rounded),
+                  filled: true,
+                  fillColor: AppColors.card,
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: _chipsH,
+            child: ListView.separated(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+              scrollDirection: Axis.horizontal,
+              itemCount: activityKinds.length + 1,
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return _KindChip(
+                    label: '📍  All',
+                    color: AppColors.green,
+                    selected: selectedKind == 'all',
+                    onTap: () => onKind('all'),
+                  );
+                }
+                final kind = activityKinds[index - 1];
+                return _KindChip(
+                  label: '${kind.icon}  ${kind.title}',
+                  color: Color(kind.color),
+                  selected: selectedKind == kind.id,
+                  onTap: () => onKind(kind.id),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant _PlayPinnedControls oldDelegate) {
+    return oldDelegate.topInset != topInset ||
+        oldDelegate.selectedKind != selectedKind ||
+        oldDelegate.search != search;
   }
 }
 
