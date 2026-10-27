@@ -8,6 +8,7 @@ import '../data/activity_store.dart';
 import '../data/ksa_activities.dart';
 import '../data/life_settings.dart';
 import '../models/activity.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../widgets/activity_photo.dart';
 import '../widgets/category_widgets.dart';
@@ -118,25 +119,25 @@ class _PlayScreenState extends State<PlayScreen> {
                   child: Row(
                     children: [
                       _SortChip(
-                        label: 'Nearby',
+                        label: AppLocalizations.of(context).playNearby,
                         selected: _sort == 'near',
                         onTap: () => setState(() => _sort = 'near'),
                       ),
                       const SizedBox(width: 8),
                       _SortChip(
-                        label: 'Cheapest',
+                        label: AppLocalizations.of(context).playCheapest,
                         selected: _sort == 'price',
                         onTap: () => setState(() => _sort = 'price'),
                       ),
                       const SizedBox(width: 8),
                       _SortChip(
-                        label: 'Saved',
+                        label: AppLocalizations.of(context).playSaved,
                         selected: _sort == 'saved',
                         onTap: () => setState(() => _sort = 'saved'),
                       ),
                       const Spacer(),
                       Text(
-                        '${places.length} spots',
+                        AppLocalizations.of(context).spotsCount(places.length),
                         style: const TextStyle(
                           color: AppColors.muted,
                           fontSize: 12,
@@ -150,8 +151,8 @@ class _PlayScreenState extends State<PlayScreen> {
               if (_search.text.isEmpty && _sort != 'saved')
                 SliverToBoxAdapter(
                   child: SectionHeader(
-                    title: 'Reels',
-                    subtitle: 'Swipe shorts · tap to open the activity',
+                    title: AppLocalizations.of(context).reels,
+                    subtitle: AppLocalizations.of(context).reelsSubtitle,
                     onSeeAll: () => openCard(
                       context,
                       const PlayReelsScreen(),
@@ -196,8 +197,8 @@ class _PlayScreenState extends State<PlayScreen> {
               if (showBrowse)
                 SliverToBoxAdapter(
                   child: SectionHeader(
-                    title: 'Near you',
-                    subtitle: settings.locationLabel,
+                    title: AppLocalizations.of(context).nearYou,
+                    subtitle: settings.locationLabelOf(AppLocalizations.of(context)),
                   ),
                 ),
               if (showBrowse)
@@ -338,9 +339,9 @@ class _PlayPinnedControls extends SliverPersistentHeaderDelegate {
               child: TextField(
                 controller: search,
                 onChanged: (_) => onSearch(),
-                decoration: const InputDecoration(
-                  hintText: 'Movies, bowling, karting, dunes…',
-                  prefixIcon: Icon(Icons.search_rounded),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context).playSearchHint,
+                  prefixIcon: const Icon(Icons.search_rounded),
                   filled: true,
                   fillColor: AppColors.card,
                   isDense: true,
@@ -359,7 +360,7 @@ class _PlayPinnedControls extends SliverPersistentHeaderDelegate {
               itemBuilder: (context, index) {
                 if (index == 0) {
                   return _KindChip(
-                    label: '📍  All',
+                    label: '📍  ${AppLocalizations.of(context).playAll}',
                     color: AppColors.green,
                     selected: selectedKind == 'all',
                     onTap: () => onKind('all'),

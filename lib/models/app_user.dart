@@ -44,6 +44,7 @@ class AppUser {
   final bool profileComplete;
 
   bool get isGoogle => provider == 'google';
+  bool get isApple => provider == 'apple';
 
   String get genderLabel {
     if (gender.isEmpty) return 'Add gender';

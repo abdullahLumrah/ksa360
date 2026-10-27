@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/dial.dart';
 import '../data/emergencies.dart';
 import '../data/healthcare_repository.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import 'motion.dart';
 
@@ -38,10 +39,10 @@ class EmergencyStrip extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Emergency',
-                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
+                  AppLocalizations.of(context).emergency,
+                  style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
                 ),
               ),
               if (onSeeAll != null)
@@ -53,9 +54,9 @@ class EmergencyStrip extends StatelessWidget {
                     minimumSize: Size.zero,
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   ),
-                  child: const Text(
-                    'See all',
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context).seeAll,
+                    style: const TextStyle(
                       color: AppColors.gold,
                       fontWeight: FontWeight.w700,
                       fontSize: 13,

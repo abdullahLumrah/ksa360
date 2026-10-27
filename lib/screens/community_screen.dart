@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../data/app_analytics.dart';
 import '../data/auth_session.dart';
+import '../data/block_store.dart';
 import '../data/community_repository.dart';
+import '../l10n/l10n_ext.dart';
 import '../models/community.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_filter_chip.dart';
 import '../widgets/community_post_tile.dart';
-import 'auth_sheet.dart';
+import '../widgets/login_prompt.dart';
 import 'community_create_screen.dart';
+import 'community_moderation.dart';
 import 'community_page_screen.dart';
 import 'community_post_screen.dart';
 
@@ -32,6 +35,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
     super.initState();
     AuthSession.instance.addListener(_onAuth);
     CommunityRepository.instance.addListener(_onRepo);
+    BlockStore.instance.addListener(_onRepo);
     AppAnalytics.instance.section('community');
     if (AuthSession.instance.isSignedIn) {
       _reload();
@@ -44,6 +48,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
     _search.dispose();
     AuthSession.instance.removeListener(_onAuth);
     CommunityRepository.instance.removeListener(_onRepo);
+    BlockStore.instance.removeListener(_onRepo);
     super.dispose();
   }
 
@@ -69,12 +74,6 @@ class _CommunityScreenState extends State<CommunityScreen> {
   void _onQuery(String _) {
     _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 280), _reload);
-  }
-
-  Future<void> _signIn() async {
-    await showAuthSheet(context);
-    if (!mounted) return;
-    if (AuthSession.instance.isSignedIn) _reload();
   }
 
   Future<void> _openPage(String id) async {
@@ -111,19 +110,19 @@ class _CommunityScreenState extends State<CommunityScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('My pages', style: Theme.of(ctx).textTheme.titleLarge),
+                Text(AppLocalizations.of(ctx).myPages, style: Theme.of(ctx).textTheme.titleLarge),
                 const SizedBox(height: 6),
-                const Text(
-                  'Pages you created',
-                  style: TextStyle(color: AppColors.muted),
+                Text(
+                  AppLocalizations.of(ctx).myPagesSubtitle,
+                  style: const TextStyle(color: AppColors.muted),
                 ),
                 const SizedBox(height: 14),
                 if (owned.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 24),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Text(
-                      'You have not created a page yet.',
-                      style: TextStyle(color: AppColors.muted),
+                      AppLocalizations.of(ctx).noPagesYet,
+                      style: const TextStyle(color: AppColors.muted),
                     ),
                   )
                 else
@@ -142,7 +141,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       ),
                       title: Text(page.name, style: const TextStyle(fontWeight: FontWeight.w700)),
                       subtitle: Text(
-                        '${page.topic} · ${page.memberCount} members',
+                        '${AppLocalizations.of(ctx).topic(page.topic)} · ${AppLocalizations.of(ctx).membersCount(page.memberCount)}',
                         style: const TextStyle(color: AppColors.muted, fontSize: 12),
                       ),
                       trailing: const Icon(Icons.chevron_right_rounded),
@@ -164,7 +163,18 @@ class _CommunityScreenState extends State<CommunityScreen> {
   Widget build(BuildContext context) {
     final pad = MediaQuery.paddingOf(context);
     if (!AuthSession.instance.isSignedIn) {
-      return _Gate(top: pad.top, onSignIn: _signIn);
+      return ColoredBox(
+        color: AppColors.bg,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20, pad.top + 24, 20, pad.bottom + 96),
+          child: LoginPrompt(
+            title: AppLocalizations.of(context).communityLoginTitle,
+            body: AppLocalizations.of(context).communityLoginBody,
+            buttonLabel: AppLocalizations.of(context).login,
+            icon: Icons.groups_rounded,
+          ),
+        ),
+      );
     }
     final repo = CommunityRepository.instance;
     return ColoredBox(
@@ -195,7 +205,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Community',
+                            AppLocalizations.of(context).communityTitle,
                             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
                                   letterSpacing: -0.6,
@@ -203,7 +213,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                           ),
                         ),
                         IconButton(
-                          tooltip: 'My pages',
+                          tooltip: AppLocalizations.of(context).myPages,
                           onPressed: () => _openMyPages(context, repo.owned),
                           icon: Badge(
                             isLabelVisible: repo.owned.isNotEmpty,
@@ -222,7 +232,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                             _reload();
                           },
                           icon: const Icon(Icons.add_rounded, size: 20),
-                          label: const Text('Create page'),
+                          label: Text(AppLocalizations.of(context).createPage),
                         ),
                       ],
                     ),
@@ -238,9 +248,9 @@ class _CommunityScreenState extends State<CommunityScreen> {
                     TextField(
                       controller: _search,
                       onChanged: _onQuery,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search_rounded),
-                        hintText: 'Search pages and posts',
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        hintText: AppLocalizations.of(context).searchPagesPosts,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -250,7 +260,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           _TopicChip(
-                            label: 'All',
+                            label: AppLocalizations.of(context).all,
                             selected: _topic.isEmpty,
                             onTap: () {
                               setState(() => _topic = '');
@@ -259,7 +269,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                           ),
                           ...repo.topics.map(
                             (topic) => _TopicChip(
-                              label: topic,
+                              label: AppLocalizations.of(context).topic(topic),
                               selected: _topic == topic,
                               onTap: () {
                                 setState(() => _topic = topic);
@@ -285,10 +295,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   child: Text(
                     repo.refreshError ??
                         (_search.text.trim().isNotEmpty
-                            ? 'No posts match that search.'
-                            : repo.feedCaughtUp
-                            ? "You're all caught up. New posts will show up here."
-                            : 'No posts yet. Create a page and share the first one.'),
+                            ? AppLocalizations.of(context).noPostsMatch
+                            : AppLocalizations.of(context).noPostsYet),
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: AppColors.muted),
                   ),
@@ -298,7 +306,11 @@ class _CommunityScreenState extends State<CommunityScreen> {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    if (index >= repo.feed.length) {
+                    final feed = BlockStore.instance.hideUsers(
+                      repo.feed,
+                      (item) => item.authorId,
+                    );
+                    if (index >= feed.length) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Center(
@@ -308,10 +320,14 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         ),
                       );
                     }
-                    final post = repo.feed[index];
+                    final post = feed[index];
                     return CommunityPostTile(
                       post: post,
                       showPageName: true,
+                      onMore: () => showCommunityPostActions(
+                        context,
+                        post: post,
+                      ),
                       onLike: () async {
                         try {
                           final next = await CommunityRepository.instance
@@ -381,13 +397,13 @@ class _PendingBanner extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(20, 16, 20, 28),
                     children: [
                       Text(
-                        'Posts waiting for you',
+                        AppLocalizations.of(ctx).postsWaitingTitle,
                         style: Theme.of(ctx).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 6),
-                      const Text(
-                        'Only you (the page owner) can approve these. They stay hidden until you accept.',
-                        style: TextStyle(color: AppColors.muted),
+                      Text(
+                        AppLocalizations.of(ctx).postsWaitingBody,
+                        style: const TextStyle(color: AppColors.muted),
                       ),
                       const SizedBox(height: 14),
                       ...posts.map((post) {
@@ -420,7 +436,7 @@ class _PendingBanner extends StatelessWidget {
                                       if (ctx.mounted) Navigator.pop(ctx);
                                       await onChanged();
                                     },
-                                    child: const Text('Approve'),
+                                    child: Text(AppLocalizations.of(ctx).approve),
                                   ),
                                   const SizedBox(width: 8),
                                   OutlinedButton(
@@ -430,7 +446,7 @@ class _PendingBanner extends StatelessWidget {
                                       if (ctx.mounted) Navigator.pop(ctx);
                                       await onChanged();
                                     },
-                                    child: const Text('Decline'),
+                                    child: Text(AppLocalizations.of(ctx).decline),
                                   ),
                                 ],
                               ),
@@ -454,7 +470,7 @@ class _PendingBanner extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  '$count post${count == 1 ? '' : 's'} waiting for your approval',
+                  AppLocalizations.of(context).postsWaitingBanner(count),
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: AppColors.goldSoft,
@@ -494,43 +510,3 @@ class _TopicChip extends StatelessWidget {
   }
 }
 
-class _Gate extends StatelessWidget {
-  const _Gate({required this.top, required this.onSignIn});
-
-  final double top;
-  final VoidCallback onSignIn;
-
-  @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: AppColors.bg,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(28, top + 48, 28, 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Community',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Create pages, share posts, like and reply — and if you own a page, approve what others share.',
-              style: TextStyle(color: AppColors.muted, height: 1.45),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: onSignIn,
-                child: const Text('Sign in to continue'),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

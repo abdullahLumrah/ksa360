@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../data/auth_session.dart';
 import '../../../screens/auth_sheet.dart';
 import '../../../widgets/motion.dart';
+import '../domain/souq_models.dart';
 import 'screens/souq_chat_screens.dart';
 import 'screens/souq_favorites_screen.dart';
 import 'screens/souq_my_ads_screen.dart';
@@ -27,6 +28,24 @@ Future<bool> ensureSouqSignedIn(BuildContext context) async {
   await showAuthSheet(context);
   if (!context.mounted) return false;
   return AuthSession.instance.isSignedIn;
+}
+
+Future<void> openSouqAdChat(BuildContext context, {required Ad ad}) async {
+  if (!await ensureSouqSignedIn(context)) return;
+  if (!context.mounted) return;
+  final me = AuthSession.instance.user?.id;
+  if (me != null && me == ad.seller.id) {
+    openCard(context, SouqChatListScreen(adId: ad.id));
+    return;
+  }
+  try {
+    await SouqController.instance.repo.openChat(ad: ad);
+    if (!context.mounted) return;
+    openCard(context, SouqChatThreadScreen(adId: ad.id));
+  } catch (e) {
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+  }
 }
 
 Future<void> openSouqChats(BuildContext context, {String? adId}) async {

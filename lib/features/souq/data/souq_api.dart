@@ -6,6 +6,7 @@ import 'package:http_parser/http_parser.dart';
 
 import '../../../data/app_api.dart';
 import '../../../data/app_api_config.dart';
+import '../../../data/block_store.dart';
 import '../domain/souq_models.dart';
 
 class SouqApi {
@@ -104,10 +105,13 @@ class SouqApi {
       AppApi.uri('/souq/ads', _filters(filters, page: page, pageSize: pageSize)),
     );
     final data = _json(res);
-    final items = ((data['items'] as List?) ?? const [])
-        .whereType<Map>()
-        .map((e) => parseAd(Map<String, dynamic>.from(e)))
-        .toList();
+    final items = BlockStore.instance.hideListings(
+      ((data['items'] as List?) ?? const [])
+          .whereType<Map>()
+          .map((e) => parseAd(Map<String, dynamic>.from(e))),
+      adIdOf: (ad) => ad.id,
+      sellerIdOf: (ad) => ad.seller.id,
+    );
     return PagedAds(items: items, total: data['total'] as int? ?? items.length);
   }
 

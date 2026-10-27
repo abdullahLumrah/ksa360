@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../data/life_settings.dart';
 import '../data/prayer_service.dart';
+import '../l10n/l10n_ext.dart';
 import '../theme/app_theme.dart';
 import '../widgets/emergency_strip.dart';
 import '../widgets/motion.dart';
@@ -49,9 +50,9 @@ class _LifeScreenState extends State<LifeScreen> {
           backgroundColor: AppColors.bg,
           body: CustomScrollView(
             slivers: [
-              const SliverAppBar(
+              SliverAppBar(
                 pinned: true,
-                title: Text('Prayer times'),
+                title: Text(AppLocalizations.of(context).prayerTimes),
               ),
               SliverToBoxAdapter(
                 child: FadeSlideIn(
@@ -224,7 +225,9 @@ class PrayerTimesPanel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Next ${prayers.nextName}',
+                    AppLocalizations.of(context).nextPrayer(
+                      AppLocalizations.of(context).prayer(prayers.nextName),
+                    ),
                     style: const TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 15,
@@ -232,7 +235,7 @@ class PrayerTimesPanel extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'in ${PrayerService.countdown(prayers.nextTime)} · ${settings.locationLabel}',
+                    '${AppLocalizations.of(context).prayerIn(AppLocalizations.of(context).countdown(prayers.nextTime))} · ${settings.locationLabelOf(AppLocalizations.of(context))}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -254,7 +257,7 @@ class PrayerTimesPanel extends StatelessWidget {
               if (i > 0) const SizedBox(width: 6),
               Expanded(
                 child: _TimeChip(
-                  name: slots[i].key,
+                  name: AppLocalizations.of(context).prayer(slots[i].key),
                   time: DateFormat('h:mm').format(slots[i].value),
                   active: slots[i].key == prayers.nextName,
                   accent: _accents[i % _accents.length],
@@ -279,12 +282,14 @@ class PrayerTimesPanel extends StatelessWidget {
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
-                  settings.locationLabel,
+                  settings.locationLabelOf(AppLocalizations.of(context)),
                   style: const TextStyle(fontWeight: FontWeight.w800),
                 ),
               ),
               Text(
-                settings.useGps ? 'GPS' : 'Manual',
+                settings.useGps
+                    ? AppLocalizations.of(context).gps
+                    : AppLocalizations.of(context).manual,
                 style: const TextStyle(color: AppColors.gold, fontSize: 12),
               ),
               const Icon(Icons.expand_more, color: AppColors.gold),
@@ -301,21 +306,25 @@ class PrayerTimesPanel extends StatelessWidget {
           ),
         ),
         Text(
-          DateFormat.yMMMMEEEEd().format(prayers.gregorian),
+          DateFormat.yMMMMEEEEd(AppLocalizations.of(context).localeName)
+              .format(prayers.gregorian),
           style: const TextStyle(color: AppColors.muted),
         ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
           children: [
-            if (prayers.isRamadan) _pill('Ramadan'),
-            if (prayers.isWeekend) _pill('Weekend (Fri–Sat)'),
-            _pill('Umm Al-Qura'),
+            if (prayers.isRamadan) _pill(AppLocalizations.of(context).ramadan),
+            if (prayers.isWeekend) _pill(AppLocalizations.of(context).weekendFriSat),
+            _pill(AppLocalizations.of(context).ummAlQura),
           ],
         ),
         const SizedBox(height: 14),
         Text(
-          'Next ${prayers.nextName} in ${PrayerService.countdown(prayers.nextTime)}',
+          AppLocalizations.of(context).nextPrayerIn(
+            AppLocalizations.of(context).prayer(prayers.nextName),
+            AppLocalizations.of(context).countdown(prayers.nextTime),
+          ),
           style: const TextStyle(
             color: AppColors.gold,
             fontWeight: FontWeight.w800,
@@ -330,7 +339,7 @@ class PrayerTimesPanel extends StatelessWidget {
                 SizedBox(
                   width: 78,
                   child: Text(
-                    slot.key,
+                    AppLocalizations.of(context).prayer(slot.key),
                     style: TextStyle(
                       color: slot.key == prayers.nextName
                           ? AppColors.gold
@@ -357,7 +366,7 @@ class PrayerTimesPanel extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
-              settings.locationError!,
+              settings.locationErrorOf(AppLocalizations.of(context))!,
               style: const TextStyle(color: AppColors.muted, fontSize: 12),
             ),
           ),
@@ -365,9 +374,9 @@ class PrayerTimesPanel extends StatelessWidget {
         TextButton.icon(
           onPressed: () => settings.refreshGps(request: true),
           icon: const Icon(Icons.my_location, color: AppColors.gold),
-          label: const Text(
-            'Use my location',
-            style: TextStyle(color: AppColors.gold, fontWeight: FontWeight.w700),
+          label: Text(
+            AppLocalizations.of(context).useMyLocation,
+            style: const TextStyle(color: AppColors.gold, fontWeight: FontWeight.w700),
           ),
         ),
       ],

@@ -85,6 +85,7 @@ class AppApi {
     if (path.contains('/auth/login') ||
         path.contains('/auth/register') ||
         path.contains('/auth/google') ||
+        path.contains('/auth/apple') ||
         path.contains('/analytics/') ||
         path.contains('/me/push-token')) {
       return;

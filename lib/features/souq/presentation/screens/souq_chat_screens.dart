@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/auth_session.dart';
+import '../../../../screens/auth_sheet.dart';
 import '../../../../theme/app_theme.dart';
+import '../../../../widgets/login_prompt.dart';
 import '../../data/souq_api.dart';
 import '../../domain/souq_models.dart';
 import '../souq_controller.dart';
 import '../souq_format.dart';
 import '../souq_l10n.dart';
-import '../souq_sell.dart';
 import '../widgets/souq_ad_card.dart';
 import '../widgets/souq_widgets.dart';
 
@@ -25,7 +26,22 @@ class _SouqChatListScreenState extends State<SouqChatListScreen> {
   @override
   void initState() {
     super.initState();
+    AuthSession.instance.addListener(_onAuth);
     _load();
+  }
+
+  void _onAuth() {
+    if (AuthSession.instance.isSignedIn) {
+      _load();
+    } else if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    AuthSession.instance.removeListener(_onAuth);
+    super.dispose();
   }
 
   Future<void> _load() async {
@@ -52,12 +68,13 @@ class _SouqChatListScreenState extends State<SouqChatListScreen> {
           return Scaffold(
             backgroundColor: AppColors.bg,
             appBar: AppBar(title: Text(l10n.chats)),
-            body: Center(
-              child: FilledButton(
-                onPressed: () async {
-                  if (await ensureSouqSignedIn(context)) _load();
-                },
-                child: Text(l10n.signInToChat),
+            body: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
+              child: LoginPrompt(
+                title: l10n.signInToChat,
+                body: l10n.signInToChatBody,
+                buttonLabel: l10n.login,
+                icon: Icons.forum_outlined,
               ),
             ),
           );
@@ -135,6 +152,11 @@ class _SouqChatThreadScreenState extends State<SouqChatThreadScreen> {
     if (!AuthSession.instance.isSignedIn) {
       if (!mounted) return;
       setState(() => _error = SouqL10n.of(context).signInToChat);
+      await showAuthSheet(context);
+      if (!mounted) return;
+      if (AuthSession.instance.isSignedIn) {
+        await _load();
+      }
       return;
     }
     try {
@@ -189,11 +211,18 @@ class _SouqChatThreadScreenState extends State<SouqChatThreadScreen> {
       backgroundColor: AppColors.bg,
       appBar: AppBar(title: Text(ad?.title ?? convo?.adTitle ?? l10n.chat)),
       body: _error != null && convo == null
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Text(_error!, textAlign: TextAlign.center),
-              ),
+          ? Padding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
+              child: !AuthSession.instance.isSignedIn
+                  ? LoginPrompt(
+                      title: l10n.signInToChat,
+                      body: l10n.signInToStartChatBody,
+                      buttonLabel: l10n.login,
+                      icon: Icons.forum_outlined,
+                    )
+                  : Center(
+                      child: Text(_error!, textAlign: TextAlign.center),
+                    ),
             )
           : Column(
               children: [

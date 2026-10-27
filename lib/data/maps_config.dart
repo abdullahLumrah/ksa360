@@ -6,7 +6,7 @@ const kGoogleMapsApiKey = 'AIzaSyAUjMG0glAvJsfUZJ-D0KPU_JC_foYbJqM';
 /// Android app restriction on this Maps key.
 const kGooglePlacesAndroidHeaders = <String, String>{
   'X-Android-Package': 'com.ksaguide.ksa360',
-  'X-Android-Cert': 'D64E44D00BC4131C8DD7621B08B7972D31135ED8',
+  'X-Android-Cert': 'D30ADA96A26D17A036EA93C2F0D7E1788550A72C',
 };
 
 const kGooglePlacesIosHeaders = <String, String>{

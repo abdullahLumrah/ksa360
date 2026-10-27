@@ -1,0 +1,247 @@
+{
+  "@@locale": "en",
+  "appTitle": "KSA 360",
+  "tabHome": "Home",
+  "tabCategories": "Categories",
+  "tabMarketplace": "Marketplace",
+  "tabCommunity": "Community",
+  "tabPlay": "Play",
+  "tabProfile": "Profile",
+  "askKsa": "Ask KSA",
+  "seeAll": "See all",
+  "search": "Search",
+  "language": "Language",
+  "languageSubtitle": "English is the default. Arabic flips the app to the right.",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "splashTagline": "ALL IN ONE · FOR EXPATS",
+  "splashCheatCode": "Your KSA cheat code.",
+  "splashLoadError": "Could not load guides. Please restart the app.",
+  "kingdomName": "Kingdom of Saudi Arabia",
+  "homeSearchSubtitle": "Guides, food, play, embassies",
+  "homeDailyTitle": "Daily in KSA · Coupons & brands",
+  "homeDailySubtitle": "Apps, shops, and offers",
+  "homeMarketplaceTitle": "Marketplace",
+  "homeMarketplaceSubtitle": "Cars, furniture and more people are listing",
+  "homeActivitiesTitle": "Activities near me",
+  "homeActivitiesSubtitle": "Dunes, karting, snow, cinema, malls",
+  "homeEatTitle": "Eat nearby",
+  "homeEatSubtitle": "Arab, Chinese, Desi and more",
+  "homeCategoriesTitle": "Categories",
+  "homeCategoriesSubtitle": "Guides grouped the way people look them up",
+  "homeClinicsTitle": "Find clinics",
+  "homeClinicsSubtitle": "Hospitals and clinics around you",
+  "homeStudyTitle": "Study in Saudi Arabia",
+  "homeStudySubtitle": "International schools near you",
+  "prayerIn": "in {time}",
+  "@prayerIn": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "nextPrayer": "Next {name}",
+  "@nextPrayer": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "nextPrayerIn": "Next {name} in {time}",
+  "@nextPrayerIn": {
+    "placeholders": {
+      "name": {"type": "String"},
+      "time": {"type": "String"}
+    }
+  },
+  "prayerTimes": "Prayer times",
+  "prayerFajr": "Fajr",
+  "prayerSunrise": "Sunrise",
+  "prayerDhuhr": "Dhuhr",
+  "prayerAsr": "Asr",
+  "prayerMaghrib": "Maghrib",
+  "prayerIsha": "Isha",
+  "ramadan": "Ramadan",
+  "weekendFriSat": "Weekend (Fri–Sat)",
+  "ummAlQura": "Umm Al-Qura",
+  "useMyLocation": "Use my location",
+  "gps": "GPS",
+  "manual": "Manual",
+  "nearCity": "Near {city}",
+  "@nearCity": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  },
+  "outsideKsaUsing": "Outside KSA · using {city}",
+  "@outsideKsaUsing": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  },
+  "locationOff": "Location is turned off",
+  "locationPermissionNeeded": "Location permission needed",
+  "locationGpsFail": "Could not read GPS",
+  "countdownHours": "{hours}h {mins}m",
+  "@countdownHours": {
+    "placeholders": {
+      "hours": {"type": "int"},
+      "mins": {"type": "int"}
+    }
+  },
+  "countdownMins": "{mins}m",
+  "@countdownMins": {
+    "placeholders": {
+      "mins": {"type": "int"}
+    }
+  },
+  "emergency": "Emergency",
+  "login": "Log in",
+  "createAccount": "Create account",
+  "signOut": "Sign out",
+  "signInToContinue": "Sign in to continue",
+  "skipForNow": "Skip for now",
+  "continueWithGoogle": "Continue with Google",
+  "continueWithApple": "Continue with Apple",
+  "continueWithEmail": "Continue with email",
+  "signInWithGoogle": "Sign in with Google",
+  "signInWithApple": "Sign in with Apple",
+  "welcomeBack": "Welcome back",
+  "welcomeBackBody": "Sign in to sync your profile across this phone.",
+  "createYourAccount": "Create your account",
+  "createYourAccountBody": "A light profile so we can keep your saved places with you.",
+  "authPromoteTitle": "Log in or create an account",
+  "authPromoteBody": "Save chats, community posts, and your marketplace listings on this phone.",
+  "agreePrivacyPrefix": "I agree to the ",
+  "agreePrivacyNeeded": "Please agree to the Privacy Policy to continue",
+  "agreeTermsPrefix": "I agree to the ",
+  "agreeAnd": " and ",
+  "agreeTermsNeeded": "Please agree to the Terms of Use and Privacy Policy to continue",
+  "termsOfUse": "Terms of Use",
+  "termsNoAbuse": "KSA 360 has zero tolerance for objectionable content and abusive users.",
+  "blockUser": "Block user",
+  "userBlocked": "User blocked. Their content is hidden, and our team has been notified.",
+  "blockUserConfirm": "Block this user?",
+  "blockUserConfirmBody": "Hide posts, comments, and marketplace listings from {name}. We will also notify the KSA 360 team.",
+  "@blockUserConfirmBody": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "reportPost": "Report post",
+  "reportUser": "Report user",
+  "cancel": "Cancel",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm password",
+  "name": "Name",
+  "newHere": "New here?",
+  "alreadyHaveAccount": "Already have an account?",
+  "guest": "Guest",
+  "guestInitial": "G",
+  "browsingKsa": "Browsing KSA 360",
+  "guestBody": "Create an account for a lighter profile — just your name when you need it.",
+  "signedInGoogle": "Signed in with Google",
+  "signedInApple": "Signed in with Apple",
+  "signedInEmail": "Signed in with email",
+  "finishProfileHint": "Add your mobile, date of birth, and gender to finish this profile.",
+  "manageProfile": "Manage profile",
+  "mobile": "Mobile",
+  "dateOfBirth": "Date of birth",
+  "gender": "Gender",
+  "privacyHowWeUse": "How we use your data",
+  "loginPromptCreate": "Create account",
+  "communityLoginTitle": "Log in to Community",
+  "communityLoginBody": "Sign in to follow pages, like and reply, and share posts with other expats.",
+  "communityTitle": "Community",
+  "myPages": "My pages",
+  "myPagesSubtitle": "Pages you created",
+  "noPagesYet": "You have not created a page yet.",
+  "createPage": "Create page",
+  "searchPagesPosts": "Search pages and posts",
+  "all": "All",
+  "membersCount": "{count} members",
+  "@membersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noPostsMatch": "No posts match that search.",
+  "noPostsYet": "No posts yet. Create a page and share the first one.",
+  "postsWaitingTitle": "Posts waiting for you",
+  "postsWaitingBody": "Only you (the page owner) can approve these. They stay hidden until you accept.",
+  "postsWaitingBanner": "{count, plural, =1{1 post waiting for your approval} other{{count} posts waiting for your approval}}",
+  "@postsWaitingBanner": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "approve": "Approve",
+  "decline": "Decline",
+  "like": "Like",
+  "comment": "Comment",
+  "join": "Join",
+  "page": "Page",
+  "likesCount": "{count, plural, =1{1 like} other{{count} likes}}",
+  "@likesCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "commentsCount": "{count, plural, =1{1 comment} other{{count} comments}}",
+  "@commentsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicGeneral": "General",
+  "topicFood": "Food",
+  "topicCulture": "Culture",
+  "topicExpats": "Expats",
+  "topicSports": "Sports",
+  "topicBusiness": "Business",
+  "topicFamily": "Family",
+  "topicEducation": "Education",
+  "topicFaith": "Faith",
+  "topicNeighbourhood": "Neighbourhood",
+  "topicOther": "Other",
+  "jobs": "Jobs",
+  "jobsSubtitle": "Work in Saudi Arabia",
+  "postAJob": "Post a job",
+  "searchJobs": "Search jobs",
+  "anyCity": "Any city",
+  "noJobsMatch": "No jobs match these filters.",
+  "jobsGateBody": "Sign in to browse Saudi roles, apply on the listing, or post a job for review.",
+  "featureMarketplace": "Marketplace",
+  "featureJobs": "Jobs",
+  "featureDaily": "Daily in KSA",
+  "featureClinics": "Clinics",
+  "featureStudy": "Study here",
+  "featureEat": "Eat nearby",
+  "featureActivities": "Activities",
+  "featureEmergency": "Emergency",
+  "featureGuides": "Guides",
+  "guides": "Guides",
+  "guidesHubBody": "Posts and topics. Open a guide, or suggest one for review.",
+  "suggestAGuide": "Suggest a guide",
+  "searchHint": "Guides, food, play, embassies…",
+  "saved": "Saved",
+  "playNearby": "Nearby",
+  "playCheapest": "Cheapest",
+  "playSaved": "Saved",
+  "spotsCount": "{count} spots",
+  "@spotsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "reels": "Reels",
+  "reelsSubtitle": "Swipe shorts · tap to open the activity",
+  "playSearchHint": "Movies, bowling, karting, dunes…",
+  "playAll": "All",
+  "nearYou": "Near you",
+  "topicsCount": "{count} topics",
+  "@topicsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
+}

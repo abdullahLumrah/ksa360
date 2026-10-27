@@ -16,6 +16,7 @@ import '../data/life_settings.dart';
 import '../data/restaurant_repository.dart';
 import '../data/shop_repository.dart';
 import '../data/school_repository.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../widgets/ksa360_mark.dart';
 import 'home_shell.dart';
@@ -132,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen>
       );
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = 'Could not load guides. Please restart the app.');
+      setState(() => _error = 'load');
     }
   }
 
@@ -188,9 +189,9 @@ class _SplashScreenState extends State<SplashScreen>
                     const SizedBox(height: 26),
                     _wordmark(),
                     const SizedBox(height: 12),
-                    _tagline(),
+                    _tagline(context),
                     const Spacer(flex: 6),
-                    _footer(),
+                    _footer(context),
                     const SizedBox(height: 28),
                   ],
                 );
@@ -269,30 +270,31 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Widget _tagline() {
+  Widget _tagline(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final show = _between(0.66, 0.96);
     return Opacity(
       opacity: show,
       child: Transform.translate(
         offset: Offset(0, 8 * (1 - show)),
-        child: const Column(
+        child: Column(
           children: [
             Text(
-              'ALL IN ONE · FOR EXPATS',
-              style: TextStyle(
+              l10n.splashTagline,
+              style: const TextStyle(
                 color: AppColors.muted,
                 fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 3.2,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Text(
-                'Your KSA cheat code.',
+                l10n.splashCheatCode,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     color: AppColors.muted, fontSize: 14, height: 1.4),
               ),
             ),
@@ -302,12 +304,12 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Widget _footer() {
+  Widget _footer(BuildContext context) {
     if (_error != null) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28),
         child: Text(
-          _error!,
+          AppLocalizations.of(context).splashLoadError,
           textAlign: TextAlign.center,
           style: const TextStyle(color: AppColors.goldSoft),
         ),

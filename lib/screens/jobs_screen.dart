@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../data/app_analytics.dart';
 import '../data/auth_session.dart';
 import '../data/job_repository.dart';
+import '../l10n/app_localizations.dart';
 import '../models/job.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_filter_chip.dart';
@@ -112,20 +113,20 @@ class _JobsScreenState extends State<JobsScreen> {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'Jobs',
-                            style: TextStyle(
+                            AppLocalizations.of(context).jobs,
+                            style: const TextStyle(
                               color: AppColors.navy,
                               fontWeight: FontWeight.w800,
                               fontSize: 22,
                               height: 1.1,
                             ),
                           ),
-                          SizedBox(height: 2),
+                          const SizedBox(height: 2),
                           Text(
-                            'Work in Saudi Arabia',
-                            style: TextStyle(
+                            AppLocalizations.of(context).jobsSubtitle,
+                            style: const TextStyle(
                               color: AppColors.muted,
                               fontWeight: FontWeight.w600,
                               fontSize: 12,
@@ -153,9 +154,9 @@ class _JobsScreenState extends State<JobsScreen> {
                         ),
                       ),
                       icon: const Icon(Icons.add_rounded, size: 16),
-                      label: const Text(
-                        'Post a job',
-                        style: TextStyle(
+                      label: Text(
+                        AppLocalizations.of(context).postAJob,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 12,
                         ),
@@ -179,10 +180,10 @@ class _JobsScreenState extends State<JobsScreen> {
                     child: TextField(
                       controller: _search,
                       onChanged: _onQuery,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Search jobs',
-                        icon: Icon(Icons.search_rounded, size: 18),
+                        hintText: AppLocalizations.of(context).searchJobs,
+                        icon: const Icon(Icons.search_rounded, size: 18),
                         hintStyle: TextStyle(
                           color: AppColors.muted,
                           fontWeight: FontWeight.w600,
@@ -204,7 +205,7 @@ class _JobsScreenState extends State<JobsScreen> {
                     padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
                     children: [
                       _FilterChip(
-                        label: 'All',
+                        label: AppLocalizations.of(context).all,
                         selected: _category.isEmpty,
                         onTap: () {
                           setState(() => _category = '');
@@ -233,7 +234,7 @@ class _JobsScreenState extends State<JobsScreen> {
                     padding: const EdgeInsets.fromLTRB(16, 6, 16, 0),
                     children: [
                       _FilterChip(
-                        label: 'Any city',
+                        label: AppLocalizations.of(context).anyCity,
                         selected: _city.isEmpty,
                         compact: true,
                         onTap: () {
@@ -267,11 +268,11 @@ class _JobsScreenState extends State<JobsScreen> {
                 child: Center(child: CircularProgressIndicator()),
               )
             else if (repo.jobs.isEmpty)
-              const SliverFillRemaining(
+              SliverFillRemaining(
                 child: Center(
                   child: Text(
-                    'No jobs match these filters.',
-                    style: TextStyle(color: AppColors.muted),
+                    AppLocalizations.of(context).noJobsMatch,
+                    style: const TextStyle(color: AppColors.muted),
                   ),
                 ),
               )
@@ -313,18 +314,18 @@ class _JobsGate extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Jobs',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).jobs,
+              style: const TextStyle(
                 color: AppColors.navy,
                 fontWeight: FontWeight.w800,
                 fontSize: 28,
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Sign in to browse Saudi roles, apply on the listing, or post a job for review.',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).jobsGateBody,
+              style: const TextStyle(
                 color: AppColors.muted,
                 fontSize: 15,
                 height: 1.4,
@@ -342,9 +343,9 @@ class _JobsGate extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              child: const Text(
-                'Sign in to continue',
-                style: TextStyle(fontWeight: FontWeight.w800),
+              child: Text(
+                AppLocalizations.of(context).signInToContinue,
+                style: const TextStyle(fontWeight: FontWeight.w800),
               ),
             ),
           ],

@@ -47,3 +47,14 @@ app.*.map.json
 # Local AnythingLLM key. Do not commit.
 /lib/data/ksa_api_secret.dart
 
+# Android Play upload key. Never commit.
+/android/key.properties
+/android/*.jks
+/android/*.keystore
+
+# Play reviewer credentials. Never commit.
+/store/PLAY_REVIEWER.txt
+
+# Android Gradle output
+/android/build/
+

@@ -1,26 +1,49 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../data/app_legal.dart';
 import '../data/auth_session.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import 'in_app_browser_screen.dart';
+import 'terms_screen.dart';
+
+bool get _showAppleSignIn => !kIsWeb && Platform.isIOS;
 
 enum _AuthStage { pick, login, register }
 
-Future<void> showAuthSheet(BuildContext context, {bool register = false}) {
+Future<void> showAuthSheet(
+  BuildContext context, {
+  bool register = false,
+  bool allowSkip = false,
+  bool promote = false,
+}) {
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     barrierColor: const Color(0x661C1915),
-    builder: (context) => _AuthSheet(startRegister: register),
+    builder: (context) => _AuthSheet(
+      startRegister: register,
+      allowSkip: allowSkip,
+      promote: promote,
+    ),
   );
 }
 
 class _AuthSheet extends StatefulWidget {
-  const _AuthSheet({required this.startRegister});
+  const _AuthSheet({
+    required this.startRegister,
+    this.allowSkip = false,
+    this.promote = false,
+  });
 
   final bool startRegister;
+  final bool allowSkip;
+  final bool promote;
 
   @override
   State<_AuthSheet> createState() => _AuthSheetState();
@@ -60,9 +83,15 @@ class _AuthSheetState extends State<_AuthSheet> {
     );
   }
 
+  void _openTerms() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const TermsScreen()),
+    );
+  }
+
   Future<void> _run(Future<void> Function() action) async {
     if (!_agreed) {
-      setState(() => _error = 'Please agree to the Privacy Policy to continue');
+      setState(() => _error = AppLocalizations.of(context).agreeTermsNeeded);
       return;
     }
     setState(() {
@@ -82,6 +111,8 @@ class _AuthSheetState extends State<_AuthSheet> {
   }
 
   Future<void> _google() => _run(AuthSession.instance.loginWithGoogle);
+
+  Future<void> _apple() => _run(AuthSession.instance.loginWithApple);
 
   Future<void> _submitLogin() => _run(
         () => AuthSession.instance.login(
@@ -155,12 +186,17 @@ class _AuthSheetState extends State<_AuthSheet> {
       case _AuthStage.pick:
         return _Pick(
           register: widget.startRegister,
+          promote: widget.promote,
+          allowSkip: widget.allowSkip,
           busy: _busy,
           agreed: _agreed,
           error: _error,
           onToggleAgree: () => setState(() => _agreed = !_agreed),
           onPrivacy: _openPrivacy,
+          onTerms: _openTerms,
           onGoogle: _google,
+          onApple: _apple,
+          onSkip: () => Navigator.of(context).pop(),
           onEmail: () => setState(() {
             _error = null;
             _stage = widget.startRegister ? _AuthStage.register : _AuthStage.login;
@@ -174,11 +210,15 @@ class _AuthSheetState extends State<_AuthSheet> {
           busy: _busy,
           agreed: _agreed,
           error: _error,
+          allowSkip: widget.allowSkip,
           onTogglePass: () => setState(() => _hidePass = !_hidePass),
           onToggleAgree: () => setState(() => _agreed = !_agreed),
           onPrivacy: _openPrivacy,
+          onTerms: _openTerms,
           onGoogle: _google,
+          onApple: _apple,
           onSubmit: _submitLogin,
+          onSkip: () => Navigator.of(context).pop(),
           onBack: () => setState(() => _stage = _AuthStage.pick),
           onRegister: () => setState(() => _stage = _AuthStage.register),
         );
@@ -192,10 +232,13 @@ class _AuthSheetState extends State<_AuthSheet> {
           busy: _busy,
           agreed: _agreed,
           error: _error,
+          allowSkip: widget.allowSkip,
           onTogglePass: () => setState(() => _hidePass = !_hidePass),
           onToggleAgree: () => setState(() => _agreed = !_agreed),
           onPrivacy: _openPrivacy,
+          onTerms: _openTerms,
           onSubmit: _submitRegister,
+          onSkip: () => Navigator.of(context).pop(),
           onBack: () => setState(() => _stage = _AuthStage.pick),
           onLogin: () => setState(() => _stage = _AuthStage.login),
         );
@@ -206,31 +249,52 @@ class _AuthSheetState extends State<_AuthSheet> {
 class _Pick extends StatelessWidget {
   const _Pick({
     required this.register,
+    required this.promote,
+    required this.allowSkip,
     required this.busy,
     required this.agreed,
     required this.error,
     required this.onToggleAgree,
     required this.onPrivacy,
+    required this.onTerms,
     required this.onGoogle,
+    required this.onApple,
     required this.onEmail,
+    required this.onSkip,
   });
 
   final bool register;
+  final bool promote;
+  final bool allowSkip;
   final bool busy;
   final bool agreed;
   final String? error;
   final VoidCallback onToggleAgree;
   final VoidCallback onPrivacy;
+  final VoidCallback onTerms;
   final VoidCallback onGoogle;
+  final VoidCallback onApple;
   final VoidCallback onEmail;
+  final VoidCallback onSkip;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final title = promote
+        ? l10n.authPromoteTitle
+        : register
+            ? l10n.createYourAccount
+            : l10n.welcomeBack;
+    final subtitle = promote
+        ? l10n.authPromoteBody
+        : register
+            ? l10n.createYourAccountBody
+            : l10n.welcomeBackBody;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          register ? 'Create your account' : 'Welcome back',
+          title,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.w800,
             letterSpacing: -0.4,
@@ -238,31 +302,53 @@ class _Pick extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          register
-              ? 'A light profile so we can keep your saved places with you.'
-              : 'Sign in to sync your profile across this phone.',
+          subtitle,
           style: const TextStyle(color: AppColors.muted, height: 1.4),
         ),
         const SizedBox(height: 22),
+        _AgreeLine(
+          agreed: agreed,
+          onToggle: onToggleAgree,
+          onPrivacy: onPrivacy,
+          onTerms: onTerms,
+        ),
+        const SizedBox(height: 16),
+        if (_showAppleSignIn) ...[
+          _AppleButton(busy: busy, enabled: agreed, onTap: onApple),
+          const SizedBox(height: 10),
+        ],
         _AuthButton(
-          label: 'Continue with Google',
+          label: l10n.continueWithGoogle,
           icon: Icons.g_mobiledata_rounded,
           filled: false,
           busy: busy,
+          enabled: agreed,
           onTap: onGoogle,
         ),
         const SizedBox(height: 10),
         _AuthButton(
-          label: 'Continue with email',
+          label: l10n.continueWithEmail,
           icon: Icons.mail_outline_rounded,
           filled: true,
+          enabled: agreed,
           onTap: onEmail,
         ),
-        const SizedBox(height: 14),
-        _AgreeLine(agreed: agreed, onToggle: onToggleAgree, onPrivacy: onPrivacy),
         if (error != null) ...[
           const SizedBox(height: 14),
           Text(error!, style: const TextStyle(color: AppColors.red, fontSize: 13)),
+        ],
+        if (allowSkip) ...[
+          const SizedBox(height: 8),
+          TextButton(
+            onPressed: onSkip,
+            child: Text(
+              AppLocalizations.of(context).skipForNow,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                color: AppColors.muted,
+              ),
+            ),
+          ),
         ],
       ],
     );
@@ -280,10 +366,14 @@ class _LoginForm extends StatelessWidget {
     required this.onTogglePass,
     required this.onToggleAgree,
     required this.onPrivacy,
+    required this.onTerms,
     required this.onGoogle,
+    required this.onApple,
     required this.onSubmit,
     required this.onBack,
     required this.onRegister,
+    this.allowSkip = false,
+    this.onSkip,
   });
 
   final TextEditingController email;
@@ -295,23 +385,27 @@ class _LoginForm extends StatelessWidget {
   final VoidCallback onTogglePass;
   final VoidCallback onToggleAgree;
   final VoidCallback onPrivacy;
+  final VoidCallback onTerms;
   final VoidCallback onGoogle;
+  final VoidCallback onApple;
   final VoidCallback onSubmit;
   final VoidCallback onBack;
   final VoidCallback onRegister;
+  final bool allowSkip;
+  final VoidCallback? onSkip;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _SheetBack(label: 'Log in', onBack: onBack),
+        _SheetBack(label: AppLocalizations.of(context).login, onBack: onBack),
         const SizedBox(height: 16),
-        _Field(controller: email, label: 'Email', keyboard: TextInputType.emailAddress),
+        _Field(controller: email, label: AppLocalizations.of(context).email, keyboard: TextInputType.emailAddress),
         const SizedBox(height: 10),
         _Field(
           controller: password,
-          label: 'Password',
+          label: AppLocalizations.of(context).password,
           obscure: hidePass,
           suffix: IconButton(
             onPressed: onTogglePass,
@@ -327,23 +421,52 @@ class _LoginForm extends StatelessWidget {
           Text(error!, style: const TextStyle(color: AppColors.red, fontSize: 13)),
         ],
         const SizedBox(height: 12),
-        _AgreeLine(agreed: agreed, onToggle: onToggleAgree, onPrivacy: onPrivacy),
+        _AgreeLine(
+          agreed: agreed,
+          onToggle: onToggleAgree,
+          onPrivacy: onPrivacy,
+          onTerms: onTerms,
+        ),
         const SizedBox(height: 16),
-        _AuthButton(label: 'Log in', filled: true, busy: busy, onTap: onSubmit),
-        const SizedBox(height: 10),
         _AuthButton(
-          label: 'Sign in with Google',
+          label: AppLocalizations.of(context).login,
+          filled: true,
+          busy: busy,
+          enabled: agreed,
+          onTap: onSubmit,
+        ),
+        const SizedBox(height: 10),
+        if (_showAppleSignIn) ...[
+          _AppleButton(busy: busy, enabled: agreed, onTap: onApple),
+          const SizedBox(height: 10),
+        ],
+        _AuthButton(
+          label: AppLocalizations.of(context).signInWithGoogle,
           icon: Icons.g_mobiledata_rounded,
           filled: false,
           busy: busy,
+          enabled: agreed,
           onTap: onGoogle,
         ),
         const SizedBox(height: 14),
         _SwitchLine(
-          prompt: 'New here?',
-          action: 'Create account',
+          prompt: AppLocalizations.of(context).newHere,
+          action: AppLocalizations.of(context).createAccount,
           onTap: onRegister,
         ),
+        if (allowSkip && onSkip != null) ...[
+          const SizedBox(height: 4),
+          TextButton(
+            onPressed: onSkip,
+            child: Text(
+              AppLocalizations.of(context).skipForNow,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                color: AppColors.muted,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -362,9 +485,12 @@ class _RegisterForm extends StatelessWidget {
     required this.onTogglePass,
     required this.onToggleAgree,
     required this.onPrivacy,
+    required this.onTerms,
     required this.onSubmit,
     required this.onBack,
     required this.onLogin,
+    this.allowSkip = false,
+    this.onSkip,
   });
 
   final TextEditingController name;
@@ -378,24 +504,27 @@ class _RegisterForm extends StatelessWidget {
   final VoidCallback onTogglePass;
   final VoidCallback onToggleAgree;
   final VoidCallback onPrivacy;
+  final VoidCallback onTerms;
   final VoidCallback onSubmit;
   final VoidCallback onBack;
   final VoidCallback onLogin;
+  final bool allowSkip;
+  final VoidCallback? onSkip;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _SheetBack(label: 'Create account', onBack: onBack),
+        _SheetBack(label: AppLocalizations.of(context).createAccount, onBack: onBack),
         const SizedBox(height: 16),
-        _Field(controller: name, label: 'Name', textCapitalization: TextCapitalization.words),
+        _Field(controller: name, label: AppLocalizations.of(context).name, textCapitalization: TextCapitalization.words),
         const SizedBox(height: 10),
-        _Field(controller: email, label: 'Email', keyboard: TextInputType.emailAddress),
+        _Field(controller: email, label: AppLocalizations.of(context).email, keyboard: TextInputType.emailAddress),
         const SizedBox(height: 10),
         _Field(
           controller: password,
-          label: 'Password',
+          label: AppLocalizations.of(context).password,
           obscure: hidePass,
           suffix: IconButton(
             onPressed: onTogglePass,
@@ -407,17 +536,41 @@ class _RegisterForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        _Field(controller: confirm, label: 'Confirm password', obscure: hidePass),
+        _Field(controller: confirm, label: AppLocalizations.of(context).confirmPassword, obscure: hidePass),
         if (error != null) ...[
           const SizedBox(height: 10),
           Text(error!, style: const TextStyle(color: AppColors.red, fontSize: 13)),
         ],
         const SizedBox(height: 12),
-        _AgreeLine(agreed: agreed, onToggle: onToggleAgree, onPrivacy: onPrivacy),
+        _AgreeLine(
+          agreed: agreed,
+          onToggle: onToggleAgree,
+          onPrivacy: onPrivacy,
+          onTerms: onTerms,
+        ),
         const SizedBox(height: 16),
-        _AuthButton(label: 'Create account', filled: true, busy: busy, onTap: onSubmit),
+        _AuthButton(
+          label: AppLocalizations.of(context).createAccount,
+          filled: true,
+          busy: busy,
+          enabled: agreed,
+          onTap: onSubmit,
+        ),
         const SizedBox(height: 14),
-        _SwitchLine(prompt: 'Already have an account?', action: 'Log in', onTap: onLogin),
+        _SwitchLine(prompt: AppLocalizations.of(context).alreadyHaveAccount, action: AppLocalizations.of(context).login, onTap: onLogin),
+        if (allowSkip && onSkip != null) ...[
+          const SizedBox(height: 4),
+          TextButton(
+            onPressed: onSkip,
+            child: Text(
+              AppLocalizations.of(context).skipForNow,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                color: AppColors.muted,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -428,49 +581,75 @@ class _AgreeLine extends StatelessWidget {
     required this.agreed,
     required this.onToggle,
     required this.onPrivacy,
+    required this.onTerms,
   });
 
   final bool agreed;
   final VoidCallback onToggle;
   final VoidCallback onPrivacy;
+  final VoidCallback onTerms;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    final l10n = AppLocalizations.of(context);
+    const linkStyle = TextStyle(
+      color: AppColors.gold,
+      fontWeight: FontWeight.w800,
+      fontSize: 13,
+      decoration: TextDecoration.underline,
+      decorationColor: AppColors.gold,
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Checkbox(
-            value: agreed,
-            onChanged: (_) => onToggle(),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              const Text(
-                'I agree to the ',
-                style: TextStyle(color: AppColors.muted, fontSize: 13),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: Checkbox(
+                value: agreed,
+                onChanged: (_) => onToggle(),
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
-              GestureDetector(
-                onTap: onPrivacy,
-                child: const Text(
-                  AppLegal.privacyLabel,
-                  style: TextStyle(
-                    color: AppColors.gold,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 13,
-                    decoration: TextDecoration.underline,
-                    decorationColor: AppColors.gold,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text(
+                    l10n.agreeTermsPrefix,
+                    style: const TextStyle(color: AppColors.muted, fontSize: 13),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: onTerms,
+                    child: Text(l10n.termsOfUse, style: linkStyle),
+                  ),
+                  Text(
+                    l10n.agreeAnd,
+                    style: const TextStyle(color: AppColors.muted, fontSize: 13),
+                  ),
+                  GestureDetector(
+                    onTap: onPrivacy,
+                    child: const Text(AppLegal.privacyLabel, style: linkStyle),
+                  ),
+                ],
               ),
-            ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Padding(
+          padding: const EdgeInsets.only(left: 32),
+          child: Text(
+            l10n.termsNoAbuse,
+            style: const TextStyle(
+              color: AppColors.muted,
+              fontSize: 12,
+              height: 1.35,
+            ),
           ),
         ),
       ],
@@ -536,6 +715,38 @@ class _Field extends StatelessWidget {
   }
 }
 
+class _AppleButton extends StatelessWidget {
+  const _AppleButton({
+    required this.busy,
+    required this.enabled,
+    required this.onTap,
+  });
+
+  final bool busy;
+  final bool enabled;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: busy || !enabled ? 0.45 : 1,
+      child: IgnorePointer(
+        ignoring: busy || !enabled,
+        child: SizedBox(
+          height: 50,
+          child: SignInWithAppleButton(
+            text: AppLocalizations.of(context).continueWithApple,
+            height: 50,
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            style: SignInWithAppleButtonStyle.black,
+            onPressed: onTap,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _AuthButton extends StatelessWidget {
   const _AuthButton({
     required this.label,
@@ -543,6 +754,7 @@ class _AuthButton extends StatelessWidget {
     required this.onTap,
     this.icon,
     this.busy = false,
+    this.enabled = true,
   });
 
   final String label;
@@ -550,13 +762,14 @@ class _AuthButton extends StatelessWidget {
   final VoidCallback onTap;
   final IconData? icon;
   final bool busy;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
       child: FilledButton(
-        onPressed: busy ? null : onTap,
+        onPressed: busy || !enabled ? null : onTap,
         style: FilledButton.styleFrom(
           backgroundColor: filled ? AppColors.greenDeep : AppColors.bg,
           foregroundColor: filled ? AppColors.onDark : AppColors.navy,

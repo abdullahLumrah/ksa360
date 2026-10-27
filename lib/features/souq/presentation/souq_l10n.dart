@@ -31,6 +31,13 @@ class SouqL10n {
   String get chats => ar ? 'الدردشات' : 'Chats';
   String get signInToChat =>
       ar ? 'سجّل الدخول للمحادثة' : 'Sign in to chat';
+  String get signInToChatBody => ar
+      ? 'سجّل الدخول لمراسلة البائعين وحفظ استفساراتك في مكان واحد.'
+      : 'Log in to message sellers and keep your inquiries in one place.';
+  String get signInToStartChatBody => ar
+      ? 'سجّل الدخول لبدء هذه المحادثة. الزوار لا يمكنهم مراسلة البائعين.'
+      : 'Log in to start this conversation. Guests cannot message sellers.';
+  String get login => ar ? 'تسجيل الدخول' : 'Log in';
   String get onlyOwnerReplies =>
       ar ? 'صاحب الإعلان فقط يرد' : 'Only the seller can reply';
   String get inquiries => ar ? 'الاستفسارات' : 'Inquiries';

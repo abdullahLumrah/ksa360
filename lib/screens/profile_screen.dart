@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../data/auth_session.dart';
+import '../data/locale_controller.dart';
+import '../l10n/app_localizations.dart';
 import '../models/app_user.dart';
 import '../theme/app_theme.dart';
 import '../data/app_legal.dart';
@@ -15,16 +17,20 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return ListenableBuilder(
-      listenable: AuthSession.instance,
+      listenable: Listenable.merge([
+        AuthSession.instance,
+        LocaleController.instance,
+      ]),
       builder: (context, _) {
         final user = AuthSession.instance.user;
         return CustomScrollView(
           slivers: [
-            const SliverAppBar(
+            SliverAppBar(
               pinned: true,
               automaticallyImplyLeading: false,
-              title: Text('Profile'),
+              title: Text(l10n.tabProfile),
             ),
             SliverToBoxAdapter(
               child: Padding(
@@ -34,6 +40,7 @@ class ProfileScreen extends StatelessWidget {
                     : _SignedInCard(user: user),
               ),
             ),
+            const SliverToBoxAdapter(child: _LanguageCard()),
             const SliverToBoxAdapter(child: PrayerLifeBody()),
             const SliverToBoxAdapter(child: SizedBox(height: 120)),
           ],
@@ -79,26 +86,29 @@ class _GuestCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [
-                      _AccentAvatar(letter: 'G', color: Color(0xFFC9842A)),
-                      SizedBox(width: 12),
+                      _AccentAvatar(
+                        letter: AppLocalizations.of(context).guestInitial,
+                        color: const Color(0xFFC9842A),
+                      ),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Guest',
-                              style: TextStyle(
+                              AppLocalizations.of(context).guest,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 22,
                                 letterSpacing: -0.3,
                               ),
                             ),
-                            SizedBox(height: 2),
+                            const SizedBox(height: 2),
                             Text(
-                              'Browsing KSA 360',
-                              style: TextStyle(
+                              AppLocalizations.of(context).browsingKsa,
+                              style: const TextStyle(
                                 color: Color(0xFFC9842A),
                                 fontWeight: FontWeight.w700,
                               ),
@@ -109,16 +119,16 @@ class _GuestCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 14),
-                  const Text(
-                    'Create an account for a lighter profile — just your name when you need it.',
-                    style: TextStyle(color: AppColors.muted, height: 1.4, fontSize: 13.5),
+                  Text(
+                    AppLocalizations.of(context).guestBody,
+                    style: const TextStyle(color: AppColors.muted, height: 1.4, fontSize: 13.5),
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
                         child: _GhostButton(
-                          label: 'Create account',
+                          label: AppLocalizations.of(context).createAccount,
                           filled: true,
                           onTap: () => showAuthSheet(context, register: true),
                         ),
@@ -126,7 +136,7 @@ class _GuestCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: _GhostButton(
-                          label: 'Log in',
+                          label: AppLocalizations.of(context).login,
                           filled: false,
                           onTap: () => showAuthSheet(context, register: false),
                         ),
@@ -241,7 +251,11 @@ class _SignedInCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          user.isGoogle ? 'Signed in with Google' : 'Signed in with email',
+                          user.isApple
+                              ? AppLocalizations.of(context).signedInApple
+                              : user.isGoogle
+                                  ? AppLocalizations.of(context).signedInGoogle
+                                  : AppLocalizations.of(context).signedInEmail,
                           style: const TextStyle(
                             color: AppColors.goldSoft,
                             fontSize: 12,
@@ -255,9 +269,9 @@ class _SignedInCard extends StatelessWidget {
               ),
               if (user.needsDetails) ...[
                 const SizedBox(height: 14),
-                const Text(
-                  'Add your mobile, date of birth, and gender to finish this profile.',
-                  style: TextStyle(color: AppColors.muted, height: 1.4),
+                Text(
+                  AppLocalizations.of(context).finishProfileHint,
+                  style: const TextStyle(color: AppColors.muted, height: 1.4),
                 ),
               ],
               const SizedBox(height: 14),
@@ -275,7 +289,7 @@ class _SignedInCard extends StatelessWidget {
                           backgroundColor: const Color(0xFFC9842A),
                           foregroundColor: Colors.white,
                         ),
-                        child: const Text('Manage profile'),
+                        child: Text(AppLocalizations.of(context).manageProfile),
                       ),
                     ),
                   ),
@@ -285,7 +299,7 @@ class _SignedInCard extends StatelessWidget {
                       HapticFeedback.lightImpact();
                       AuthSession.instance.signOut();
                     },
-                    child: const Text('Sign out'),
+                    child: Text(AppLocalizations.of(context).signOut),
                   ),
                 ],
               ),
@@ -301,53 +315,166 @@ class _SignedInCard extends StatelessWidget {
           children: [
             _RowTile(
               icon: Icons.person_outline_rounded,
-              title: 'Name',
+              title: AppLocalizations.of(context).name,
               subtitle: user.name,
               accent: const Color(0xFFC9842A),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.phone_outlined,
-              title: 'Mobile',
+              title: AppLocalizations.of(context).mobile,
               subtitle: user.phoneLabel,
               accent: const Color(0xFFC45C4A),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.cake_outlined,
-              title: 'Date of birth',
+              title: AppLocalizations.of(context).dateOfBirth,
               subtitle: user.dateOfBirthLabel,
               accent: const Color(0xFF4C8DFF),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.wc_outlined,
-              title: 'Gender',
+              title: AppLocalizations.of(context).gender,
               subtitle: user.genderLabel,
               accent: const Color(0xFF6B4C9A),
               onTap: () => showProfileEditSheet(context),
             ),
             _RowTile(
               icon: Icons.mail_outline_rounded,
-              title: 'Email',
+              title: AppLocalizations.of(context).email,
               subtitle: user.email,
               accent: const Color(0xFF2BB673),
             ),
             _RowTile(
               icon: Icons.policy_outlined,
               title: AppLegal.privacyLabel,
-              subtitle: 'How we use your data',
+              subtitle: AppLocalizations.of(context).privacyHowWeUse,
               accent: const Color(0xFF1B1916),
-              last: true,
               onTap: () => openInAppBrowser(
                 context,
                 url: AppLegal.privacyUrl,
                 title: AppLegal.privacyLabel,
               ),
             ),
+            _RowTile(
+              icon: Icons.person_off_outlined,
+              title: AppLegal.deleteAccountLabel,
+              subtitle: 'Request deletion of your account and data',
+              accent: const Color(0xFFB33A2B),
+              last: true,
+              onTap: () => openInAppBrowser(
+                context,
+                url: AppLegal.deleteAccountUrl,
+                title: AppLegal.deleteAccountLabel,
+              ),
+            ),
           ],
         ),
       ],
+    );
+  }
+}
+
+class _LanguageCard extends StatelessWidget {
+  const _LanguageCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final selected = LocaleController.instance.locale.languageCode;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
+      child: _QuietCard(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.language,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  l10n.languageSubtitle,
+                  style: const TextStyle(
+                    color: AppColors.muted,
+                    fontSize: 12.5,
+                    height: 1.35,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _LanguageChip(
+                        label: l10n.languageEnglish,
+                        selected: selected == 'en',
+                        onTap: () => LocaleController.instance.setCode('en'),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: _LanguageChip(
+                        label: l10n.languageArabic,
+                        selected: selected == 'ar',
+                        onTap: () => LocaleController.instance.setCode('ar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LanguageChip extends StatelessWidget {
+  const _LanguageChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: selected ? AppColors.greenDeep : AppColors.bg,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Container(
+          height: 44,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: selected ? AppColors.greenDeep : AppColors.stroke,
+            ),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: selected ? AppColors.onDark : AppColors.navy,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -24,6 +24,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -42,11 +44,20 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>KSA Guide uses your location to show prayer times for your city in Saudi Arabia.</string>
+	<string>KSA 360 uses your location to show prayer times and nearby places in Saudi Arabia.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>KSA 360 uses your location to show prayer times and nearby places while you use the app.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>KSA 360 uses your location to show prayer times and nearby places while you use the app.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>PrayerTimes</key>
+		<string>KSA 360 uses precise location once to set prayer times for your city.</string>
+	</dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>KSA Guide uses the microphone so you can ask the assistant by voice.</string>
+	<string>KSA 360 uses the microphone for voice input in the app.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>KSA Guide turns your speech into text and sends the question to your local assistant.</string>
+	<string>KSA 360 turns your speech into text for voice input.</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>KSA 360 uses the local network to load restaurants, schools, and guides from your Mac.</string>
 	<key>NSBonjourServices</key>
@@ -61,12 +72,29 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>GIDClientID</key>
+	<string>937251379831-lf7ip6khplrib5lajfaht9fjbndadag7.apps.googleusercontent.com</string>
+	<key>GIDServerClientID</key>
+	<string>937251379831-4u6008o5l3gm3uhijaufr55utqrtpvh7.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.937251379831-lf7ip6khplrib5lajfaht9fjbndadag7</string>
+			</array>
+		</dict>
+	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>tel</string>
 		<string>whatsapp</string>
 		<string>https</string>
 		<string>http</string>
+		<string>google</string>
+		<string>googleusercontent</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>KSA 360 uses the camera so you can photograph items you list on Souq.</string>

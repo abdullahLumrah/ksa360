@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../data/app_analytics.dart';
 import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
+import '../l10n/app_localizations.dart';
 import '../data/maps_config.dart';
 import '../models/health_facility.dart';
 import '../theme/app_theme.dart';
@@ -349,8 +350,8 @@ class _HealthcareScreenState extends State<HealthcareScreen> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         settings.gpsLat != null
-                            ? 'From your GPS · ${settings.locationLabel}'
-                            : (settings.locationError ??
+                            ? 'From your GPS · ${settings.locationLabelOf(AppLocalizations.of(context))}'
+                            : (settings.locationErrorOf(AppLocalizations.of(context)) ??
                                 'Using ${settings.city.name} until GPS is ready'),
                         style: const TextStyle(
                           color: AppColors.muted,

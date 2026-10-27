@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../data/app_analytics.dart';
 import '../data/app_tabs.dart';
 import '../data/auth_session.dart';
+import '../l10n/app_localizations.dart';
 import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
 import '../data/restaurant_repository.dart';
@@ -18,8 +19,8 @@ import '../widgets/motion.dart';
 import 'explore_screen.dart';
 import 'home_screen.dart';
 import 'community_screen.dart';
-import 'ksa_chat_screen.dart';
 import 'play_screen.dart';
+import 'auth_sheet.dart';
 import 'profile_complete_sheet.dart';
 import 'profile_screen.dart';
 
@@ -33,6 +34,7 @@ class HomeShell extends StatefulWidget {
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
   var _askedProfile = false;
+  var _askedFirstAuth = false;
 
   @override
   void initState() {
@@ -44,7 +46,20 @@ class _HomeShellState extends State<HomeShell> {
     _refreshPlacesFromGps();
     AppAnalytics.instance.section('home');
     AuthSession.instance.addListener(_maybeCompleteProfile);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeCompleteProfile());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _maybeFirstAuth();
+      _maybeCompleteProfile();
+    });
+  }
+
+  Future<void> _maybeFirstAuth() async {
+    if (_askedFirstAuth || !mounted) return;
+    if (AuthSession.instance.isSignedIn) return;
+    if (!await AuthSession.instance.shouldShowFirstAuthPrompt()) return;
+    if (!mounted) return;
+    _askedFirstAuth = true;
+    await showAuthSheet(context, promote: true, allowSkip: true);
+    await AuthSession.instance.markFirstAuthPromptDone();
   }
 
   Future<void> _refreshPlacesFromGps() async {
@@ -128,63 +143,17 @@ class _HomeShellState extends State<HomeShell> {
               ProfileScreen(),
             ],
           ),
-          if (_index != AppTabs.souq)
-            Positioned(
-              right: 16,
-              bottom: MediaQuery.paddingOf(context).bottom + 84,
-              child: const _AskKsaButton(),
-            ),
         ],
       ),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.fromLTRB(14, 0, 14, 10),
         child: _LiquidTabDock(
           index: _index,
+          tabs: _tabsFor(AppLocalizations.of(context)),
           onChanged: (index) {
             AppTabs.go(index);
             setState(() => _index = index);
           },
-        ),
-      ),
-    );
-  }
-}
-
-class _AskKsaButton extends StatelessWidget {
-  const _AskKsaButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: 'Ask KSA',
-      child: Material(
-        type: MaterialType.transparency,
-        shape: const CircleBorder(),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          onTap: () {
-            HapticFeedback.lightImpact();
-            openCard(context, const KsaChatScreen());
-          },
-          child: Ink(
-            width: 62,
-            height: 62,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF145C3E), Color(0xFF0B3D2A)],
-              ),
-              border: Border.all(color: AppColors.gold, width: 1.5),
-            ),
-            child: const Icon(
-              Icons.auto_awesome_rounded,
-              color: AppColors.onDark,
-              size: 28,
-            ),
-          ),
         ),
       ),
     );
@@ -197,14 +166,14 @@ class _TabSpec {
   final String label;
 }
 
-const _tabs = [
-  _TabSpec(Icons.home_rounded, 'Home'),
-  _TabSpec(Icons.grid_view_rounded, 'Categories'),
-  _TabSpec(Icons.storefront_rounded, 'Marketplace'),
-  _TabSpec(Icons.groups_rounded, 'Community'),
-  _TabSpec(Icons.local_activity_rounded, 'Play'),
-  _TabSpec(Icons.person_rounded, 'Profile'),
-];
+List<_TabSpec> _tabsFor(AppLocalizations l10n) => [
+      _TabSpec(Icons.home_rounded, l10n.tabHome),
+      _TabSpec(Icons.grid_view_rounded, l10n.tabCategories),
+      _TabSpec(Icons.storefront_rounded, l10n.tabMarketplace),
+      _TabSpec(Icons.groups_rounded, l10n.tabCommunity),
+      _TabSpec(Icons.local_activity_rounded, l10n.tabPlay),
+      _TabSpec(Icons.person_rounded, l10n.tabProfile),
+    ];
 
 /// Shared by the dock shell and the selected pill so corners match.
 const _dockRadius = 16.0;
@@ -212,10 +181,12 @@ const _dockRadius = 16.0;
 class _LiquidTabDock extends StatefulWidget {
   const _LiquidTabDock({
     required this.index,
+    required this.tabs,
     required this.onChanged,
   });
 
   final int index;
+  final List<_TabSpec> tabs;
   final ValueChanged<int> onChanged;
 
   @override
@@ -224,7 +195,7 @@ class _LiquidTabDock extends StatefulWidget {
 
 class _LiquidTabDockState extends State<_LiquidTabDock>
     with TickerProviderStateMixin {
-  int get _count => _tabs.length;
+  int get _count => widget.tabs.length;
 
   late final AnimationController _pos;
   late final AnimationController _stretch;
@@ -407,7 +378,7 @@ class _LiquidTabDockState extends State<_LiquidTabDock>
                           children: [
                             for (var i = 0; i < _count; i++)
                               _DockItem(
-                                spec: _tabs[i],
+                                spec: widget.tabs[i],
                                 amount: (1 - (_pos.value - i).abs()).clamp(0.0, 1.0),
                               ),
                           ],

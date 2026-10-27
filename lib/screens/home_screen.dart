@@ -23,6 +23,7 @@ import '../models/models.dart';
 import '../models/restaurant.dart';
 import '../models/school.dart';
 import '../models/shop.dart';
+import '../l10n/l10n_ext.dart';
 import '../theme/app_theme.dart';
 import '../widgets/category_widgets.dart';
 import '../widgets/emergency_strip.dart';
@@ -111,11 +112,11 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: FadeSlideIn(
                 delay: const Duration(milliseconds: 40),
-                child: const _HomeActionCard(
+                child: _HomeActionCard(
                   icon: Icons.search_rounded,
-                  title: 'Search',
-                  subtitle: 'Guides, food, play, embassies',
-                  page: SearchScreen(pushed: true),
+                  title: AppLocalizations.of(context).search,
+                  subtitle: AppLocalizations.of(context).homeSearchSubtitle,
+                  page: const SearchScreen(pushed: true),
                   compact: true,
                 ),
               ),
@@ -124,8 +125,8 @@ class HomeScreen extends StatelessWidget {
               child: FadeSlideIn(
                 delay: const Duration(milliseconds: 55),
                 child: SectionHeader(
-                  title: 'Daily in KSA · Coupons & brands',
-                  subtitle: 'Apps, shops, and offers',
+                  title: AppLocalizations.of(context).homeDailyTitle,
+                  subtitle: AppLocalizations.of(context).homeDailySubtitle,
                   compact: true,
                   onSeeAll: () => openCard(context, const ShopHomeScreen()),
                 ),
@@ -145,8 +146,8 @@ class HomeScreen extends StatelessWidget {
               child: FadeSlideIn(
                 delay: const Duration(milliseconds: 88),
                 child: SectionHeader(
-                  title: 'Marketplace',
-                  subtitle: 'Cars, furniture and more people are listing',
+                  title: AppLocalizations.of(context).homeMarketplaceTitle,
+                  subtitle: AppLocalizations.of(context).homeMarketplaceSubtitle,
                   onSeeAll: () => AppTabs.go(AppTabs.souq),
                 ),
               ),
@@ -162,8 +163,8 @@ class HomeScreen extends StatelessWidget {
                 child: FadeSlideIn(
                   delay: const Duration(milliseconds: 108),
                   child: SectionHeader(
-                    title: 'Activities near me',
-                    subtitle: 'Dunes, karting, snow, cinema, malls',
+                    title: AppLocalizations.of(context).homeActivitiesTitle,
+                    subtitle: AppLocalizations.of(context).homeActivitiesSubtitle,
                     onSeeAll: () => AppTabs.go(AppTabs.play),
                   ),
                 ),
@@ -180,8 +181,8 @@ class HomeScreen extends StatelessWidget {
                 child: FadeSlideIn(
                   delay: const Duration(milliseconds: 122),
                   child: SectionHeader(
-                    title: 'Eat nearby',
-                    subtitle: 'Arab, Chinese, Desi and more',
+                    title: AppLocalizations.of(context).homeEatTitle,
+                    subtitle: AppLocalizations.of(context).homeEatSubtitle,
                     onSeeAll: () => openCard(context, const EatScreen()),
                   ),
                 ),
@@ -200,8 +201,8 @@ class HomeScreen extends StatelessWidget {
               child: FadeSlideIn(
                 delay: const Duration(milliseconds: 136),
                 child: SectionHeader(
-                  title: 'Categories',
-                  subtitle: 'Guides grouped the way people look them up',
+                  title: AppLocalizations.of(context).homeCategoriesTitle,
+                  subtitle: AppLocalizations.of(context).homeCategoriesSubtitle,
                   compact: true,
                   onSeeAll: () => AppTabs.go(AppTabs.categories),
                 ),
@@ -243,8 +244,8 @@ class HomeScreen extends StatelessWidget {
                 child: FadeSlideIn(
                   delay: const Duration(milliseconds: 150),
                   child: SectionHeader(
-                    title: 'Find clinics',
-                    subtitle: 'Hospitals and clinics around you',
+                    title: AppLocalizations.of(context).homeClinicsTitle,
+                    subtitle: AppLocalizations.of(context).homeClinicsSubtitle,
                     onSeeAll: () => openCard(
                       context,
                       const HealthcareScreen(initialKind: 'clinic'),
@@ -267,8 +268,8 @@ class HomeScreen extends StatelessWidget {
                 child: FadeSlideIn(
                   delay: const Duration(milliseconds: 162),
                   child: SectionHeader(
-                    title: 'Study in Saudi Arabia',
-                    subtitle: 'International schools near you',
+                    title: AppLocalizations.of(context).homeStudyTitle,
+                    subtitle: AppLocalizations.of(context).homeStudySubtitle,
                     onSeeAll: () => openCard(context, const SchoolsScreen()),
                   ),
                 ),
@@ -322,11 +323,11 @@ class _HomeHeader extends StatelessWidget {
             children: [
               const Ksa360Mark(size: 44),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text.rich(
+                    const Text.rich(
                       TextSpan(
                         text: 'KSA ',
                         children: [
@@ -343,8 +344,8 @@ class _HomeHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Kingdom of Saudi Arabia',
-                      style: TextStyle(
+                      AppLocalizations.of(context).kingdomName,
+                      style: const TextStyle(
                         color: AppColors.muted,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -471,8 +472,10 @@ class _PrayerPillState extends State<_PrayerPill> {
       widget.settings.prayerLat,
       widget.settings.prayerLng,
     );
+    final l10n = AppLocalizations.of(context);
     return Tooltip(
-      message: '${prayers.nextName} · ${widget.settings.locationLabel}',
+      message:
+          '${l10n.prayer(prayers.nextName)} · ${widget.settings.locationLabelOf(l10n)}',
       child: PressableScale(
         borderRadius: BorderRadius.circular(18),
         onTap: () => openCard(context, const LifeScreen()),
@@ -509,7 +512,7 @@ class _PrayerPillState extends State<_PrayerPill> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    prayers.nextName,
+                    l10n.prayer(prayers.nextName),
                     style: const TextStyle(
                       color: AppColors.navy,
                       fontWeight: FontWeight.w800,
@@ -518,7 +521,7 @@ class _PrayerPillState extends State<_PrayerPill> {
                     ),
                   ),
                   Text(
-                    'in ${PrayerService.countdown(prayers.nextTime)}',
+                    l10n.prayerIn(l10n.countdown(prayers.nextTime)),
                     style: const TextStyle(
                       color: AppColors.gold,
                       fontWeight: FontWeight.w700,
@@ -552,9 +555,10 @@ class _CategoryRail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (posts.isEmpty) return const SizedBox.shrink();
-    final title = categoryName ?? category?.name ?? 'Guides';
+    final l10n = AppLocalizations.of(context);
+    final title = categoryName ?? category?.name ?? l10n.guides;
     final sub = subtitle ??
-        (category == null ? null : '${category!.totalCount} topics');
+        (category == null ? null : l10n.topicsCount(category!.totalCount));
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 8),
       child: Column(
@@ -722,9 +726,18 @@ class _MarketplaceRailState extends State<_MarketplaceRail>
     }
   }
 
+  static const _mixCats = [
+    'cars',
+    'realestate',
+    'furniture',
+    'mobiles',
+    'electronics',
+    'motors',
+  ];
+
   Future<void> _load() async {
     try {
-      final ads = await SouqApi.list(limit: 10, sort: 'newest');
+      final ads = await _mixedRail();
       if (!mounted) return;
       setState(() {
         _ads = ads;
@@ -733,6 +746,48 @@ class _MarketplaceRailState extends State<_MarketplaceRail>
     } catch (_) {
       if (!mounted) return;
       setState(() => _loading = false);
+    }
+  }
+
+  Future<List<Ad>> _mixedRail() async {
+    final shift =
+        DateTime.now().millisecondsSinceEpoch ~/ 20000 % _mixCats.length;
+    final cats = [
+      ..._mixCats.skip(shift),
+      ..._mixCats.take(shift),
+    ];
+    final batches = await Future.wait(cats.map(_newestIn));
+    final queues = batches.map(List<Ad>.from).toList();
+    final mixed = <Ad>[];
+    final seen = <String>{};
+    var progressed = true;
+    while (mixed.length < 10 && progressed) {
+      progressed = false;
+      for (final queue in queues) {
+        while (queue.isNotEmpty) {
+          final ad = queue.removeAt(0);
+          if (!seen.add(ad.id)) continue;
+          mixed.add(ad);
+          progressed = true;
+          break;
+        }
+        if (mixed.length >= 10) break;
+      }
+    }
+    if (mixed.length >= 6) return mixed;
+    final newest = await SouqApi.list(limit: 10, sort: 'newest');
+    for (final ad in newest) {
+      if (seen.add(ad.id)) mixed.add(ad);
+      if (mixed.length >= 10) break;
+    }
+    return mixed;
+  }
+
+  Future<List<Ad>> _newestIn(String category) async {
+    try {
+      return await SouqApi.list(category: category, limit: 5, sort: 'newest');
+    } catch (_) {
+      return const [];
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../data/category_style.dart';
+import '../l10n/app_localizations.dart';
 import '../models/models.dart';
 import '../theme/app_theme.dart';
 import 'marquee_text.dart';
@@ -51,9 +52,9 @@ class SectionHeader extends StatelessWidget {
           if (onSeeAll != null)
             TextButton(
               onPressed: onSeeAll,
-              child: const Text(
-                'See all',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context).seeAll,
+                style: const TextStyle(
                   color: AppColors.gold,
                   fontWeight: FontWeight.w700,
                 ),

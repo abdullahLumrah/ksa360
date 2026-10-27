@@ -1,0 +1,247 @@
+{
+  "@@locale": "ar",
+  "appTitle": "KSA 360",
+  "tabHome": "الرئيسية",
+  "tabCategories": "الأقسام",
+  "tabMarketplace": "السوق",
+  "tabCommunity": "المجتمع",
+  "tabPlay": "الترفيه",
+  "tabProfile": "حسابي",
+  "askKsa": "اسأل كيه إس إيه",
+  "seeAll": "عرض الكل",
+  "search": "بحث",
+  "language": "اللغة",
+  "languageSubtitle": "الإنجليزية هي اللغة الافتراضية. العربية تقلب التطبيق لليمين.",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "splashTagline": "كل شيء في مكان واحد · للمقيمين",
+  "splashCheatCode": "دليلك السريع في السعودية.",
+  "splashLoadError": "تعذر تحميل الأدلة. أعد تشغيل التطبيق.",
+  "kingdomName": "المملكة العربية السعودية",
+  "homeSearchSubtitle": "أدلة، طعام، ترفيه، سفارات",
+  "homeDailyTitle": "يومياً في السعودية · كوبونات وعلامات",
+  "homeDailySubtitle": "تطبيقات ومتاجر وعروض",
+  "homeMarketplaceTitle": "السوق",
+  "homeMarketplaceSubtitle": "سيارات وأثاث والمزيد مما يعرضه الناس",
+  "homeActivitiesTitle": "أنشطة بالقرب مني",
+  "homeActivitiesSubtitle": "كثبان، كارتينغ، ثلج، سينما، مولات",
+  "homeEatTitle": "طعام قريب",
+  "homeEatSubtitle": "عربي وصيني وهندي والمزيد",
+  "homeCategoriesTitle": "الأقسام",
+  "homeCategoriesSubtitle": "أدلة مرتبة كما يبحث عنها الناس",
+  "homeClinicsTitle": "ابحث عن عيادات",
+  "homeClinicsSubtitle": "مستشفيات وعيادات حولك",
+  "homeStudyTitle": "الدراسة في السعودية",
+  "homeStudySubtitle": "مدارس دولية بالقرب منك",
+  "prayerIn": "بعد {time}",
+  "@prayerIn": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "nextPrayer": "الصلاة القادمة {name}",
+  "@nextPrayer": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "nextPrayerIn": "الصلاة القادمة {name} بعد {time}",
+  "@nextPrayerIn": {
+    "placeholders": {
+      "name": {"type": "String"},
+      "time": {"type": "String"}
+    }
+  },
+  "prayerTimes": "أوقات الصلاة",
+  "prayerFajr": "الفجر",
+  "prayerSunrise": "الشروق",
+  "prayerDhuhr": "الظهر",
+  "prayerAsr": "العصر",
+  "prayerMaghrib": "المغرب",
+  "prayerIsha": "العشاء",
+  "ramadan": "رمضان",
+  "weekendFriSat": "عطلة الأسبوع (الجمعة–السبت)",
+  "ummAlQura": "أم القرى",
+  "useMyLocation": "استخدم موقعي",
+  "gps": "GPS",
+  "manual": "يدوي",
+  "nearCity": "بالقرب من {city}",
+  "@nearCity": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  },
+  "outsideKsaUsing": "خارج السعودية · نستخدم {city}",
+  "@outsideKsaUsing": {
+    "placeholders": {
+      "city": {"type": "String"}
+    }
+  },
+  "locationOff": "خدمة الموقع مغلقة",
+  "locationPermissionNeeded": "يلزم إذن الموقع",
+  "locationGpsFail": "تعذر قراءة الموقع",
+  "countdownHours": "{hours}س {mins}د",
+  "@countdownHours": {
+    "placeholders": {
+      "hours": {"type": "int"},
+      "mins": {"type": "int"}
+    }
+  },
+  "countdownMins": "{mins}د",
+  "@countdownMins": {
+    "placeholders": {
+      "mins": {"type": "int"}
+    }
+  },
+  "emergency": "طوارئ",
+  "login": "تسجيل الدخول",
+  "createAccount": "إنشاء حساب",
+  "signOut": "تسجيل الخروج",
+  "signInToContinue": "سجّل الدخول للمتابعة",
+  "skipForNow": "تخطَّ الآن",
+  "continueWithGoogle": "المتابعة بحساب Google",
+  "continueWithApple": "المتابعة بحساب Apple",
+  "continueWithEmail": "المتابعة بالبريد",
+  "signInWithGoogle": "تسجيل الدخول بـ Google",
+  "signInWithApple": "تسجيل الدخول بـ Apple",
+  "welcomeBack": "مرحباً بعودتك",
+  "welcomeBackBody": "سجّل الدخول لمزامنة ملفك على هذا الهاتف.",
+  "createYourAccount": "أنشئ حسابك",
+  "createYourAccountBody": "ملف خفيف لنحفظ أماكنك المفضلة معك.",
+  "authPromoteTitle": "سجّل الدخول أو أنشئ حساباً",
+  "authPromoteBody": "احفظ المحادثات ومنشورات المجتمع وإعلانات السوق على هذا الهاتف.",
+  "agreePrivacyPrefix": "أوافق على ",
+  "agreePrivacyNeeded": "وافق على سياسة الخصوصية للمتابعة",
+  "agreeTermsPrefix": "أوافق على ",
+  "agreeAnd": " و",
+  "agreeTermsNeeded": "وافق على شروط الاستخدام وسياسة الخصوصية للمتابعة",
+  "termsOfUse": "شروط الاستخدام",
+  "termsNoAbuse": "لا يتسامح KSA 360 مع المحتوى المسيء أو المستخدمين المسيئين.",
+  "blockUser": "حظر المستخدم",
+  "userBlocked": "تم حظر المستخدم. أُخفي محتواه وأُشعر فريقنا.",
+  "blockUserConfirm": "حظر هذا المستخدم؟",
+  "blockUserConfirmBody": "إخفاء منشورات وتعليقات وإعلانات {name}. وسنُشعر فريق KSA 360 أيضاً.",
+  "@blockUserConfirmBody": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "reportPost": "الإبلاغ عن المنشور",
+  "reportUser": "الإبلاغ عن المستخدم",
+  "cancel": "إلغاء",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
+  "name": "الاسم",
+  "newHere": "جديد هنا؟",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+  "guest": "زائر",
+  "guestInitial": "ز",
+  "browsingKsa": "تتصفح KSA 360",
+  "guestBody": "أنشئ حساباً لملف أخف — اسمك فقط عندما تحتاجه.",
+  "signedInGoogle": "تم الدخول بحساب Google",
+  "signedInApple": "تم الدخول بحساب Apple",
+  "signedInEmail": "تم الدخول بالبريد",
+  "finishProfileHint": "أضف جوالك وتاريخ ميلادك وجنسك لإكمال الملف.",
+  "manageProfile": "إدارة الحساب",
+  "mobile": "الجوال",
+  "dateOfBirth": "تاريخ الميلاد",
+  "gender": "الجنس",
+  "privacyHowWeUse": "كيف نستخدم بياناتك",
+  "loginPromptCreate": "إنشاء حساب",
+  "communityLoginTitle": "سجّل الدخول للمجتمع",
+  "communityLoginBody": "سجّل الدخول لمتابعة الصفحات والإعجاب والرد ومشاركة المنشورات مع المقيمين.",
+  "communityTitle": "المجتمع",
+  "myPages": "صفحاتي",
+  "myPagesSubtitle": "الصفحات التي أنشأتها",
+  "noPagesYet": "لم تنشئ صفحة بعد.",
+  "createPage": "إنشاء صفحة",
+  "searchPagesPosts": "ابحث في الصفحات والمنشورات",
+  "all": "الكل",
+  "membersCount": "{count} أعضاء",
+  "@membersCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noPostsMatch": "لا منشورات تطابق هذا البحث.",
+  "noPostsYet": "لا منشورات بعد. أنشئ صفحة وشارك أول منشور.",
+  "postsWaitingTitle": "منشورات بانتظارك",
+  "postsWaitingBody": "أنت فقط (صاحب الصفحة) تستطيع الموافقة. تبقى مخفية حتى تقبلها.",
+  "postsWaitingBanner": "{count, plural, =0{لا منشورات بانتظار موافقتك} =1{منشور واحد بانتظار موافقتك} two{منشوران بانتظار موافقتك} few{{count} منشورات بانتظار موافقتك} many{{count} منشوراً بانتظار موافقتك} other{{count} منشور بانتظار موافقتك}}",
+  "@postsWaitingBanner": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "approve": "قبول",
+  "decline": "رفض",
+  "like": "إعجاب",
+  "comment": "تعليق",
+  "join": "انضم",
+  "page": "الصفحة",
+  "likesCount": "{count, plural, =0{لا إعجابات} =1{إعجاب واحد} two{إعجابان} few{{count} إعجابات} many{{count} إعجاباً} other{{count} إعجاب}}",
+  "@likesCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "commentsCount": "{count, plural, =0{لا تعليقات} =1{تعليق واحد} two{تعليقان} few{{count} تعليقات} many{{count} تعليقاً} other{{count} تعليق}}",
+  "@commentsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "topicGeneral": "عام",
+  "topicFood": "طعام",
+  "topicCulture": "ثقافة",
+  "topicExpats": "مقيمون",
+  "topicSports": "رياضة",
+  "topicBusiness": "أعمال",
+  "topicFamily": "عائلة",
+  "topicEducation": "تعليم",
+  "topicFaith": "إيمان",
+  "topicNeighbourhood": "الحي",
+  "topicOther": "أخرى",
+  "jobs": "الوظائف",
+  "jobsSubtitle": "العمل في السعودية",
+  "postAJob": "انشر وظيفة",
+  "searchJobs": "ابحث عن وظائف",
+  "anyCity": "أي مدينة",
+  "noJobsMatch": "لا وظائف تطابق هذه التصفية.",
+  "jobsGateBody": "سجّل الدخول لاستعراض الوظائف في السعودية، أو التقديم، أو نشر وظيفة للمراجعة.",
+  "featureMarketplace": "السوق",
+  "featureJobs": "وظائف",
+  "featureDaily": "يومياً في السعودية",
+  "featureClinics": "العيادات",
+  "featureStudy": "الدراسة هنا",
+  "featureEat": "طعام قريب",
+  "featureActivities": "أنشطة",
+  "featureEmergency": "طوارئ",
+  "featureGuides": "الأدلة",
+  "guides": "الأدلة",
+  "guidesHubBody": "منشورات ومواضيع. افتح دليلاً، أو اقترح واحداً للمراجعة.",
+  "suggestAGuide": "اقترح دليلاً",
+  "searchHint": "أدلة، طعام، ترفيه، سفارات…",
+  "saved": "المحفوظات",
+  "playNearby": "بالقرب",
+  "playCheapest": "الأرخص",
+  "playSaved": "المحفوظ",
+  "spotsCount": "{count} أماكن",
+  "@spotsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "reels": "ريلز",
+  "reelsSubtitle": "اسحب المقاطع القصيرة · اضغط لفتح النشاط",
+  "playSearchHint": "أفلام، بولينغ، كارتينغ، كثبان…",
+  "playAll": "الكل",
+  "nearYou": "بالقرب منك",
+  "topicsCount": "{count} مواضيع",
+  "@topicsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
+}

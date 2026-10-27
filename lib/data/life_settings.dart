@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../l10n/app_localizations.dart';
 import 'saudi_cities.dart';
 
 enum Lifestyle { family, bachelor }
@@ -45,6 +46,29 @@ class LifeSettings extends ChangeNotifier {
     return city.name;
   }
 
+  String locationLabelOf(AppLocalizations l10n) {
+    if (useGps && gpsLat != null && gpsLng != null) {
+      if (SaudiCities.insideKingdom(gpsLat!, gpsLng!)) {
+        return l10n.nearCity(SaudiCities.nearest(gpsLat!, gpsLng!).name);
+      }
+      return l10n.outsideKsaUsing(city.name);
+    }
+    return city.name;
+  }
+
+  String? locationErrorOf(AppLocalizations l10n) {
+    switch (locationError) {
+      case 'off':
+        return l10n.locationOff;
+      case 'permission':
+        return l10n.locationPermissionNeeded;
+      case 'gps':
+        return l10n.locationGpsFail;
+      default:
+        return locationError;
+    }
+  }
+
   Future<void> load() async {
     if (loaded) return;
     final prefs = await SharedPreferences.getInstance();
@@ -64,7 +88,7 @@ class LifeSettings extends ChangeNotifier {
     try {
       final enabled = await Geolocator.isLocationServiceEnabled();
       if (!enabled) {
-        locationError = 'Location is turned off';
+        locationError = 'off';
         notifyListeners();
         return;
       }
@@ -74,7 +98,7 @@ class LifeSettings extends ChangeNotifier {
       }
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
-        locationError = 'Location permission needed';
+        locationError = 'permission';
         notifyListeners();
         return;
       }
@@ -104,7 +128,7 @@ class LifeSettings extends ChangeNotifier {
       }
     } catch (_) {
       if (gpsLat == null) {
-        locationError = 'Could not read GPS';
+        locationError = 'gps';
       }
     }
     notifyListeners();

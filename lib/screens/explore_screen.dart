@@ -21,6 +21,7 @@ import '../models/job.dart';
 import '../models/models.dart';
 import '../models/restaurant.dart';
 import '../models/school.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../widgets/activity_photo.dart';
 import '../widgets/category_widgets.dart';
@@ -55,7 +56,7 @@ class _AppFeature {
   final Widget page;
 
   String label(BuildContext context) {
-    return Directionality.of(context) == TextDirection.rtl ? titleAr : title;
+    return Localizations.localeOf(context).languageCode == 'ar' ? titleAr : title;
   }
 }
 
@@ -284,11 +285,11 @@ class _GuidesHub extends StatelessWidget {
       slivers: [
         SliverAppBar(
           pinned: true,
-          title: const Text('Guides'),
+          title: Text(AppLocalizations.of(context).guides),
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-              tooltip: 'Suggest a guide',
+              tooltip: AppLocalizations.of(context).suggestAGuide,
               icon: const Icon(Icons.add_rounded),
               onPressed: () async {
                 if (!AuthSession.instance.isSignedIn) {
@@ -306,7 +307,7 @@ class _GuidesHub extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
             child: Text(
-              'Posts and topics. Open a guide, or suggest one for review.',
+              AppLocalizations.of(context).guidesHubBody,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.muted,
               ),
@@ -475,7 +476,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: widget.pushed,
-        title: const Text('Search'),
+        title: Text(AppLocalizations.of(context).search),
       ),
       body: Column(
         children: [
@@ -487,7 +488,7 @@ class _SearchScreenState extends State<SearchScreen> {
               onChanged: _onChanged,
               textInputAction: TextInputAction.search,
               decoration: InputDecoration(
-                hintText: 'Guides, food, play, embassies…',
+                hintText: AppLocalizations.of(context).searchHint,
                 prefixIcon: const Icon(Icons.search_rounded),
                 filled: true,
                 fillColor: AppColors.card,
@@ -692,7 +693,7 @@ class SavedScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Saved'),
+        title: Text(AppLocalizations.of(context).saved),
       ),
       body: ListenableBuilder(
         listenable: repo,

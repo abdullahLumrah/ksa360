@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../data/auth_session.dart';
+import '../data/block_store.dart';
 import '../data/community_repository.dart';
+import '../l10n/app_localizations.dart';
 import '../models/community.dart';
 import '../theme/app_theme.dart';
 import '../widgets/community_post_tile.dart';
 import 'auth_sheet.dart';
+import 'community_moderation.dart';
 import 'community_page_screen.dart';
 import 'community_report_sheet.dart';
 
@@ -46,6 +49,7 @@ class _CommunityPostScreenState extends State<CommunityPostScreen> {
   @override
   void initState() {
     super.initState();
+    BlockStore.instance.addListener(_onBlocks);
     _load().then((_) {
       if (widget.openComposer && mounted) {
         WidgetsBinding.instance.addPostFrameCallback((_) => _focus.requestFocus());
@@ -55,9 +59,26 @@ class _CommunityPostScreenState extends State<CommunityPostScreen> {
 
   @override
   void dispose() {
+    BlockStore.instance.removeListener(_onBlocks);
     _comment.dispose();
     _focus.dispose();
     super.dispose();
+  }
+
+  void _onBlocks() {
+    if (!mounted) return;
+    final post = _post;
+    if (post != null && BlockStore.instance.isBlocked(post.authorId)) {
+      Navigator.of(context).maybePop();
+      return;
+    }
+    setState(() {
+      _comments = BlockStore.instance.hideUsers(_comments, (item) => item.authorId).map((comment) {
+        return comment.copyWith(
+          replies: BlockStore.instance.hideUsers(comment.replies, (reply) => reply.authorId),
+        );
+      }).toList();
+    });
   }
 
   Future<void> _load() async {
@@ -166,7 +187,8 @@ class _CommunityPostScreenState extends State<CommunityPostScreen> {
         title: const Text('Comments'),
         actions: [
           PopupMenuButton<String>(
-            onSelected: (value) {
+            onSelected: (value) async {
+              final l10n = AppLocalizations.of(context);
               if (value == 'report_post') {
                 showCommunityReportSheet(
                   context,
@@ -174,7 +196,7 @@ class _CommunityPostScreenState extends State<CommunityPostScreen> {
                   targetId: post.id,
                   reportedUserId: post.authorId,
                   communityId: post.communityId,
-                  title: 'Report post',
+                  title: l10n.reportPost,
                 );
               } else if (value == 'report_user') {
                 showCommunityReportSheet(
@@ -183,14 +205,33 @@ class _CommunityPostScreenState extends State<CommunityPostScreen> {
                   targetId: post.authorId,
                   reportedUserId: post.authorId,
                   communityId: post.communityId,
-                  title: 'Report ${post.authorName}',
+                  title: '${l10n.reportUser} · ${post.authorName}',
                 );
+              } else if (value == 'block_user') {
+                final blocked = await blockUserFlow(
+                  context,
+                  userId: post.authorId,
+                  userName: post.authorName,
+                  targetType: 'post',
+                  targetId: post.id,
+                  communityId: post.communityId,
+                );
+                if (blocked && context.mounted) {
+                  Navigator.of(context).maybePop();
+                }
               }
             },
-            itemBuilder: (_) => const [
-              PopupMenuItem(value: 'report_post', child: Text('Report post')),
-              PopupMenuItem(value: 'report_user', child: Text('Report user')),
-            ],
+            itemBuilder: (_) {
+              final l10n = AppLocalizations.of(context);
+              final mine = AuthSession.instance.user?.id == post.authorId;
+              return [
+                PopupMenuItem(value: 'report_post', child: Text(l10n.reportPost)),
+                if (!mine)
+                  PopupMenuItem(value: 'report_user', child: Text(l10n.reportUser)),
+                if (!mine)
+                  PopupMenuItem(value: 'block_user', child: Text(l10n.blockUser)),
+              ];
+            },
           ),
         ],
       ),
@@ -515,6 +556,27 @@ class _FbCommentRow extends StatelessWidget {
                       child: const Text(
                         'Report',
                         style: TextStyle(
+                          color: _PostTone.muted,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    GestureDetector(
+                      onTap: () => blockUserFlow(
+                        context,
+                        userId: comment.authorId,
+                        userName: comment.authorName,
+                        targetType: 'comment',
+                        targetId: comment.id,
+                        communityId: comment.communityId.isNotEmpty
+                            ? comment.communityId
+                            : post.communityId,
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context).blockUser,
+                        style: const TextStyle(
                           color: _PostTone.muted,
                           fontWeight: FontWeight.w800,
                           fontSize: 12,

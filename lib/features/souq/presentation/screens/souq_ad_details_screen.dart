@@ -12,13 +12,14 @@ import '../../domain/souq_categories.dart';
 import '../../domain/souq_models.dart';
 import '../../../../data/app_analytics.dart';
 import '../../../../data/auth_session.dart';
+import '../../../../data/block_store.dart';
+import '../../../../screens/community_moderation.dart';
 import '../souq_controller.dart';
 import '../souq_format.dart';
 import '../souq_l10n.dart';
 import '../souq_sell.dart';
 import '../widgets/souq_ad_card.dart';
 import '../widgets/souq_widgets.dart';
-import 'souq_chat_screens.dart';
 
 class SouqAdDetailsScreen extends StatefulWidget {
   const SouqAdDetailsScreen({
@@ -59,9 +60,20 @@ class _SouqAdDetailsScreenState extends State<SouqAdDetailsScreen> {
     SouqController.instance.refresh();
     final similar = await repo.similarTo(ad);
     if (!mounted) return;
+    if (BlockStore.instance.hidesListing(
+      adId: ad.id,
+      sellerId: ad.seller.id,
+    )) {
+      Navigator.of(context).maybePop();
+      return;
+    }
     setState(() {
       _ad = ad;
-      _similar = similar;
+      _similar = BlockStore.instance.hideListings(
+        similar,
+        adIdOf: (item) => item.id,
+        sellerIdOf: (item) => item.seller.id,
+      );
     });
   }
 
@@ -106,6 +118,28 @@ class _SouqAdDetailsScreenState extends State<SouqAdDetailsScreen> {
                       if (mounted) setState(() {});
                     },
                   ),
+                  if (ad.seller.id.isNotEmpty &&
+                      ad.seller.id != AuthSession.instance.user?.id)
+                    _RoundIcon(
+                      icon: Icons.block_rounded,
+                      onTap: () async {
+                        final blocked = await blockUserFlow(
+                          context,
+                          userId: ad.seller.id,
+                          userName: ad.seller.name,
+                          adId: ad.id,
+                          targetType: BlockStore.isAppUserId(ad.seller.id)
+                              ? 'user'
+                              : 'souq_ad',
+                          targetId: BlockStore.isAppUserId(ad.seller.id)
+                              ? ad.seller.id
+                              : ad.id,
+                        );
+                        if (blocked && context.mounted) {
+                          Navigator.of(context).maybePop();
+                        }
+                      },
+                    ),
                 ],
                 flexibleSpace: FlexibleSpaceBar(
                   background: GestureDetector(
@@ -387,31 +421,22 @@ class _SouqAdDetailsScreenState extends State<SouqAdDetailsScreen> {
                   ],
                   const SizedBox(width: 8),
                   Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () async {
-                        if (!await ensureSouqSignedIn(context)) return;
-                        if (!context.mounted) return;
-                        final me = AuthSession.instance.user?.id;
-                        if (me != null && me == ad.seller.id) {
-                          openCard(context, SouqChatListScreen(adId: ad.id));
-                          return;
-                        }
-                        try {
-                          await SouqController.instance.repo.openChat(ad: ad);
-                          if (!context.mounted) return;
-                          openCard(
-                            context,
-                            SouqChatThreadScreen(adId: ad.id),
-                          );
-                        } catch (e) {
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('$e')),
-                          );
-                        }
+                    child: ListenableBuilder(
+                      listenable: AuthSession.instance,
+                      builder: (context, _) {
+                        final signedIn = AuthSession.instance.isSignedIn;
+                        return OutlinedButton.icon(
+                          onPressed: () => openSouqAdChat(context, ad: ad),
+                          icon: Icon(
+                            signedIn
+                                ? Icons.forum_outlined
+                                : Icons.lock_rounded,
+                          ),
+                          label: Text(
+                            signedIn ? l10n.chat : l10n.signInToChat,
+                          ),
+                        );
                       },
-                      icon: const Icon(Icons.forum_outlined),
-                      label: Text(l10n.chat),
                     ),
                   ),
                 ],

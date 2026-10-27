@@ -1,24 +1,31 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../models/app_user.dart';
 import 'app_api.dart';
+import 'block_store.dart';
 
 class AuthSession extends ChangeNotifier {
   AuthSession._();
   static final AuthSession instance = AuthSession._();
 
   static const _prefSignedIn = 'auth.signed_in';
+  static const _prefFirstAuthPrompt = 'auth.first_prompt_done';
   static const _secureToken = 'auth.jwt';
   static const googleServerClientId = String.fromEnvironment(
     'GOOGLE_WEB_CLIENT_ID',
   );
+  static const _iosGoogleClientId =
+      '937251379831-lf7ip6khplrib5lajfaht9fjbndadag7.apps.googleusercontent.com';
   static const _nativeGoogle = MethodChannel('ksa360/google_sign_in');
 
   static const _secure = FlutterSecureStorage(
@@ -33,6 +40,17 @@ class AuthSession extends ChangeNotifier {
   String? error;
 
   bool get isSignedIn => user != null && (token?.isNotEmpty ?? false);
+
+  Future<bool> shouldShowFirstAuthPrompt() async {
+    if (isSignedIn) return false;
+    final prefs = await SharedPreferences.getInstance();
+    return !(prefs.getBool(_prefFirstAuthPrompt) ?? false);
+  }
+
+  Future<void> markFirstAuthPromptDone() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_prefFirstAuthPrompt, true);
+  }
 
   Future<void> load() async {
     if (loaded) return;
@@ -50,6 +68,7 @@ class AuthSession extends ChangeNotifier {
     }
     loaded = true;
     notifyListeners();
+    await BlockStore.instance.load();
   }
 
   Future<void> register({
@@ -85,6 +104,59 @@ class AuthSession extends ChangeNotifier {
     throw Exception(
       'Google sign-in is not set up yet. Create a Web OAuth client in Google Cloud and add GOOGLE_CLIENT_ID to the backend .env.',
     );
+  }
+
+  Future<void> loginWithApple() async {
+    try {
+      final rawNonce = _appleNonce();
+      final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: const [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: hashedNonce,
+      );
+      final identityToken = credential.identityToken?.trim() ?? '';
+      if (identityToken.isEmpty) {
+        throw Exception('Apple did not return a sign-in token');
+      }
+      final given = credential.givenName?.trim() ?? '';
+      final family = credential.familyName?.trim() ?? '';
+      final fullName = [given, family].where((part) => part.isNotEmpty).join(' ');
+      await _authPost('/auth/apple', {
+        'identityToken': identityToken,
+        if (credential.authorizationCode.trim().isNotEmpty)
+          'authorizationCode': credential.authorizationCode.trim(),
+        if ((credential.email ?? '').trim().isNotEmpty)
+          'email': credential.email!.trim(),
+        if (fullName.isNotEmpty) 'fullName': fullName,
+        if ((credential.userIdentifier ?? '').trim().isNotEmpty)
+          'appleUserId': credential.userIdentifier!.trim(),
+        'nonce': rawNonce,
+      });
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled) return;
+      throw Exception(_appleError(e));
+    } catch (e) {
+      throw Exception(_appleError(e));
+    }
+  }
+
+  static String _appleNonce([int length = 32]) {
+    const chars =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => chars[random.nextInt(chars.length)])
+        .join();
+  }
+
+  static String _appleError(Object e) {
+    final raw = e.toString();
+    if (raw.contains('canceled') || raw.contains('cancelled')) {
+      return 'Apple sign-in was cancelled';
+    }
+    return raw.replaceFirst('Exception: ', '');
   }
 
   Future<void> loginWithGoogle() async {
@@ -132,6 +204,7 @@ class AuthSession extends ChangeNotifier {
   ) async {
     final google = GoogleSignIn(
       scopes: const ['email', 'profile'],
+      clientId: Platform.isIOS ? _iosGoogleClientId : null,
       serverClientId: clientId,
     );
     final account = await google.signIn();
@@ -239,6 +312,7 @@ class AuthSession extends ChangeNotifier {
     await prefs.remove(_prefSignedIn);
     await prefs.remove('auth_token');
     await _secure.delete(key: _secureToken);
+    BlockStore.instance.resetMemory();
     if (notify && loaded) notifyListeners();
   }
 
@@ -265,6 +339,7 @@ class AuthSession extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool(_prefSignedIn, true);
       await prefs.remove('auth_token');
+      await BlockStore.instance.syncFromServer();
     } catch (e) {
       error = e.toString().replaceFirst('Exception: ', '');
       rethrow;

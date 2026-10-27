@@ -4,6 +4,7 @@ import '../data/dial.dart';
 import '../data/emergencies.dart';
 import '../data/healthcare_repository.dart';
 import '../data/life_settings.dart';
+import '../l10n/app_localizations.dart';
 import '../models/health_facility.dart';
 import '../theme/app_theme.dart';
 import '../widgets/motion.dart';
@@ -18,7 +19,7 @@ class EmergencyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = LifeSettings.instance;
     return Scaffold(
-      appBar: AppBar(title: const Text('Emergency')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).emergency)),
       body: ListenableBuilder(
         listenable: Listenable.merge([
           settings,
@@ -86,7 +87,7 @@ class EmergencyScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Hospitals near ${settings.gpsLat != null ? settings.locationLabel : settings.city.name}',
+                      'Hospitals near ${settings.gpsLat != null ? settings.locationLabelOf(AppLocalizations.of(context)) : settings.city.name}',
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 16,

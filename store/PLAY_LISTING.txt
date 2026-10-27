@@ -1,0 +1,97 @@
+KSA 360 — Google Play listing
+Copy these fields into Play Console → Grow users → Store presence → Main store listing.
+
+============================================================
+APP IDENTITY
+============================================================
+App name (30):            KSA 360
+Package name:             com.ksaguide.ksa360
+Default language:         English (United States) — en-US
+Add locale later:         Arabic — ar
+
+============================================================
+GRAPHICS  (already in this folder)
+============================================================
+App icon (512 x 512):     store/icon-512.png
+Feature graphic (1024x500): store/feature-graphic-1024x500.png
+Phone screenshots (min 2):
+  store/screenshots/01-shot-01-home.jpg
+  store/screenshots/02-shot-02-marketplace.jpg
+  store/screenshots/03-shot-03-community.jpg
+  store/screenshots/04-shot-04-play.jpg
+  store/screenshots/05-shot-05-eat.jpg
+  store/screenshots/06-shot-06-profile.jpg
+Tablet screenshots:       skip for first release
+Promo video:              skip
+
+============================================================
+SHORT DESCRIPTION  (80 characters max)
+============================================================
+Your KSA cheat code. All-in-one living for expats.
+
+============================================================
+FULL DESCRIPTION
+============================================================
+KSA 360 is the all-in-one companion for expats living in Saudi Arabia.
+
+Buy and sell nearby in Marketplace — cars, furniture, phones, and more. Join community pages, follow jobs, find food near you, and keep prayer times for your city on your profile.
+
+Built for daily life in the Kingdom.
+
+Marketplace
+Browse and post listings for cars, electronics, home items, and real estate. Chat with sellers after you sign in. Meet in public and inspect before you pay.
+
+Community
+Follow pages run by people who already live here. Like, reply, and share posts about housing, visas, schools, and weekends.
+
+Work and daily needs
+Scan jobs across Saudi cities. Find clinics and international schools near you. Open Daily in KSA for apps, shops, and offers.
+
+Food and play
+Eat nearby — Arab, Chinese, Desi, and more. Discover dunes, karting, snow, cinema, and malls around your city.
+
+Prayer and language
+Umm Al-Qura prayer times for your location. Switch the whole app to Arabic — text and right-to-left — from Profile. English stays the default.
+
+KSA 360 is made by Lumrah for expats who want one place for the stuff that used to live in ten WhatsApp groups.
+
+Privacy: https://api.lumrah.co/privacy
+
+============================================================
+STORE SETTINGS
+============================================================
+App category:             Lifestyle
+Tags:                     Saudi Arabia, expats, marketplace, community, prayer
+Email (required):         privacy@lumrah.co
+Phone:                    leave blank
+Website:                  https://www.lumrah.co
+Privacy policy:           https://api.lumrah.co/privacy
+
+App access:               All features available without special login for browsing.
+                          Sign-in needed for Community, posting ads, jobs, and chat.
+
+Ads:                      No ads
+In-app purchases:         None
+News app:                 No
+COVID-19 app:             No
+Government app:           No
+Gambling:                 No
+Target audience:          18+  (marketplace + community)
+Content rating:           run the IARC questionnaire (likely PEGI 3 / Everyone,
+                          unless you declare user-generated listings)
+
+Data safety (summary):
+  Collected: email, name, phone, date of birth, gender, approximate location,
+             photos you upload, messages in marketplace chat
+  Shared:    not sold
+  Security:  data encrypted in transit (HTTPS)
+  Deletion:  users can request deletion in Profile; 15-day restore window
+  Privacy policy URL: https://api.lumrah.co/privacy
+
+============================================================
+RELEASE
+============================================================
+AAB to upload:  build/app/outputs/bundle/release/app-release.aab
+Countries:      start with Saudi Arabia, then GCC if you want
+Release type:   Production  (or Closed testing first — recommended)
+Contact for Play: privacy@lumrah.co

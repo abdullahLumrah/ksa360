@@ -81,6 +81,13 @@ class SouqController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void hideBlockedSellers() {
+    if (repo is LocalSouqRepository) {
+      (repo as LocalSouqRepository).hideBlockedSellers();
+    }
+    notifyListeners();
+  }
+
   List<Ad> quickSearch(String query, {int limit = 8}) {
     if (repo is LocalSouqRepository) {
       return (repo as LocalSouqRepository).quickSearch(query, limit: limit);

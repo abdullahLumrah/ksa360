@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../data/auth_session.dart';
+import '../data/block_store.dart';
 import '../data/community_repository.dart';
 import '../models/community.dart';
 import '../widgets/community_post_tile.dart';
 import 'auth_sheet.dart';
 import 'community_compose_screen.dart';
+import 'community_moderation.dart';
 import 'community_post_screen.dart';
 import 'community_report_sheet.dart';
 
@@ -42,7 +44,21 @@ class _CommunityPageScreenState extends State<CommunityPageScreen> {
   @override
   void initState() {
     super.initState();
+    BlockStore.instance.addListener(_onBlocks);
     _load();
+  }
+
+  @override
+  void dispose() {
+    BlockStore.instance.removeListener(_onBlocks);
+    super.dispose();
+  }
+
+  void _onBlocks() {
+    if (!mounted) return;
+    setState(() {
+      _posts = BlockStore.instance.hideUsers(_posts, (post) => post.authorId);
+    });
   }
 
   Future<void> _load() async {
@@ -61,7 +77,7 @@ class _CommunityPageScreenState extends State<CommunityPageScreen> {
       if (!mounted) return;
       setState(() {
         _page = page;
-        _posts = posts;
+        _posts = BlockStore.instance.hideUsers(posts, (item) => item.authorId);
         _pending = pending;
         _loading = false;
       });
@@ -319,13 +335,17 @@ class _CommunityPageScreenState extends State<CommunityPageScreen> {
                         });
                       },
                       onComment: () => _openPost(post, openComposer: true),
-                      onMore: () => showCommunityReportSheet(
+                      onMore: () => showCommunityPostActions(
                         context,
-                        targetType: 'post',
-                        targetId: post.id,
-                        reportedUserId: post.authorId,
-                        communityId: post.communityId,
-                        title: 'Report post',
+                        post: post,
+                        onBlocked: () {
+                          if (!mounted) return;
+                          setState(() {
+                            _posts = _posts
+                                .where((item) => item.authorId != post.authorId)
+                                .toList();
+                          });
+                        },
                       ),
                     );
                   },

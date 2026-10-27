@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../l10n/app_localizations.dart';
 import '../models/community.dart';
 import '../theme/app_theme.dart';
 
@@ -234,7 +235,7 @@ class CommunityPostTile extends StatelessWidget {
               children: [
                 if (post.likeCount > 0)
                   Text(
-                    '${communityCompactCount(post.likeCount)} like${post.likeCount == 1 ? '' : 's'}',
+                    AppLocalizations.of(context).likesCount(post.likeCount),
                     style: const TextStyle(color: Color(0xFF7A746C), fontSize: 12.5),
                   ),
                 if (post.likeCount > 0 && post.commentCount > 0)
@@ -243,7 +244,7 @@ class CommunityPostTile extends StatelessWidget {
                   GestureDetector(
                     onTap: onComment,
                     child: Text(
-                      '${communityCompactCount(post.commentCount)} comment${post.commentCount == 1 ? '' : 's'}',
+                      AppLocalizations.of(context).commentsCount(post.commentCount),
                       style: const TextStyle(color: Color(0xFF7A746C), fontSize: 12.5),
                     ),
                   ),
@@ -273,7 +274,7 @@ class CommunityPostTile extends StatelessWidget {
                 Expanded(
                   child: _Action(
                     icon: post.liked ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
-                    label: 'Like',
+                    label: AppLocalizations.of(context).like,
                     active: post.liked,
                     onTap: onLike,
                   ),
@@ -281,7 +282,7 @@ class CommunityPostTile extends StatelessWidget {
                 Expanded(
                   child: _Action(
                     icon: Icons.chat_bubble_outline_rounded,
-                    label: 'Comment',
+                    label: AppLocalizations.of(context).comment,
                     onTap: onComment,
                   ),
                 ),
@@ -289,13 +290,13 @@ class CommunityPostTile extends StatelessWidget {
                   child: _canJoin
                       ? _Action(
                           icon: Icons.group_add_outlined,
-                          label: 'Join',
+                          label: AppLocalizations.of(context).join,
                           active: true,
                           onTap: onJoin!,
                         )
                       : _Action(
                           icon: Icons.groups_outlined,
-                          label: 'Page',
+                          label: AppLocalizations.of(context).page,
                           onTap: onOpenPage ?? onComment,
                         ),
                 ),

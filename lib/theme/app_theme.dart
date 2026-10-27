@@ -66,7 +66,9 @@ class SoftPageTransitionsBuilder extends PageTransitionsBuilder {
 }
 
 class AppTheme {
-  static ThemeData get light {
+  static ThemeData get light => of(const Locale('en'));
+
+  static ThemeData of(Locale locale) {
     const scheme = ColorScheme.light(
       primary: AppColors.green,
       onPrimary: AppColors.onDark,
@@ -88,7 +90,11 @@ class AppTheme {
       colorScheme: scheme,
     );
 
-    final textTheme = GoogleFonts.plusJakartaSansTextTheme(base.textTheme).apply(
+    final arabic = locale.languageCode == 'ar';
+    final rawText = arabic
+        ? GoogleFonts.ibmPlexSansArabicTextTheme(base.textTheme)
+        : GoogleFonts.plusJakartaSansTextTheme(base.textTheme);
+    final textTheme = rawText.apply(
       bodyColor: AppColors.ink,
       displayColor: AppColors.navy,
     );

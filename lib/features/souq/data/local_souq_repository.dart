@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/auth_session.dart';
+import '../../../data/block_store.dart';
 import '../domain/souq_categories.dart';
 import '../domain/souq_models.dart';
 import '../domain/souq_repository.dart';
@@ -49,12 +50,42 @@ class LocalSouqRepository implements SouqRepository {
     await refreshCatalog();
   }
 
+  void hideBlockedSellers() {
+    _preview.removeWhere(
+      (ad) => BlockStore.instance.hidesListing(
+        adId: ad.id,
+        sellerId: ad.seller.id,
+      ),
+    );
+    _user.removeWhere(
+      (ad) =>
+          ad.seller.id != (AuthSession.instance.user?.id ?? '') &&
+          BlockStore.instance.hidesListing(
+            adId: ad.id,
+            sellerId: ad.seller.id,
+          ),
+    );
+    _favoriteAds.removeWhere(
+      (ad) => BlockStore.instance.hidesListing(
+        adId: ad.id,
+        sellerId: ad.seller.id,
+      ),
+    );
+  }
+
   Future<void> refreshCatalog() async {
     try {
       final recent = await SouqApi.list(limit: 40, sort: 'newest');
       _preview
         ..clear()
-        ..addAll(recent);
+        ..addAll(
+          recent.where(
+            (ad) => !BlockStore.instance.hidesListing(
+              adId: ad.id,
+              sellerId: ad.seller.id,
+            ),
+          ),
+        );
     } catch (e) {
       debugPrint('Souq catalog load failed: $e');
     }
@@ -224,6 +255,12 @@ class LocalSouqRepository implements SouqRepository {
   }
 
   bool _matches(Ad ad, SearchFilters f) {
+    if (BlockStore.instance.hidesListing(
+      adId: ad.id,
+      sellerId: ad.seller.id,
+    )) {
+      return false;
+    }
     if (ad.status == AdStatus.draft) return false;
     if (!_visibleInCategory(ad, f.categoryId)) return false;
     if (f.subcategoryId != null && ad.subcategoryId != f.subcategoryId) {

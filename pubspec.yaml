@@ -1,13 +1,15 @@
 name: ksa_guide
 description: A Dubizzle-style guide to living in Saudi Arabia, from lifeinsaudiarabia.net and saudiexpatriate.com.
 publish_to: "none"
-version: 1.0.0+2
+version: 1.0.0+5
 
 environment:
   sdk: ^3.10.7
 
 dependencies:
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.8
   cached_network_image: ^3.4.1
@@ -31,6 +33,8 @@ dependencies:
   share_plus: ^13.0.0
   path_provider: ^2.1.5
   google_sign_in: ^6.3.0
+  sign_in_with_apple: ^7.0.1
+  crypto: ^3.0.6
   flutter_secure_storage: ^10.0.0
   firebase_core: ^4.15.0
   firebase_messaging: ^16.7.0
@@ -41,6 +45,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/data/

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/community.dart';
 import 'app_api.dart';
+import 'block_store.dart';
 
 class CommunityRepository extends ChangeNotifier {
   CommunityRepository._();
@@ -122,11 +123,12 @@ class CommunityRepository extends ChangeNotifier {
       feedCursor = null;
       return;
     }
-    final items = (body['items'] as List? ?? [])
-        .whereType<Map>()
-        .map((item) => CommunityPost.fromJson(Map<String, dynamic>.from(item)))
-        .toList();
-    feed = replace ? items : [...feed, ...items];
+    final items = _visiblePosts(
+      (body['items'] as List? ?? [])
+          .whereType<Map>()
+          .map((item) => CommunityPost.fromJson(Map<String, dynamic>.from(item))),
+    );
+    feed = replace ? items : _visiblePosts([...feed, ...items]);
     feedCursor = (body['nextCursor'] ?? '').toString();
     if (feedCursor != null && feedCursor!.isEmpty) feedCursor = null;
     hasMoreFeed = body['hasMore'] == true && feedCursor != null;
@@ -172,10 +174,11 @@ class CommunityRepository extends ChangeNotifier {
       total = 0;
       return;
     }
-    trending = (body['trending'] as List? ?? [])
-        .whereType<Map>()
-        .map((item) => CommunityPost.fromJson(Map<String, dynamic>.from(item)))
-        .toList();
+    trending = _visiblePosts(
+      (body['trending'] as List? ?? [])
+          .whereType<Map>()
+          .map((item) => CommunityPost.fromJson(Map<String, dynamic>.from(item))),
+    );
     discoverGroups = (body['groups'] as List? ?? [])
         .whereType<Map>()
         .map((item) => Community.fromJson(Map<String, dynamic>.from(item)))
@@ -392,10 +395,11 @@ class CommunityRepository extends ChangeNotifier {
     if (res.statusCode != 200) throw Exception('Could not load posts.');
     final body = jsonDecode(res.body);
     if (body is! Map) return const [];
-    return (body['items'] as List? ?? [])
-        .whereType<Map>()
-        .map((item) => CommunityPost.fromJson(Map<String, dynamic>.from(item)))
-        .toList();
+    return _visiblePosts(
+      (body['items'] as List? ?? [])
+          .whereType<Map>()
+          .map((item) => CommunityPost.fromJson(Map<String, dynamic>.from(item))),
+    );
   }
 
   Future<List<CommunityPost>> pendingFor(String communityId) async {
@@ -469,7 +473,11 @@ class CommunityRepository extends ChangeNotifier {
     final res = await AppApi.get(AppApi.uri('/communities/posts/$postId'));
     if (res.statusCode != 200) throw Exception('Could not open this post.');
     final body = jsonDecode(res.body);
-    return CommunityPost.fromJson(Map<String, dynamic>.from(body as Map));
+    final post = CommunityPost.fromJson(Map<String, dynamic>.from(body as Map));
+    if (BlockStore.instance.isBlocked(post.authorId)) {
+      throw Exception('This post is hidden.');
+    }
+    return post;
   }
 
   Future<CommunityPost> togglePostLike(String postId) async {
@@ -484,10 +492,11 @@ class CommunityRepository extends ChangeNotifier {
     if (res.statusCode != 200) throw Exception('Could not load comments.');
     final body = jsonDecode(res.body);
     if (body is! Map) return const [];
-    return (body['items'] as List? ?? [])
-        .whereType<Map>()
-        .map((item) => CommunityComment.fromJson(Map<String, dynamic>.from(item)))
-        .toList();
+    return _visibleComments(
+      (body['items'] as List? ?? [])
+          .whereType<Map>()
+          .map((item) => CommunityComment.fromJson(Map<String, dynamic>.from(item))),
+    );
   }
 
   Future<CommunityComment> addComment(String postId, String body) async {
@@ -542,6 +551,27 @@ class CommunityRepository extends ChangeNotifier {
         body is Map ? (body['error'] ?? 'Could not send report.') : 'Could not send report.',
       );
     }
+  }
+
+  void hideAuthor(String userId) {
+    final id = userId.trim();
+    if (id.isEmpty) return;
+    feed = feed.where((post) => post.authorId != id).toList();
+    trending = trending.where((post) => post.authorId != id).toList();
+    pendingInbox = pendingInbox.where((post) => post.authorId != id).toList();
+    notifyListeners();
+  }
+
+  List<CommunityPost> _visiblePosts(Iterable<CommunityPost> items) {
+    return BlockStore.instance.hideUsers(items, (post) => post.authorId);
+  }
+
+  List<CommunityComment> _visibleComments(Iterable<CommunityComment> items) {
+    return BlockStore.instance.hideUsers(items, (comment) => comment.authorId).map((comment) {
+      return comment.copyWith(
+        replies: BlockStore.instance.hideUsers(comment.replies, (reply) => reply.authorId),
+      );
+    }).toList();
   }
 
   void _replacePage(Community next) {
